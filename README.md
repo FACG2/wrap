@@ -65,3 +65,6 @@ Wrap is a web app that helps the developers, managers and designers to manage an
 - In project page, add ‘view current sprint’ button 
 - Add “view user dashboard” under the user avatar. 
 
+To Try using the prototype, [please click here](https://invis.io/FMDIRY92Z)
+
+
