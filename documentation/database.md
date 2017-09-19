@@ -38,6 +38,7 @@
   - duration (varchar(100) NOT NULL)
   - closed (varchar(100) DEFAULT false)
   - project_id(FK(projects(id)))
+
 * features == acceptance criteria
   - id (primary key , serial)
   - title(varchar(100) NOT NULL)
