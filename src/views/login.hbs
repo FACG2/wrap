@@ -2,10 +2,26 @@
   <h1>What is Wrap</h1>
 <h4>Wrap is a project managment tool, help developers to ....fdslfkds;flF</h4>
 </div>
-<div id="login">
-  <div class="tabs">
-    <div class="tabHeader">
-
-    </div>
-  </div>
+<div id="loginSignup">
+  <section id="loginSection">
+        <h2>Login</h2>
+        <div class="errNote"></div>
+        <form id="loginForm" action="/login" method="post">
+          <input type="text" name="username" value="" placeholder="User Name ...." required>
+          <input type="password" name="password" value="" placeholder="Password ...." required>
+          <input type="submit" name="submit" value="Login">
+        </form>
+      </section>
+      <section id="signupSection">
+        <h2>Sign Up</h2>
+        <div class="errNote"></div>
+        <form id="signupForm" action="/signup" method="post">
+          <label>User name: <input type="text" name="username" value="" placeholder="User Name ...." required></label>
+          <label>Email: <input type="email" name="email" value="" placeholder="Email ...." required></label>
+          <label>Github username: <input type="text" name="githubname" value="" placeholder="Github user name ...." required></label>
+          <label>Password: <input type="password" name="password" value="" placeholder="Password ...." required></label>
+          <label>Confirm password:  <input type="password" name="confirmPassword" value="" placeholder="Confirm password ...." required></label>
+          <input id="signupSub" type="submit" name="submit" value="Sign up">
+        </form>
+      </section>
 </div>
