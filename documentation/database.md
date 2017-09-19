@@ -71,10 +71,14 @@
 
 * labels
   - id (primary key , serial)
-  - task_id(FK(task(id)))
   - project_id(FK(project(id)))
   - title(varchar(100) NOT NULL)
   - color(varchar(100) NOT NULL)
+* label-task
+- id (primary key , serial)
+- task_id(FK(task(id)))
+- label_id(FK(label(id)))
+
 
 * invites
   - id (primary key , serial)
