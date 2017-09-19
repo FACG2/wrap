@@ -4,13 +4,14 @@ const path = require('path');
 const routes = require('./routes/index');
 const helpers = require('./views/helpers/index');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.set('view engine', 'hbs');
 app.use(
   express.static(path.join(__dirname, '..', 'public'), { maxAge: '30d' })
@@ -25,6 +26,8 @@ app.engine(
     helpers: helpers
   })
 );
+
+app.use(helpers.auth);
 app.use(routes);
 
 app.use((err, req, res, next) => {
