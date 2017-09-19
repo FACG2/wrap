@@ -47,7 +47,6 @@ const hashPassword = (password, cb) => {
 };
 
 const comparePasswords = (password, hashedPassword, cb) => {
-  console.log(password, hashedPassword);
   bcrypt.compare(password, hashedPassword, (err, res) => {
     if (err) {
       cb(err);
@@ -67,52 +66,14 @@ function getAvatar (githubUserName, cb) {
     } else {
       let data = JSON.parse(body);
       if (data.message) {
-        return cb(new Error('Error message:' + data.message), null);
+       cb(null,'');
       } else {
         avatar = data.avatar_url;
-        cb(null, obj);
+        cb(null, avatar);
       }
     }
   });
 }
-
-//
-// const validatePassword = (username, password, cb) => {
-//   validateUserName(username, (err) => {
-//     if (!err) {
-//       cb(new Error('user doens\'t exist'));
-//     } else {
-//       console.log();
-//       var sql = {
-//         text: 'SELECT password FROM users where username= $1',
-//         values: [username]
-//       };
-//       dbConnection.query(sql, (err, res) => {
-//         if (err) {
-//           cb(err);
-//         } else {
-//           if (res.rows.length === 0) {
-//             cb(new Error('user doens\'t exist'));
-//           } else {
-//             comparePasswords(password, res.rows[0].password, (err, res) => {
-//               if (err) {
-//                 cb(err);
-//               } else {
-//                 if (!res) {
-//                   console.log(res);
-//                   cb(new Error('password isn\'t correct'));
-//                 } else {
-//                   cb(null);
-//                 }
-//               }
-//             });
-//           }
-//         }
-//       });
-//     }
-//   });
-// };
-// headers: {'user-agent': 'node.js'}
 
 module.exports = {
   hashPassword,
