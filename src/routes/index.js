@@ -1,7 +1,10 @@
-// const express = require('express');
-// const queries = require('../queries/functional_db.js');
-// const router = express.Router();
-//
+const express = require('express');
+const queries = require('../queries/functional_db.js');
+const routes = require('./routes.js');
+const router = express.Router();
+
+
+ router.get('/',routes.getHome);
 // router.get('/', (req, res, next) => {
 //   queries.allMessages((err, dbRes) => {
 //     if (err) {
@@ -33,5 +36,5 @@
 //   res.status(302);
 //   res.redirect('/');
 // });
-//
-// module.exports = router;
+
+module.exports = router;
