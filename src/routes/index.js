@@ -2,8 +2,8 @@ const express = require('express');
 const routes = require('./routes.js');
 const router = express.Router();
 
-
- router.get('/',routes.getHome);
+router.get('/', routes.getHome);
+router.post('/signUp', routes.postSignup);
 // router.get('/', (req, res, next) => {
 //   queries.allMessages((err, dbRes) => {
 //     if (err) {
