@@ -1,5 +1,4 @@
 const express = require('express');
-const queries = require('../queries/functional_db.js');
 const routes = require('./routes.js');
 const router = express.Router();
 
