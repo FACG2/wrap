@@ -26,7 +26,8 @@
   - assigned(varchar(100))
   - progress (varchar(100) DEFAULT 0)
   - deadline(varchar(100))
-  - sprint_id(FK(sprints(id)))
+  - sprint_id(integer DEFAULT -1)
+  - project_id (FK(projects(id)))
   - state (varchar(100) DEFAULT 'backlog')
   - order(varchar(100) NOT NULL)
 

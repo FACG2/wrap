@@ -46,7 +46,8 @@ assigned VARCHAR(100) NOT NULL,
 progress NUMERIC DEFAULT 0,
 deadline VARCHAR(100) DEFAULT 'Not specified',
 duration INTEGER DEFAULT -1,
-sprint_id INTEGER REFERENCES sprints(id),
+sprint_id INTEGER DEFAULT -1,
+project_id INTEGER REFERENCES projects(id),
 state TEXT DEFAULT 'backlog',
 orders INTEGER NOT NULL
 );
