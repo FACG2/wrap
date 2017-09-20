@@ -102,5 +102,6 @@ module.exports = {
   getUserByEmail,
   getUserById,
   getUserByUserName,
-  signUp
+  signUp,
+  getUserLogIn
 };
