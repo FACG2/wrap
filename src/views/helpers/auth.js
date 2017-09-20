@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  console.log(req.url !== '/');
   if (req.url !== '/') {
     const token = req.cookies.token;
     if (!token) {
@@ -18,6 +17,5 @@ module.exports = (req, res, next) => {
       });
     }
   }
-    console.log('sdas');
-    next();
+  next();
 };
