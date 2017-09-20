@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const tokenHandler = require('../views/helpers/token.js');
 const functions = require('../queries/index.js');
 
 module.exports = (req, res, next) => {
@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
     if (err) {
       next(err);
     } else {
+<<<<<<< HEAD
       const tempToken = {id: result.id, username: result.username, avatar: result.avatar};
       const token = jwt.sign(tempToken, 'wrap shhh');
       res.cookie('token', token);
@@ -29,6 +30,10 @@ module.exports = (req, res, next) => {
           });
         }
       });
+=======
+      tokenHandler.addToken(res, result.id, result.username, result.avatar);
+      res.render('dashboard.hbs');
+>>>>>>> ba4e6422673ba639bd414378526b18e8fe7fd8c1
     }
   });
 };

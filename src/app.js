@@ -28,6 +28,10 @@ app.engine(
 );
 
 app.use(helpers.auth);
+app.use((req, res, next) => {
+  console.log(req.url, req.method);
+  next();
+});
 app.use(routes);
 
 app.use((err, req, res, next) => {

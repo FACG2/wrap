@@ -1,7 +1,9 @@
 const connection = require('../../database/db_connection.js');
 const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const qusers = require('../users.js');
 const request = require('request');
+
 const existedUserName = (username, cb) => {
   qusers.getUserByUserName(username, (err, res) => {
     if (err) {
@@ -29,20 +31,10 @@ const existedEmail = (email, cb) => {
   });
 };
 
-const hashPassword = (password, cb) => {
-  bcrypt.genSalt(333, (err, salt) => {
-    if (err) {
-      cb(err);
-    } else {
-      bcrypt.hash(password, salt, (err, hash) => {
-        if (err) {
-          cb(err);
-        } else {
-          cb(null, hash);
-        }
-      });
-    }
-  });
+const hashPassword = (password) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hashed = bcrypt.hashSync(password, salt);
+  return hashed;
 };
 
 const comparePasswords = (password, hashedPassword, cb) => {

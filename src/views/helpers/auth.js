@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  if (req.url !== '/') {
+  const url = req.url;
+  if (url !== '/' && url !== '/login' && url !== '/signup') {
     const token = req.cookies.token;
     if (!token) {
       return res.render('error.hbs', {message: 'Access is denied, Please login'});
