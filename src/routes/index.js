@@ -1,4 +1,5 @@
 const express = require('express');
+const functions = require('../queries/index.js');
 const routes = require('./routes.js');
 const router = express.Router();
 
