@@ -50,7 +50,7 @@ const getUserLogIn = (email, password, cb) => {
       cb(err);
     } else {
       const sql = {
-        text: `SELECT users.username, users.avatar FROM users WHERE password = $1`,
+        text: `SELECT users.id, users.username, users.avatar FROM users WHERE password = $1`,
         values: [hashed] };
     }
     connection.query(sql, (error, res) => {
@@ -63,7 +63,7 @@ const getUserLogIn = (email, password, cb) => {
   });
 };
 
-const signUp = (username, githubname, email, password, avatar, cb) => {
+const signUp = (username, githubname, email, password, cb) => {
   users.existedUserName(username, (err) => {
     if (err) {
       cb(err);
