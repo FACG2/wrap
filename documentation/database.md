@@ -23,7 +23,7 @@
   - title(varchar(100) NOT NULL)
   - description(text DEFAULT no description)
   - priority(varchar(100) NOT NULL)
-  - assigned(varchar(100))
+  - assigned_id(FK(users(id)))
   - progress (varchar(100) DEFAULT 0)
   - deadline(varchar(100))
   - sprint_id(integer DEFAULT -1)
