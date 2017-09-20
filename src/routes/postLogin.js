@@ -1,8 +1,8 @@
-const tokenHandler = require('../views/helpers/token.js');
 const functions = require('../queries/index.js');
+const tokenHandler = require('../views/helpers/token.js');
 
 module.exports = (req, res, next) => {
-  functions.users.signUp(req.body.username, req.body.githubname, req.body.password, (err, result) => {
+  functions.users.getUserLogIn(req.body.email, req.body.password, (err, result) => {
     if (err) {
       next(err);
     } else {

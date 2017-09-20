@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', routes.getHome);
 router.post('/signUp', routes.postSignup);
+router.post('/login', routes.postLogin);
 // router.get('/', (req, res, next) => {
 //   queries.allMessages((err, dbRes) => {
 //     if (err) {
