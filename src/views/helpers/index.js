@@ -1,3 +1,4 @@
 module.exports = {
-  getDate: require('./getDate')
+  getDate: require('./getDate'),
+  auth: require('./auth.js')
 };

@@ -1,10 +1,14 @@
 const express = require('express');
-const queries = require('../queries/functional_db.js');
+var functions = require('../queries/index.js');
 const routes = require('./routes.js');
 const router = express.Router();
 
 
  router.get('/',routes.getHome);
+
+
+
+
 // router.get('/', (req, res, next) => {
 //   queries.allMessages((err, dbRes) => {
 //     if (err) {

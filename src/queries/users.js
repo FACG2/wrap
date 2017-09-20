@@ -99,11 +99,8 @@ const signUp = (username, githubname, email, password, avatar, cb) => {
 };
 
 module.exports = {
-  hashPassword,
-  existedUserName,
-  existedEmail,
   getUserByEmail,
   getUserById,
   getUserByUserName,
-  signUp 
+  signUp
 };

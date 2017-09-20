@@ -1,5 +1,4 @@
 const connection = require('../../database/db_connection.js');
-const validation = require('..//validation.js');
 const bcrypt = require('bcrypt');
 const qusers = require('../users.js');
 const request = require('request');
@@ -78,6 +77,6 @@ function getAvatar (githubUserName, cb) {
 module.exports = {
   hashPassword,
   existedUserName,
-  validateEmail,
+  existedEmail,
   getAvatar
 };
