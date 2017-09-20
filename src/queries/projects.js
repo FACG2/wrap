@@ -19,9 +19,21 @@ require('env2')('./config.env');
 
 const getTasksByUserId = (userId, cb) => {
   const sql = {
-    text: `SELECT * FROM tasks WHERE user_id= $1`,
+    text: `SELECT * FROM tasks WHERE assigned_id= $1`,
     values: [userId] };
-    // `SELECT * FROM tasks INNER JOIN users ON users.username = tasks.assigned WHERE users.id= $1`,
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+const getCurrentTasks = (userId, cb) => {
+  const sql = {
+    text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done'`,
+    values: [userId] };
 
   connection.query(sql, (err, res) => {
     if (err) {
@@ -60,9 +72,9 @@ const getFinishedProjects = (userId, cb) => {
   });
 };
 
-const FilterByPriority = (userId, cb) => {
+const getAllProjects = (userId, cb) => {
   const sql = {
-    text: `SELECT * FROM tasks WHERE user_id= $1 ORDER BY priority ASC `,
+    text: `SELECT project_id FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = ${userId}`,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
@@ -72,4 +84,44 @@ const FilterByPriority = (userId, cb) => {
       cb(null, res);
     }
   });
+};
+
+// / get the current tasks orderd by priority
+const FilterByPriority = (userId, cb) => {
+  const sql = {
+    text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done' ORDER BY priority ASC `,
+    values: [userId] };
+
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+// /// filter by deadline in the front-end
+
+const getProjectName = (taskId,cb)=>{
+  const sql ={
+    text: `SELECT projects.title FROM projects INNER JOIN tasks ON tasks.project_id = projects.id WHERE tasks.id = $1`,
+    values:[taskId]
+  }
+    connection.query(sql, (err, res) => {
+      if (err) {
+        cb(err);
+      } else {
+        cb(null, res);
+      }
+    });
+}
+
+
+module.exports = {
+  getTasksByUserId,
+  getCurrentTasks,
+  getCurrentProjects,
+  getFinishedProjects,
+  getAllProjects,
+  FilterByPriority
 };

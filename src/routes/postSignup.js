@@ -9,15 +9,22 @@ module.exports = (req, res, next) => {
       const tempToken = {id: result.id, username: result.username, avatar: result.avatar};
       const token = jwt.sign(tempToken, 'wrap shhh');
       res.cookie('token', token);
-      functions.projects.getCurrentProjects(result.id, (err, cProjects) => {
-        if (err) {
-          next(err);
+
+      functions.projects.getAllProjects(result.id, (projectErr, projects) => {
+        if (projectErr) {
+          next(projectErr);
         } else {
-          functions.projects.getFinishedProjects(result.id, (err, fProjects) => {
-            if (err) {
-              next(err);
+          functions.projects.getTasksByUserId(result.id, (tasksErr, tasks) => {
+            if (tasksErr) {
+              next(tasksErr);
             } else {
-              res.render('dashboard.hbs', {numberOfFinished: fProjects.rows.length, numberOfCurrent: cProjects.rows.length});
+              functions.projects.getCurrentTasks(result.id, (cTasksErr, currentTasks) => {
+                if (cTasksErr) {
+                  next(cTasksErr);
+                } else {
+                  res.render('dashboard.hbs', {noOfAllTasks: tasks.rows.length, noOfCurrentTasks: currentTasks.rows.length, noOfAllProjects: projects.row.length});
+                }
+              });
             }
           });
         }
