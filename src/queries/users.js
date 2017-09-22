@@ -64,39 +64,28 @@ const getUserLogIn = (email, password, cb) => {
 };
 
 const signUp = (username, githubname, email, password, cb) => {
-  users.existedUserName(username, (err) => {
-    if (err) {
-      cb(err);
-    } else {
-      users.existedEmail(email, (err) => {
-        if (err) {
-          cb(err);
-        } else {
-          const hashed = users.hashPassword(password);
-          users.getAvatar(githubname, (err, avatarRes) => {
-            const msg = avatarRes ? `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)` : `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
-            const sql = {
-              text: msg,
-              value: [username, githubname, email, hashed, avatarRes.rows]
-            };
-            connection.query(sql, (err, res) => {
-              if (err) {
-                cb(err);
-              } else {
-                cb(null, res.rows);
-              }
-            });
-          });
-        }
-      });
-    }
+  const hashed = users.hashPassword(password);
+  users.getGithubAvatar(githubname, (err, avatar) => { // error handled by putting avatarRes as optional argument for signup
+    let msg = avatar ? `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)` : `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
+    const sql = {
+      text: msg,
+      value: [username, githubname, email, hashed]
+    };
+    connection.query(sql, (err, res) => {
+      if (err) {
+        console.log(err);
+        cb('Connection Error!');
+      } else {
+        cb(null, res.rows);
+      }
+    });
   });
 };
-
+// module.exports = 'walifdsklfjdskf';
 module.exports = {
   getUserByEmail,
   getUserById,
-  getUserByUserName,
   signUp,
-  getUserLogIn
+  getUserLogIn,
+  getUserByUserName
 };
