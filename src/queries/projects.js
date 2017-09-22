@@ -189,12 +189,11 @@ const addProject = (title, wDay, wHour, description, userId, cb) => {
     if (error) {
       cb(error);
     } else {
-      console.log(project.rows[0].id);
-      addMember(userId, project.rows[0].id, 'user', (err, res) => {
+      addMember(userId, project.rows[0].id, 'admin', (err, res) => {
         if (err) {
           cb(err);
         } else {
-          cb(null, project.rows);
+          cb(null, project.rows[0]);
         }
       });
     }
