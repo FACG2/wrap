@@ -1,4 +1,4 @@
-const functions = require('../queries/index.js');
+const queries = require('../queries/index.js');
 const tokenHandler = require('../views/helpers/token.js');
 
 module.exports = (req, res, next) => {
@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   });
   req.on('end', function () {
     data = JSON.parse(data);
-    functions.users.getUserLogIn(data.email, data.password, (err, result) => {
+    queries.users.getUserLogIn(data.email, data.password, (err, result) => {
       if (err) {
         const message = err === 'not matched' ? err : 'connection error';
         res.send(message);
