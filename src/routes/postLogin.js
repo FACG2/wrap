@@ -1,5 +1,5 @@
 const queries = require('../queries/index.js');
-const tokenHandler = require('../views/helpers/token.js');
+const tokenHandler = require('./helpers/index.js').token;
 
 module.exports = (req, res, next) => {
   let data = '';

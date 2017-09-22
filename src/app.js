@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const routes = require('./routes/index');
 const helpers = require('./views/helpers/index');
+const auth = require('./routes/helpers/index').auth;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
@@ -27,7 +28,7 @@ app.engine(
   })
 );
 
-app.use(helpers.auth);
+app.use(auth);
 // app.use((req, res, next) => {
 //   console.log(req.url, req.method);
 //   next();

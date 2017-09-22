@@ -45,7 +45,6 @@ const getUserByUserName = (userName, cb) => {
 };
 
 const getUserLogIn = (email, password, cb) => {
-  const hashed = users.hashPassword(password);
   const sql = {
     text: `SELECT users.id, users.username, users.avatar, users.password FROM users WHERE email = $1`,
     values: [email]
