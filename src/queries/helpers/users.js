@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const qUsers = require('../users.js');
 const request = require('request');
 
 const hashPassword = (password) => {
@@ -8,7 +7,7 @@ const hashPassword = (password) => {
   return hashed;
 };
 
-const getAvatar = (githubUserName, cb) => {
+const getGithubAvatar = (githubUserName, cb) => {
   let path = 'https://api.github.com/users/' + githubUserName;
   request({url: path, headers: {'user-agent': 'node.js'}}, (err, response, body) => {
     if (err) {
@@ -17,7 +16,7 @@ const getAvatar = (githubUserName, cb) => {
       let data = JSON.parse(body);
       if (data.message) {
       } else {
-        avatar = data.avatar_url;
+        const avatar = data.avatar_url;
         cb(null, avatar);
       }
     }
@@ -26,5 +25,5 @@ const getAvatar = (githubUserName, cb) => {
 
 module.exports = {
   hashPassword,
-  getAvatar
+  getGithubAvatar
 };

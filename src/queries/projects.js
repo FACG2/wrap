@@ -1,7 +1,7 @@
 const connection = require('../database/db_connection.js');
 const users = require('./helpers/users.js');
 require('env2')('./config.env');
-const helperUser = require('../../routes/helpers/users.js');
+// const helperUser = require('../../routes/helpers/users.js');
 //
 // const getTasksByUserName = (userName, cb) => {
 //   const sql = {

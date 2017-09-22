@@ -12,7 +12,6 @@ module.exports = (req, res, next) => {
       if (err) {
         res.send(err);
       } else {
-        console.log('walid');
         tokenHandler.addToken(res, result.id, result.username, result.avatar);
         res.send('/ref');
       }

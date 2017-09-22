@@ -69,7 +69,7 @@ const signUp = (username, githubname, email, password, cb) => {
     let msg = avatar ? `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)` : `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
     const sql = {
       text: msg,
-      value: [username, githubname, email, hashed]
+      values: [username, githubname, email, hashed, avatar]
     };
     connection.query(sql, (err, res) => {
       if (err) {
