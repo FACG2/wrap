@@ -1,16 +1,15 @@
-const tokenHandler = require('../views/helpers/token.js');
-const functions = require('../../queries/index.js');
+const queries = require('../../queries/index.js');
 
 const getDashboardData = (userId, cb) => {
-  functions.projects.getAllProjects(userId, (projectErr, projects) => {
+  queries.projects.getAllProjects(userId, (projectErr, projects) => {
     if (projectErr) {
       cb(projectErr);
     } else {
-      functions.projects.getTasksByUserId(userId, (tasksErr, tasks) => {
+      queries.tasks.getTasksByUserId(userId, (tasksErr, tasks) => {
         if (tasksErr) {
           cb(tasksErr);
         } else {
-          functions.projects.getCurrentTasks(userId, (cTasksErr, currentTasks) => {
+          queries.tasks.getCurrentTasks(userId, (cTasksErr, currentTasks) => {
             if (cTasksErr) {
               cb(cTasksErr);
             } else {

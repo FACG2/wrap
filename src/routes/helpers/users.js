@@ -16,19 +16,13 @@ const signUp = (username, githubname, email, password, cb) => {
   });
 };
 
-
-
-
-
-
-
 const existedUserName = (username, cb) => {
   queries.users.getUserByUserName(username, (err, res) => {
     if (err) {
       cb('connection Error');
     } else {
       if (res.rows.length > 0) {
-        cb('username already exists',res.rows);
+        cb('username already exists', res.rows);
       } else {
         cb(null);
       }
@@ -42,14 +36,13 @@ const existedEmail = (email, cb) => {
       cb('Connection Error');
     } else {
       if (res.rows.length > 0) {
-        cb('email already exists',res.rows);
+        cb('email already exists', res.rows);
       } else {
         cb(null);
       }
     }
   });
-}
-
+};
 
 module.exports = {
   signUp,

@@ -66,14 +66,20 @@ const getUserLogIn = (email, password, cb) => {
 const signUp = (username, githubname, email, password, cb) => {
   const hashed = users.hashPassword(password);
   users.getGithubAvatar(githubname, (err, avatar) => { // error handled by putting avatarRes as optional argument for signup
-    let msg = avatar ? `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)` : `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
+    let msg, val;
+    if (avatar) {
+      msg = `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)`;
+      val = [username, githubname, email, hashed, avatar];
+    } else {
+      msg = `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
+      val = [username, githubname, email, hashed];
+    }
     const sql = {
       text: msg,
-      values: [username, githubname, email, hashed, avatar]
+      values: val
     };
     connection.query(sql, (err, res) => {
       if (err) {
-        console.log(err);
         cb('Connection Error!');
       } else {
         cb(null, res.rows);
