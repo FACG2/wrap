@@ -47,14 +47,14 @@ const getUserByUserName = (userName, cb) => {
 const getUserLogIn = (email, password, cb) => {
   const hashed = users.hashPassword(password);
   const sql = {
-    text: `SELECT users.id, users.username, users.avatar FROM users WHERE password = $1`,
-    values: [hashed]
+    text: `SELECT users.id, users.username, users.avatar, users.password FROM users WHERE email = $1`,
+    values: [email]
   };
   connection.query(sql, (error, res) => {
     if (error) {
       cb(error.message);
     } else {
-      if (res.rows.length === 0) {
+      if (res.rows.length === 0 || !users.comparePassword(password, res.rows[0].password)) {
         cb('not matched');
       } else {
         cb(null, res.rows);
@@ -64,39 +64,28 @@ const getUserLogIn = (email, password, cb) => {
 };
 
 const signUp = (username, githubname, email, password, cb) => {
-  users.existedUserName(username, (err) => {
-    if (err) {
-      cb(err);
-    } else {
-      users.existedEmail(email, (err) => {
-        if (err) {
-          cb(err);
-        } else {
-          const hashed = users.hashPassword(password);
-          users.getAvatar(githubname, (err, avatarRes) => {
-            const msg = avatarRes ? `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)` : `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
-            const sql = {
-              text: msg,
-              value: [username, githubname, email, hashed, avatarRes.rows]
-            };
-            connection.query(sql, (err, res) => {
-              if (err) {
-                cb(err);
-              } else {
-                cb(null, res.rows);
-              }
-            });
-          });
-        }
-      });
-    }
+  const hashed = users.hashPassword(password);
+  users.getGithubAvatar(githubname, (err, avatar) => { // error handled by putting avatarRes as optional argument for signup
+    let msg = avatar ? `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)` : `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
+    const sql = {
+      text: msg,
+      values: [username, githubname, email, hashed, avatar]
+    };
+    connection.query(sql, (err, res) => {
+      if (err) {
+        console.log(err);
+        cb('Connection Error!');
+      } else {
+        cb(null, res.rows);
+      }
+    });
   });
 };
-
+// module.exports = 'walifdsklfjdskf';
 module.exports = {
   getUserByEmail,
   getUserById,
-  getUserByUserName,
   signUp,
-  getUserLogIn
+  getUserLogIn,
+  getUserByUserName
 };
