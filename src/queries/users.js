@@ -57,7 +57,7 @@ const getUserLogIn = (email, password, cb) => {
       if (res.rows.length === 0 || !users.comparePassword(password, res.rows[0].password)) {
         cb('not matched');
       } else {
-        cb(null, res.rows);
+        cb(null, res.rows[0]);
       }
     }
   });
@@ -82,7 +82,7 @@ const signUp = (username, githubname, email, password, cb) => {
       if (err) {
         cb('Connection Error!');
       } else {
-        cb(null, res.rows);
+        cb(null, res.rows[0]);
       }
     });
   });
