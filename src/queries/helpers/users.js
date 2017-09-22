@@ -8,25 +8,23 @@ const hashPassword = (password) => {
   return hashed;
 };
 
-function getGithubAvatar (githubUserName, cb) {
-  let path = 'https://api.github.com/users/' + githubUserName + '?access_token=' + process.env.TOKEN;
-  cb('error');
-  // request({url: path}, (err, response, body) => {
-  //   if (err) {
-  //     cb(err.message);
-  //   } else {
-  //     let data = JSON.parse(body);
-  //     if (data.message) {
-  //       cb(data.message);
-  //     } else {
-  //       const avatar = data.avatar_url;
-  //       cb(null, avatar);
-  //     }
-  //   }
-  // });
-}
+const getAvatar = (githubUserName, cb) => {
+  let path = 'https://api.github.com/users/' + githubUserName;
+  request({url: path, headers: {'user-agent': 'node.js'}}, (err, response, body) => {
+    if (err) {
+      cb(err, {});
+    } else {
+      let data = JSON.parse(body);
+      if (data.message) {
+      } else {
+        avatar = data.avatar_url;
+        cb(null, avatar);
+      }
+    }
+  });
+};
 
 module.exports = {
   hashPassword,
-  getGithubAvatar
+  getAvatar
 };
