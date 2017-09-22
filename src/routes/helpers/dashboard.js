@@ -13,7 +13,7 @@ const getDashboardData = (userId, cb) => {
             if (cTasksErr) {
               cb(cTasksErr);
             } else {
-              cb(null, {noOfAllTasks: tasks.rows.length, noOfCurrentTasks: currentTasks.rows.length, noOfAllProjects: projects.row.length});
+              cb(null, {noOfAllTasks: tasks.rows.length, noOfCurrentTasks: currentTasks.rows.length, noOfAllProjects: projects.rows.length});
             }
           });
         }
