@@ -3,5 +3,6 @@ module.exports = {
   postSignup: require('./postSignup.js'),
   postLogin: require('./postLogin.js'),
   getProjectPage: require('./getProjectPage.js'),
+  postAddTask: require('./postAddTask.js'),
   postAddProject: require('./postAddProject.js')
 };
