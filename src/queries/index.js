@@ -1,9 +1,7 @@
 var users = require('./users.js');
 var projects = require('./projects.js');
 
-
-
-module.exports={
+module.exports = {
   users,
   projects
-}
+};
