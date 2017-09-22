@@ -4,6 +4,6 @@ module.exports = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.render('project.hbs');
+    res.redirect(`/projects/${projectData.id}`);
   });
 };
