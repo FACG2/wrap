@@ -16,32 +16,41 @@ const signUp = (username, githubname, email, password, cb) => {
   });
 };
 
+
+
+
+
+
+
 const existedUserName = (username, cb) => {
   queries.users.getUserByUserName(username, (err, res) => {
     if (err) {
       cb('connection Error');
     } else {
       if (res.rows.length > 0) {
-        cb('username already exists');
+        cb('username already exists',res.rows);
       } else {
         cb(null);
       }
     }
   });
 };
+
 const existedEmail = (email, cb) => {
   queries.users.getUserByEmail(email, (err, res) => {
     if (err) {
       cb('Connection Error');
     } else {
       if (res.rows.length > 0) {
-        cb('email already exists');
+        cb('email already exists',res.rows);
       } else {
         cb(null);
       }
     }
   });
-};
+}
+
+
 module.exports = {
   signUp,
   existedUserName,
