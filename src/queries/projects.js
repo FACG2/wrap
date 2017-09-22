@@ -16,34 +16,6 @@ require('env2')('./config.env');
 //     }
 //   });
 // };
-
-const getTasksByUserId = (userId, cb) => {
-  const sql = {
-    text: `SELECT * FROM tasks WHERE assigned_id= $1`,
-    values: [userId] };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
-};
-
-const getCurrentTasks = (userId, cb) => {
-  const sql = {
-    text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done'`,
-    values: [userId] };
-
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
-};
-
 const getCurrentProjects = (userId, cb) => {
   const sql = {
     text: `SELECT project_id FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1 AND projects.finished= false`,
@@ -72,14 +44,6 @@ const getProjectDetails = (projectId, cb) => {
   });
 };
 
-getProjectDetails(2, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res);
-  }
-});
-
 const getFinishedProjects = (userId, cb) => {
   const sql = {
     text: `SELECT project_id FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = ${userId} AND projects.finished= true`,
@@ -107,22 +71,6 @@ const getAllProjects = (userId, cb) => {
     }
   });
 };
-
-// / get the current tasks orderd by priority
-const FilterByPriority = (userId, cb) => {
-  const sql = {
-    text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done' ORDER BY priority ASC `,
-    values: [userId] };
-
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
-};
-// /// filter by deadline in the front-end
 
 const getProjectName = (taskId, cb) => {
   const sql = {
@@ -282,7 +230,7 @@ const getCurrentSprints = (projectId, cb) => {
 const getTasksByState = (sprintId, state, cb) => {
   const sql = {
     text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
-    values: [projectId, state] };
+    values: [sprintId, state] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
@@ -340,12 +288,10 @@ const getTasksByState = (sprintId, state, cb) => {
 //
 
 module.exports = {
-  getTasksByUserId,
-  getCurrentTasks,
+  addProject,
   getCurrentProjects,
   getFinishedProjects,
   getAllProjects,
-  FilterByPriority,
   getAllSprints,
   getFinishedSprints,
   getCurrentSprints,
