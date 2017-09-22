@@ -47,14 +47,14 @@ const getUserByUserName = (userName, cb) => {
 const getUserLogIn = (email, password, cb) => {
   const hashed = users.hashPassword(password);
   const sql = {
-    text: `SELECT users.id, users.username, users.avatar FROM users WHERE password = $1`,
-    values: [hashed]
+    text: `SELECT users.id, users.username, users.avatar, users.password FROM users WHERE email = $1`,
+    values: [email]
   };
   connection.query(sql, (error, res) => {
     if (error) {
       cb(error.message);
     } else {
-      if (res.rows.length === 0) {
+      if (res.rows.length === 0 || !users.comparePassword(password, res.rows[0].password)) {
         cb('not matched');
       } else {
         cb(null, res.rows);

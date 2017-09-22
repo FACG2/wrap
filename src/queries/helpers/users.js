@@ -7,6 +7,9 @@ const hashPassword = (password) => {
   return hashed;
 };
 
+const comparePassword = (password, hash) => {
+  return bcrypt.compareSync(password, hash);
+};
 const getGithubAvatar = (githubUserName, cb) => {
   let path = 'https://api.github.com/users/' + githubUserName;
   request({url: path, headers: {'user-agent': 'node.js'}}, (err, response, body) => {
@@ -25,5 +28,6 @@ const getGithubAvatar = (githubUserName, cb) => {
 
 module.exports = {
   hashPassword,
+  comparePassword,
   getGithubAvatar
 };
