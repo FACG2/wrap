@@ -30,6 +30,15 @@ const getCurrentProjects = (userId, cb) => {
   });
 };
 
+getCurrentProjects(1,(err,res)=>{
+  if (err) {
+    console.log(err);
+  }
+  else {
+    console.log(res);
+  }
+});
+
 const getProjectDetails = (projectId, cb) => {
   const sql = {
     text: `SELECT projects.title,projects.progress  FROM projects WHERE projects.id = $1`,
