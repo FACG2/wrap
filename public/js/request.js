@@ -1,8 +1,3 @@
-
-
-
-
-
 function apiReq (url, method, callback, postData) { // eslint-disable-line
   var xhttp = new XMLHttpRequest();// eslint-disable-line
   xhttp.onreadystatechange = function () {
