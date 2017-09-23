@@ -1,6 +1,6 @@
 const functions = require('../queries/index.js');
 module.exports = (req, res, next) => {
-  functions.project.getCurrentProjects(req.result.id, (err, res2) => {
+  functions.project.getFinishedProjects(req.result.id, (err, res2) => {
     if (err) {
       next(err);
     } else {
@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
           if (err) {
             next(err);
           } else {
-            res2.render('currentProjects.hbs', result);
+            res2.render('FinishedProjects.hbs', result);
           }
         });
       });
