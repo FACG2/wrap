@@ -30,15 +30,6 @@ const getCurrentProjects = (userId, cb) => {
   });
 };
 
-getCurrentProjects(1,(err,res)=>{
-  if (err) {
-    console.log(err);
-  }
-  else {
-    console.log(res);
-  }
-});
-
 const getProjectDetails = (projectId, cb) => {
   const sql = {
     text: `SELECT projects.title,projects.progress  FROM projects WHERE projects.id = $1`,
@@ -197,6 +188,38 @@ const addProject = (title, wDay, wHour, description, userId, cb) => {
   });
 };
 
+const getFinishedSprints = (projectId, cb) => {
+  const sql = {
+    text: `SELECT sprints.id, sprints.title, sprints.progress FROM sprints WHERE project_id= $1 AND closed != False`,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+const getCurrentSprints = (projectId, cb) => {
+  const sql = {
+    text: `SELECT sprints.id, sprints.title, sprints.progress FROM sprints WHERE project_id= $1 AND closed = False`,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+const getTasksByState = (sprintId, state, cb) => {
+  const sql = {
+    text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
+    values: [sprintId, state] };
+  connection.query(sql, cb);
+};
 //
 // // // add member to the project or invite then add the log where the action type will be add or invite
 // const addMember = (adminId, userEmail, projectId, role, cb) => {
