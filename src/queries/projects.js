@@ -39,7 +39,7 @@ const getProjectDetails = (projectId, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows[0]);
     }
   });
 };
