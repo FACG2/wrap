@@ -16,6 +16,43 @@ const getUserByEmail = (email, cb) => {
   });
 };
 
+
+const checkInvitation = (email, cb) => {
+  const sql = {
+    text: `SELECT id FROM invites WHERE email = $1`,
+    values: [email] };
+
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+const deleteInvitation = (inviteId, cb) => {
+  const sql = {
+    text: `DELETE FROM invites WHERE invites.id=$1`,
+    values: [inviteId] };
+
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+deleteInvitation(1,(err,res)=>{
+  if (err) {
+    console.log(err);
+  }else {
+    console.log(res);
+  }
+})
+
 const getUserById = (id, cb) => {
   const sql = {
     text: `SELECT * FROM users WHERE id = $1`,
@@ -92,5 +129,7 @@ module.exports = {
   getUserById,
   signUp,
   getUserLogIn,
-  getUserByUserName
+  getUserByUserName,
+  checkInvitation,
+  deleteInvitation
 };
