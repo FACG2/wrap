@@ -86,18 +86,6 @@ const getProjectName = (taskId, cb) => {
   });
 };
 
-const getAllSprints = (projectId, cb) => {
-  const sql = {
-    text: `SELECT sprints.id, sprints.title, sprints.progress FROM sprints WHERE project_id= $1`,
-    values: [projectId] };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
-};
 
 const invite = (senderId, email, projectId, cb) => {
   const sql = {
@@ -285,9 +273,6 @@ module.exports = {
   getCurrentProjects,
   getFinishedProjects,
   getAllProjects,
-  getAllSprints,
-  getFinishedSprints,
-  getCurrentSprints,
   getTasksByState,
   getProjectDetails
 };

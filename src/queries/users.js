@@ -86,11 +86,26 @@ const signUp = (username, githubname, email, password, cb) => {
     });
   });
 };
+
+const invite = (senderId, email, projectId, cb) => {
+  const sql = {
+    text: `INSERT INTO invites (sender_id,email,project_id) VALUES ($1,$2,$3) RETURNING *`,
+    values: [senderId, email, projectId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
 // module.exports = 'walifdsklfjdskf';
 module.exports = {
   getUserByEmail,
   getUserById,
   signUp,
   getUserLogIn,
-  getUserByUserName
+  getUserByUserName,
+  invite
 };

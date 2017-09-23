@@ -15,6 +15,21 @@ const getTasksByUserId = (userId, cb) => {
   });
 };
 
+
+const getTasksByState = (sprintId, state, cb) => {
+  const sql = {
+    text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
+    values: [sprintId, state] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+
 const getStateByName = (stateName, cb) => {
   const sql = {
     text: `SELECT id FROM state WHERE name= $1`,
