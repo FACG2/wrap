@@ -18,14 +18,14 @@ require('env2')('./config.env');
 // };
 const getCurrentProjects = (userId, cb) => {
   const sql = {
-    text: `SELECT project_id FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1 AND projects.finished= false`,
+    text: `SELECT * FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1 AND projects.finished= false`,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
     }
   });
 };
