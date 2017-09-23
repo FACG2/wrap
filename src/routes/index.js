@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.get('/', routes.getHome);
 router.get('/projects/:project_id', routes.getProjectPage);
+router.get('/getUsersTasks', routes.getUsersTasks);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);

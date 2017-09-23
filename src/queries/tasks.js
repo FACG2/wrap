@@ -29,7 +29,7 @@ const getCurrentTasks = (userId, cb) => {
   });
 };
 // / get the current tasks orderd by priority
-const FilterByPriority = (userId, cb) => {
+const filterByPriority = (userId, cb) => {
   const sql = {
     text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done' ORDER BY priority ASC `,
     values: [userId] };
@@ -46,5 +46,5 @@ const FilterByPriority = (userId, cb) => {
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
-  FilterByPriority
+  filterByPriority
 };
