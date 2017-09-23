@@ -100,12 +100,58 @@ const invite = (senderId, email, projectId, cb) => {
     }
   });
 };
-// module.exports = 'walifdsklfjdskf';
+
+
+ const unseenNoti=(userId,cb)=>{
+   const sql = {
+     text: `SELECT * FROM notifications WHERE user_id=$1 AND seen = FALSE `,
+     values: [userId]
+   };
+   connection.query(sql, (error, result) => {
+     if (error) {
+       cb(error);
+     } else {
+       cb(null, result.rows);
+     }
+   });
+ }
+
+ const markAsSeenNoti=(userId,cb)=>{
+   const sql = {
+     text: `UPDATE notifications SET seen = TRUE WHERE seen = FALSE AND user_id=$1 RETURNING seen`,
+     values: [userId]
+   };
+   connection.query(sql, (error, result) => {
+     if (error) {
+       cb(error);
+     } else {
+       cb(null, result.rows);
+     }
+   });
+ }
+
+const orderedNoti = (userId,cb)=>{
+  const sql = {
+    text: `SELECT *  FROM notifications ORDER BY seen`,
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+}
+
+
 module.exports = {
   getUserByEmail,
   getUserById,
   signUp,
   getUserLogIn,
   getUserByUserName,
-  invite
+  invite,
+  unseenNoti,
+  markAsSeenNoti,
+  orderedNoti
 };
