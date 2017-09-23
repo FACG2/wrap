@@ -1,6 +1,7 @@
 (function () {
   var linkHash = window.location.hash;
   var dashboardContent = document.getElementById('dashboardContent');
+<<<<<<< HEAD
   /* Tasks Tab */
   if (linkHash === '#tasks') {
     loading(dashboardContent);
@@ -9,6 +10,21 @@
   document.getElementById('tasksButton').addEventListener('click', function (event) {
     loading(dashboardContent);
     renderTasks(dashboardContent);
+=======
+  /* Dashboard Tab */
+  document.getElementById('dashboardButton').addEventListener('click', function (event) {
+    loading(dashboardContent);
+    render('/getDashboard', dashboardContent);
+  });
+  /* Tasks Tab */
+  if (linkHash === '#tasks') {
+    loading(dashboardContent);
+    render('/getUsersTasks', dashboardContent);
+  }
+  document.getElementById('tasksButton').addEventListener('click', function (event) {
+    loading(dashboardContent);
+    render('/getUsersTasks', dashboardContent);
+>>>>>>> 4db80fa805326a079b9b69e924e5e7948736885f
   });
 
   /* Create New Project Tab */
@@ -26,6 +42,7 @@ function loading (container) {
   container.innerHTML = '<h2>Loading.....</h2>';
 }
 
+<<<<<<< HEAD
 function renderTasks (container) {
   getTasks(function (err, data) {
     if (err) {
@@ -41,12 +58,25 @@ function renderTasks (container) {
           return acc;
         }, '');
       }
+=======
+function render (url, container) {
+  getData(url, function (err, data) {
+    if (err) {
+      container.innerHTML = '<h2>' + err + '</h2>';
+    } else {
+      container.innerHTML = data;
+>>>>>>> 4db80fa805326a079b9b69e924e5e7948736885f
     }
   });
 }
 
+<<<<<<< HEAD
 function getTasks (cb) {
   apiReq('/getUsersTasks','GET', function (err, data) {// eslint-disable-line
+=======
+function getData (url, cb) {
+  apiReq(url,'GET', function (err, data) {// eslint-disable-line
+>>>>>>> 4db80fa805326a079b9b69e924e5e7948736885f
     if (err) {
       cb('Connection Error!');
     } else {
