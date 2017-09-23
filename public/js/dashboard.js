@@ -1,6 +1,7 @@
 (function () {
   var linkHash = window.location.hash;
   var dashboardContent = document.getElementById('dashboardContent');
+
   /* Dashboard Tab */
   document.getElementById('dashboardButton').addEventListener('click', function (event) {
     loading(dashboardContent);

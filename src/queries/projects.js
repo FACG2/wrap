@@ -18,26 +18,17 @@ require('env2')('./config.env');
 // };
 const getCurrentProjects = (userId, cb) => {
   const sql = {
-    text: `SELECT project_id FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1 AND projects.finished= false`,
+    text: `SELECT * FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1 AND projects.finished= false`,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
     }
   });
 };
-
-getCurrentProjects(1,(err,res)=>{
-  if (err) {
-    console.log(err);
-  }
-  else {
-    console.log(res);
-  }
-});
 
 const getProjectDetails = (projectId, cb) => {
   const sql = {
@@ -95,18 +86,6 @@ const getProjectName = (taskId, cb) => {
   });
 };
 
-const getAllSprints = (projectId, cb) => {
-  const sql = {
-    text: `SELECT sprints.id, sprints.title, sprints.progress FROM sprints WHERE project_id= $1`,
-    values: [projectId] };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
-};
 
 const invite = (senderId, email, projectId, cb) => {
   const sql = {
@@ -239,13 +218,7 @@ const getTasksByState = (sprintId, state, cb) => {
   const sql = {
     text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
     values: [sprintId, state] };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
 //
 // // // add member to the project or invite then add the log where the action type will be add or invite
@@ -300,9 +273,6 @@ module.exports = {
   getCurrentProjects,
   getFinishedProjects,
   getAllProjects,
-  getAllSprints,
-  getFinishedSprints,
-  getCurrentSprints,
   getTasksByState,
   getProjectDetails
 };
