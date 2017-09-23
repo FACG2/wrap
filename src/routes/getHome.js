@@ -1,4 +1,4 @@
-const dashboard = require('./helpers/dashboard.js');
+const dashboard = require('./helpers/index.js').dashboard;
 
 module.exports = (req, res, next) => {
   const token = req.cookies.token;

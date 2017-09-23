@@ -1,4 +1,3 @@
-const tokenHandler = require('../views/helpers/token.js');
 const helpers = require('./helpers/index.js');
 
 module.exports = (req, res, next) => {
@@ -12,7 +11,7 @@ module.exports = (req, res, next) => {
       if (err) {
         res.send(err);
       } else {
-        tokenHandler.addToken(res, result.id, result.username, result.avatar);
+        helpers.token.addToken(res, result.id, result.username, result.avatar);
         res.send('/ref');
       }
     });

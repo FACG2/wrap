@@ -1,5 +1,6 @@
-const users = require('./users.js');
-
 module.exports = {
-  users
+  users: require('./users.js'),
+  token: require('./token.js'),
+  auth: require('./auth.js'),
+  dashboard: require('./dashboard.js')
 };

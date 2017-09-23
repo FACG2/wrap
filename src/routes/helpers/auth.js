@@ -1,10 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  // jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDYwODczNzV9.plki7sS5VNRaLGCPlJCn1NV8s - XLiXI_Q2kRJVywYWo', 'wrap shhh', function (err, user) {
-  //   console.log('w1w',err);
-  //   console.log('ww22ww',user);
-  // });
   const url = req.url;
   const token = req.cookies.token;
   if (!token) {
