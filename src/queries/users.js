@@ -7,13 +7,7 @@ const getUserByEmail = (email, cb) => {
     text: `SELECT * FROM users WHERE email = $1`,
     values: [email] };
 
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
 
 const getUserById = (id, cb) => {
@@ -25,7 +19,7 @@ const getUserById = (id, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows[0]);
     }
   });
 };
@@ -35,13 +29,7 @@ const getUserByUserName = (userName, cb) => {
     text: `SELECT * FROM users WHERE username = $1`,
     values: [userName] };
 
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
 
 const getUserLogIn = (email, password, cb) => {
@@ -96,43 +84,44 @@ const invite = (senderId, email, projectId, cb) => {
     if (error) {
       cb(error);
     } else {
-      cb(null, result.rows);
+      cb(null, result.rows[0]);
     }
   });
 };
 
 
- const unseenNoti=(userId,cb)=>{
-   const sql = {
-     text: `SELECT * FROM notifications WHERE user_id=$1 AND seen = FALSE `,
-     values: [userId]
-   };
-   connection.query(sql, (error, result) => {
-     if (error) {
-       cb(error);
-     } else {
-       cb(null, result.rows);
-     }
-   });
- }
-
- const markAsSeenNoti=(userId,cb)=>{
-   const sql = {
-     text: `UPDATE notifications SET seen = TRUE WHERE seen = FALSE AND user_id=$1 RETURNING seen`,
-     values: [userId]
-   };
-   connection.query(sql, (error, result) => {
-     if (error) {
-       cb(error);
-     } else {
-       cb(null, result.rows);
-     }
-   });
- }
-
-const orderedNoti = (userId,cb)=>{
+const checkInvitation = (email, cb) => {
   const sql = {
-    text: `SELECT *  FROM notifications ORDER BY seen`,
+    text: `SELECT id FROM invites WHERE email = $1`,
+    values: [email] };
+
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows[0]);
+    }
+  });
+};
+
+const deleteInvitation = (inviteId, cb) => {
+  const sql = {
+    text: `DELETE FROM invites WHERE invites.id=$1`,
+    values: [inviteId] };
+  connection.query(sql, (err,res)=>{
+    if(err){
+      cb(err)
+    }
+    else{
+      cb(null,res)
+    }
+  });
+};
+
+const unseenNoti = (userId, cb) => {
+  const sql = {
+    text: `SELECT * FROM notifications WHERE user_id=$1 AND seen = FALSE `,
+    values: [userId]
   };
   connection.query(sql, (error, result) => {
     if (error) {
@@ -141,8 +130,34 @@ const orderedNoti = (userId,cb)=>{
       cb(null, result.rows);
     }
   });
-}
+};
 
+const markAsSeenNoti = (userId, cb) => {
+  const sql = {
+    text: `UPDATE notifications SET seen = TRUE WHERE seen = FALSE AND user_id=$1 RETURNING seen`,
+    values: [userId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
+
+const orderedNoti = (userId, cb) => {
+  const sql = {
+    text: `SELECT *  FROM notifications ORDER BY seen`
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
 
 module.exports = {
   getUserByEmail,
@@ -153,5 +168,9 @@ module.exports = {
   invite,
   unseenNoti,
   markAsSeenNoti,
-  orderedNoti
+  orderedNoti,
+  checkInvitation,
+  deleteInvitation,
+  invite
+
 };

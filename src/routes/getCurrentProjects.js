@@ -1,19 +1,10 @@
-
-const functions = require('../queries/index.js');
+const queries = require('../queries/index.js');
 module.exports = (req, res, next) => {
-  functions.project.getCurrentProjects(req.result.id, (err, res2) => {
+  queries.project.getCurrentProjects(req.user.id, (err, res) => {
     if (err) {
       next(err);
     } else {
-      res2.rows.map(function (id) {
-        return functions.project.getProjectDetails(id, (err, result) => {
-          if (err) {
-            next(err);
-          } else {
-            res2.render('currentProjects.hbs', result);
-          }
-        });
-      });
+      res.render('currentProjectsTab.hbs', {projects: res, isEmpty: res.length === 0});
     }
   });
 };
