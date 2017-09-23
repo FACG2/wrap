@@ -10,28 +10,6 @@ const getUserByEmail = (email, cb) => {
   connection.query(sql, cb);
 };
 
-const checkInvitation = (email, cb) => {
-  const sql = {
-    text: `SELECT id FROM invites WHERE email = $1`,
-    values: [email] };
-
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows[0]);
-    }
-  });
-};
-
-const deleteInvitation = (inviteId, cb) => {
-  const sql = {
-    text: `DELETE FROM invites WHERE invites.id=$1`,
-    values: [inviteId] };
-
-  connection.query(sql, cb);
-};
-
 const getUserById = (id, cb) => {
   const sql = {
     text: `SELECT * FROM users WHERE id = $1`,
@@ -110,14 +88,89 @@ const invite = (senderId, email, projectId, cb) => {
     }
   });
 };
-// module.exports = 'walifdsklfjdskf';
+
+
+const checkInvitation = (email, cb) => {
+  const sql = {
+    text: `SELECT id FROM invites WHERE email = $1`,
+    values: [email] };
+
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows[0]);
+    }
+  });
+};
+
+const deleteInvitation = (inviteId, cb) => {
+  const sql = {
+    text: `DELETE FROM invites WHERE invites.id=$1`,
+    values: [inviteId] };
+  connection.query(sql, (err,res)=>{
+    if(err){
+      cb(err)
+    }
+    else{
+      cb(null,res)
+    }
+  });
+};
+
+const unseenNoti = (userId, cb) => {
+  const sql = {
+    text: `SELECT * FROM notifications WHERE user_id=$1 AND seen = FALSE `,
+    values: [userId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
+
+const markAsSeenNoti = (userId, cb) => {
+  const sql = {
+    text: `UPDATE notifications SET seen = TRUE WHERE seen = FALSE AND user_id=$1 RETURNING seen`,
+    values: [userId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
+
+const orderedNoti = (userId, cb) => {
+  const sql = {
+    text: `SELECT *  FROM notifications ORDER BY seen`
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
+
 module.exports = {
   getUserByEmail,
   getUserById,
   signUp,
   getUserLogIn,
   getUserByUserName,
+  invite,
+  unseenNoti,
+  markAsSeenNoti,
+  orderedNoti,
   checkInvitation,
   deleteInvitation,
   invite
+
 };
