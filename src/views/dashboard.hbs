@@ -4,18 +4,15 @@
   <h2>noOfAllProjects : {{noOfAllProjects}}</h2>
   <h2>noOfCurrentTasks : {{noOfCurrentTasks}}</h2>
 </div>
-<h1 id="tasksButton">Tasks</h1>
-<h1 id="dashboardButton">dashboard</h1>
-<div id="tasksTab">
-  <!-- <h2>noOfAllTasks : {{noOfAllTasks}}</h2>
-  <h2>noOfAllProjects : {{noOfAllProjects}}</h2>
-  <h2>noOfCurrentTasks : {{noOfCurrentTasks}}</h2> -->
-</div>
+<h1><a id="tasksButton" href="#tasks">Tasks</a></h1>
+<h1><a href="#dashboard" id="dashboardButton">dashboard</a></h1>
 <h1 id="addProjectButton">+ Add project</h1>
-<form id="addProjectForm" action="/addProject" method="post">
-  <label>Title : <input type="text" name="title" value="" placeholder="Enter Project name.." required></label>
-  <label>description : <input type="text" name="description" value="..." placeholder="Enter Project description.."></label>
-  <label>Working days in a week : <input type="number" name="wDays" value="-1" placeholder="Enter Project name.."></label>
-  <label>Working hours in a day : <input type="number" name="wHours" value="-1" placeholder="Enter Project name.."></label>
-  <input type="submit" name="submit" value="Create Project!">
-</form>
+<div id="dashboardContent">
+  <form id="addProjectForm" action="/addProject" method="post">
+    <label>Title : <input type="text" name="title" value="" placeholder="Enter Project name.." required></label>
+    <label>description : <input type="text" name="description" value="..." placeholder="Enter Project description.."></label>
+    <label>Working days in a week : <input type="number" name="wDays" value="-1" placeholder="Enter Project name.."></label>
+    <label>Working hours in a day : <input type="number" name="wHours" value="-1" placeholder="Enter Project name.."></label>
+    <input type="submit" name="submit" value="Create Project!">
+  </form>
+</div>
