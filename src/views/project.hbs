@@ -1,0 +1,31 @@
+<h1>This is the project page :D</h1>
+<h2>project ID {{project_id}}</h2>
+<div class="backlog">
+  <ul>
+    <li>task1</li>
+  </ul>
+</div>
+<h2>+Add task to backlog</h2>
+<form id="addTaskForm" action="/addTask" method="post">
+  <label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>
+  <label>description : <input type="text" name="description" value="..." placeholder="Enter task description.."></label>
+  <label>priority :
+    <select name="priority">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </label>
+  <label>deadline<input type="date" name="deadline" value="2014-02-09" required></label>
+  <label>Duration<input type="number" name="duration" value="1" required>
+    <select name="duration">
+      <option value="1">H</option>
+      <option value="2">D</option>
+      <option value="3">W</option>
+      <option value="4">M</option>
+    </select>
+  </label>
+  <input type="submit" name="submit" value="Create Task!">
+</form>

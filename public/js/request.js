@@ -1,11 +1,5 @@
-
-
-
-
-
 function apiReq (url, method, callback, postData) { // eslint-disable-line
   var xhttp = new XMLHttpRequest();// eslint-disable-line
-  console.log(url, method);
   xhttp.onreadystatechange = function () {
     var myJSONRemote;
     if (this.readyState === 4 && this.status === 200) {
