@@ -64,7 +64,7 @@ const getProjectTasks = (projectId, state, cb) => {
 
 const getCurrentTasks = (userId, cb) => {
   const sql = {
-    text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done'`,
+    text: `SELECT tasks.title,tasks.id,tasks.deadline,tasks.description,tasks.duration,tasks.priority,tasks.progress FROM tasks INNER JOIN state ON tasks.state_id=state.id WHERE tasks.assigned_id= $1 AND state.name != 'done'`,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
@@ -79,14 +79,14 @@ const getCurrentTasks = (userId, cb) => {
 // / get the current tasks orderd by priority
 const filterByPriority = (userId, cb) => {
   const sql = {
-    text: `SELECT * FROM tasks WHERE assigned_id= $1 AND state != 'done' ORDER BY priority ASC `,
+    text: `SELECT tasks.title,tasks.id,tasks.deadline,tasks.description,tasks.duration,tasks.priority,tasks.progress FROM tasks INNER JOIN state ON tasks.state_id=state.id WHERE tasks.assigned_id= $1 AND state.name != 'done' ORDER BY tasks.priority ASC `,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res.rows);
+      cb(null, res);
     }
   });
 };
