@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      res.render('currentProjects.hbs', {projects: res, isEmpty: res.length === 0});
+      res.render('currentProjectsTab.hbs', {projects: res, isEmpty: res.length === 0});
     }
   });
 };

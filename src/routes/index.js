@@ -8,6 +8,7 @@ router.get('/getUsersTasks', routes.getUsersTasks);
 router.get('/getDashboard', routes.getDashboard);
 router.get('/tasks/:task_id', routes.getTask);
 router.get('/getCurrentProjects', routes.getCurrentProjects);
+router.get('/getFinishedProjects', routes.getFinishedProjects);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);

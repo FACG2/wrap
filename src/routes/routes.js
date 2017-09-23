@@ -8,5 +8,6 @@ module.exports = {
   getUsersTasks: require('./getUsersTasks.js'),
   getDashboard: require('./getDashboard.js'),
   getTask: require('./getTask.js'),
-  getCurrentProjects: require('./getCurrentProjects.js')
+  getCurrentProjects: require('./getCurrentProjects.js'),
+  getFinishedProjects: require('./getFinishedProjects.js')
 };
