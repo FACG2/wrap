@@ -7,5 +7,6 @@ module.exports = {
   postAddProject: require('./postAddProject.js'),
   getUsersTasks: require('./getUsersTasks.js'),
   getDashboard: require('./getDashboard.js'),
-  getTask: require('./getTask.js')
+  getTask: require('./getTask.js'),
+  getCurrentProjects: require('./getCurrentProjects.js')
 };

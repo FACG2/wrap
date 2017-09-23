@@ -1,0 +1,9 @@
+<h1>currentProjects</h1>
+
+{{#if isEmpty}}
+<h2>You dont have projects in progress for now !<h2>
+{{else}}
+  {{#each tasks}}
+    <p>project id :  {{id}} </p>
+  {{/each}}
+{{/if}}
