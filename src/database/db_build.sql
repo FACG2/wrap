@@ -7,7 +7,6 @@ username VARCHAR(100) NOT NULL,
 githubname VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
 password VARCHAR(100) NOT NULL,
-watch BOOLEAN DEFAULT False,
 avatar VARCHAR(100) DEFAULT 'http://www.iconsdb.com/icons/preview/dark-gray/businessman-xxl.png'
 );
 
@@ -24,6 +23,7 @@ progress NUMERIC DEFAULT 0
 CREATE TABLE user_project(
 user_id INTEGER REFERENCES users(id),
 project_id INTEGER REFERENCES projects(id),
+watch BOOLEAN DEFAULT False,
 role VARCHAR(100) DEFAULT 'user'
 );
 
@@ -37,6 +37,14 @@ closed BOOLEAN DEFAULT False,
 project_id INTEGER REFERENCES projects(id)
 );
 
+CREATE TABLE state(
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+sprint_id  INTEGER REFERENCES sprints(id)
+);
+
+
+
 CREATE TABLE tasks(
 id SERIAL PRIMARY KEY,
 title VARCHAR(100) NOT NULL,
@@ -45,10 +53,10 @@ priority INTEGER DEFAULT -1,
 progress NUMERIC DEFAULT 0,
 deadline VARCHAR(100) DEFAULT 'Not specified',
 duration INTEGER DEFAULT -1,
-sprint_id INTEGER DEFAULT -1,
+sprint_id INTEGER REFERENCES sprints(id),
 project_id INTEGER REFERENCES projects(id),
 assigned_id INTEGER REFERENCES users(id),
-state TEXT DEFAULT 'backlog',
+state_id  INTEGER REFERENCES state(id),
 orders INTEGER NOT NULL
 );
 
