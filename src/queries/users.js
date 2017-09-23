@@ -7,15 +7,8 @@ const getUserByEmail = (email, cb) => {
     text: `SELECT * FROM users WHERE email = $1`,
     values: [email] };
 
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
-
 
 const checkInvitation = (email, cb) => {
   const sql = {
@@ -26,7 +19,7 @@ const checkInvitation = (email, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows[0]);
     }
   });
 };
@@ -36,22 +29,8 @@ const deleteInvitation = (inviteId, cb) => {
     text: `DELETE FROM invites WHERE invites.id=$1`,
     values: [inviteId] };
 
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
-
-deleteInvitation(1,(err,res)=>{
-  if (err) {
-    console.log(err);
-  }else {
-    console.log(res);
-  }
-})
 
 const getUserById = (id, cb) => {
   const sql = {
@@ -62,7 +41,7 @@ const getUserById = (id, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows[0]);
     }
   });
 };
@@ -72,13 +51,7 @@ const getUserByUserName = (userName, cb) => {
     text: `SELECT * FROM users WHERE username = $1`,
     values: [userName] };
 
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
 
 const getUserLogIn = (email, password, cb) => {
@@ -133,7 +106,7 @@ const invite = (senderId, email, projectId, cb) => {
     if (error) {
       cb(error);
     } else {
-      cb(null, result.rows);
+      cb(null, result.rows[0]);
     }
   });
 };
