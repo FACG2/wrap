@@ -38,7 +38,7 @@ const filterByPriority = (userId, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
     }
   });
 };
