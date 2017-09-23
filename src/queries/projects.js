@@ -30,15 +30,6 @@ const getCurrentProjects = (userId, cb) => {
   });
 };
 
-getCurrentProjects(1,(err,res)=>{
-  if (err) {
-    console.log(err);
-  }
-  else {
-    console.log(res);
-  }
-});
-
 const getProjectDetails = (projectId, cb) => {
   const sql = {
     text: `SELECT projects.title,projects.progress  FROM projects WHERE projects.id = $1`,
@@ -239,13 +230,7 @@ const getTasksByState = (sprintId, state, cb) => {
   const sql = {
     text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
     values: [sprintId, state] };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res);
-    }
-  });
+  connection.query(sql, cb);
 };
 //
 // // // add member to the project or invite then add the log where the action type will be add or invite
