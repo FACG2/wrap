@@ -15,7 +15,6 @@ const getTasksByUserId = (userId, cb) => {
   });
 };
 
-
 const getTasksByState = (sprintId, state, cb) => {
   const sql = {
     text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
@@ -28,7 +27,6 @@ const getTasksByState = (sprintId, state, cb) => {
     }
   });
 };
-
 
 const getStateByName = (stateName, cb) => {
   const sql = {
@@ -91,8 +89,52 @@ const filterByPriority = (userId, cb) => {
   });
 };
 
+const comment = (userId, context, taskId, cb) => {
+  const sql = {
+    text: `INSERT INTO comments (user_id,context,task_id) VALUES ($1,$2,$3) RETURNING *`,
+    values: [userId, context, taskId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows[0]);
+    }
+  });
+};
+
+const deleteComment = (commentId, cb) => {
+  const sql = {
+    text: `DELETE FROM comments WHERE comments.id=$1`,
+    values: [commentId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
+const listComments = (taskId, cb) => {
+  const sql = {
+    text: `SELECT * FROM comments WHERE task_id=$1 `,
+    values: [taskId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows);
+    }
+  });
+};
+
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
-  filterByPriority
+  filterByPriority,
+  comment,
+  deleteComment,
+  listComments
 };
