@@ -14,16 +14,16 @@ const getTasksByUserId = (userId, cb) => {
     }
   });
 };
-
-const getTasksByState = (sprintId, state, cb) => {
+// /// change state > id
+const getTasksByState = (sprintId, stateId, cb) => {
   const sql = {
-    text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
-    values: [sprintId, state] };
+    text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state_id = $2`,
+    values: [sprintId, stateId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
     }
   });
 };
@@ -96,7 +96,11 @@ const calTaskOrder = (projectId, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, tasks[tasks.length - 1].orders + 1);
+      if (tasks.length === 0) {
+        cb(null,0)
+      } else {
+        cb(null, tasks[tasks.length - 1].orders + 1);
+      }
     }
   });
 };
@@ -117,7 +121,7 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
             if (err) {
               cb(err);
             } else {
-              cb(null, res.rows);
+              cb(null, res.rows[0]);
             }
           });
         }
@@ -129,5 +133,10 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
-  filterByPriority
+  filterByPriority,
+  getTasksByState,
+  getStateByName,
+  getProjectTasks,
+  calTaskOrder,
+  addTask
 };

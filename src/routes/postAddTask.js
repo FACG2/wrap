@@ -1,16 +1,19 @@
 
 const queries = require('../queries/index.js');
-
-
-
-
-
 module.exports = (req, res, next) => {
-  queries.projects.addTask(req.params.project_id,req.body.title, req.body.priority, req.body.description, req.body.deadline, req.body.duration, req.body.state_id, req.body.orders, (err, projectData) => {
-    if (err) {
-      return next(err);
-    } else {
-      res.redirect('project.hbs');
-    }
+  let data = '';
+  req.on('data', function (chunk) {
+    data += chunk;
+  });
+  req.on('end', function () {
+      data = JSON.parse(data);
+    queries.tasks.addTask(data.title, data.description, data.priority, data.deadline, data.duration, req.params.project_id, (err, taskDetails) => {
+      if (err) {
+        res.send('err');
+      } else {
+        console.log(taskDetails);
+        res.send(taskDetails)
+      }
+    });
   });
 };
