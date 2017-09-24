@@ -6,7 +6,7 @@
   </ul>
 </div>
 <h2>+Add task to backlog</h2>
-<form id="addTaskForm" action="/addTask" method="post">
+<form id="addTaskForm" action="/projects/{{project_id}}/addTask" method="post">
   <label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>
   <label>description : <input type="text" name="description" value="..." placeholder="Enter task description.."></label>
   <label>priority :

@@ -15,7 +15,6 @@ const getTasksByUserId = (userId, cb) => {
   });
 };
 
-
 const getTasksByState = (sprintId, state, cb) => {
   const sql = {
     text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state = $2`,
@@ -28,7 +27,6 @@ const getTasksByState = (sprintId, state, cb) => {
     }
   });
 };
-
 
 const getStateByName = (stateName, cb) => {
   const sql = {
@@ -87,6 +85,43 @@ const filterByPriority = (userId, cb) => {
       cb(err);
     } else {
       cb(null, res);
+    }
+  });
+};
+
+// ////
+
+const calTaskOrder = (projectId, cb) => {
+  getProjectTasks(projectId, 'backlog', (err, tasks) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, tasks[tasks.length - 1].orders + 1);
+    }
+  });
+};
+
+const addTask = (title, description, priority, deadline, duration, projectId, cb) => {
+  calTaskOrder(projectId, (error, order) => {
+    if (error) {
+      cb(error);
+    } else {
+      getStateByName('backlog', (err, state_id) => {
+        if (err) {
+          cb(err);
+        } else {
+          const sql = {
+            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
+            values: [title, description, priority, deadline, duration, projectId, state_id, order] };
+          connection.query(sql, (err, res) => {
+            if (err) {
+              cb(err);
+            } else {
+              cb(null, res.rows);
+            }
+          });
+        }
+      });
     }
   });
 };
