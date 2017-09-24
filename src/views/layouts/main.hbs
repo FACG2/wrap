@@ -2,10 +2,11 @@
 <html lang="en">
 {{> head}}
   <body class="fixed-nav sticky-footer " id="page-top">
-    {{>nav}}
     <div class="mainContent container">
       {{{body}}}
     </div>
-    <!-- <script type="text/javascript" src="js/dashboard.js"></script> -->
+    {{> footer}}
+    {{> mainScripts}}
+    <script src="js/{{scriptName}}.js" ></script>
   </body>
 </html>
