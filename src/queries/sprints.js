@@ -39,8 +39,25 @@ const getCurrentSprint = (projectId, cb) => {
     }
   });
 };
+
+const getTasksByState = (sprintId,cb) => {
+  const sql = {
+    text: `SELECT * FROM state WHERE sprint_id= $1`,
+    values: [sprintId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
+
+
+
 module.exports = {
   getAllSprints,
   getFinishedSprints,
-  getCurrentSprint
+  getCurrentSprint,
+  getTasksByState
 };
