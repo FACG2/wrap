@@ -40,7 +40,8 @@ const getCurrentSprint = (projectId, cb) => {
   });
 };
 
-const getTasksByState = (sprintId,cb) => {
+
+const getSprintStates = (sprintId,cb)=>{
   const sql = {
     text: `SELECT * FROM state WHERE sprint_id= $1`,
     values: [sprintId] };
@@ -51,9 +52,29 @@ const getTasksByState = (sprintId,cb) => {
       cb(null, res.rows);
     }
   });
+}
+
+const getTasksByState = (stateName,cb) => {
+  const sql = {
+    text: `SELECT * FROM tasks WHERE state_id=(SELECT state_id FROM state WHERE name=$1)`,
+    values: [stateName] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
 };
 
-
+getTasksByState('backlog',(err,rs)=>{
+  if(err){
+    console.log(err);
+  }
+  else{
+    console.log(rs);
+  }
+})
 
 module.exports = {
   getAllSprints,
