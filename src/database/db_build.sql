@@ -77,7 +77,7 @@ id SERIAL PRIMARY KEY,
 task_id INTEGER REFERENCES tasks(id),
 user_id INTEGER REFERENCES users(id),
 context TEXT DEFAULT 'no context',
-date TIMESTAMP NOT NULL
+date TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE logs(
