@@ -14,19 +14,7 @@ const getTasksByUserId = (userId, cb) => {
     }
   });
 };
-// /// change state > id
-const getTasksByState = (sprintId, stateId, cb) => {
-  const sql = {
-    text: `SELECT * FROM tasks WHERE sprint_id= $1 AND state_id = $2`,
-    values: [sprintId, stateId] };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows);
-    }
-  });
-};
+
 
 const getStateByName = (stateName, cb) => {
   const sql = {
@@ -228,7 +216,6 @@ module.exports = {
   addComment,
   deleteComment,
   listComments,
-  getTasksByState,
   getStateByName,
   getProjectTasks,
   calTaskOrder,

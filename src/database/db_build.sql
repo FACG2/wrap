@@ -39,7 +39,7 @@ project_id INTEGER REFERENCES projects(id)
 
 CREATE TABLE state(
 id SERIAL PRIMARY KEY,
-name VARCHAR(100) NOT NULL,
+name VARCHAR(100) NOT NULL UNIQUE,
 sprint_id  INTEGER REFERENCES sprints(id)
 );
 
