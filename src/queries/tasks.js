@@ -15,7 +15,6 @@ const getTasksByUserId = (userId, cb) => {
   });
 };
 
-
 const getStateByName = (stateName, cb) => {
   const sql = {
     text: `SELECT id FROM state WHERE name= $1`,
@@ -142,7 +141,6 @@ const removeAssign = (taskId, cb) => {
     }
   });
 };
-
 
 const deleteComment = (commentId, cb) => {
   const sql = {
