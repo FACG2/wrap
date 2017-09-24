@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
       if (err) {
         res.send('err');
       } else {
-        console.log(taskDetails);
         res.send(taskDetails)
       }
     });
