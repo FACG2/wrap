@@ -102,6 +102,59 @@ const addComment = (userId, context, taskId, cb) => {
     }
   });
 };
+// text: `UPDATE tasks SET assigned_id=$1 WHERE tasks.id=$2 RETURNING *`,
+
+const assignMember = (memberName, taskId, cb) => {
+  const sql = {
+    text: `SELECT assigned_id FROM tasks WHERE id=$1`,
+    values: [taskId]
+  };
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      if (result.rows[0].assigned_id === null) {
+        const sql = {
+          text: `SELECT users.id FROM users WHERE username =$1`,
+          values: [memberName]
+        };
+        connection.query(sql, (error, memberId) => {
+          if (error) {
+            cb(error);
+          } else {
+            const sql2 = {
+              text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
+              values: [memberId.rows[0].id, taskId]
+            };
+            connection.query(sql2, (error2, result2) => {
+              if (error2) {
+                cb(error2);
+              } else {
+                cb(null, result2.rows[0]);
+              }
+            });
+          }
+        });
+      } else {
+        cb('There is another member assigned');
+      }
+    }
+  });
+};
+
+const removeAssign = (taskId, cb) => {
+  const sql = {
+    text: `UPDATE tasks SET assigned_id=null WHERE id=$1 RETURNING *`,
+    values: [taskId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+};
+
 
 const deleteComment = (commentId, cb) => {
   const sql = {
@@ -114,7 +167,7 @@ const deleteComment = (commentId, cb) => {
       cb(null, res);
     }
   });
-}
+};
 
 const calTaskOrder = (projectId, cb) => {
   getProjectTasks(projectId, 'backlog', (err, tasks) => {
@@ -122,7 +175,7 @@ const calTaskOrder = (projectId, cb) => {
       cb(err);
     } else {
       if (tasks.length === 0) {
-        cb(null,0)
+        cb(null, 0);
       } else {
         cb(null, tasks[tasks.length - 1].orders + 1);
       }
@@ -142,7 +195,7 @@ const listComments = (taskId, cb) => {
       cb(null, result.rows);
     }
   });
-}
+};
 const addTask = (title, description, priority, deadline, duration, projectId, cb) => {
   calTaskOrder(projectId, (error, order) => {
     if (error) {
@@ -179,5 +232,7 @@ module.exports = {
   getStateByName,
   getProjectTasks,
   calTaskOrder,
-  addTask
+  addTask,
+  assignMember,
+  removeAssign
 };
