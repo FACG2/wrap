@@ -16,6 +16,24 @@
     loading(dashboardContent);
     render('/getUsersTasks', dashboardContent);
   });
+  /* CurrnetProjects Tab */
+  if (linkHash === '#currentProjects') {
+    loading(dashboardContent);
+    render('/currentProjects', dashboardContent);
+  }
+  document.getElementById('currentProjectsButton').addEventListener('click', function (event) {
+    loading(dashboardContent);
+    render('/currentProjects', dashboardContent);
+  });
+  /* CurrnetProjects Tab */
+  if (linkHash === '#finishedProjects') {
+    loading(dashboardContent);
+    render('/finishedProjects', dashboardContent);
+  }
+  document.getElementById('finishedProjectsButton').addEventListener('click', function (event) {
+    loading(dashboardContent);
+    render('/finishedProjects', dashboardContent);
+  });
 
   /* Create New Project Tab */
   if (linkHash === '#createProject') {
