@@ -1,10 +1,10 @@
 const queries = require('../queries/index.js');
 module.exports = (req, res, next) => {
-  queries.project.getFinishedProjects(req.user.id, (err, res) => {
+  queries.projects.getFinishedProjects(req.user.id, (err, result) => {
     if (err) {
       next(err);
     } else {
-      res.render('finishedProjectsTab.hbs', {projects: res, isEmpty: res.length === 0});
+      res.render('finishedProjectsTab.hbs', {projects: result, isEmpty: result.length === 0});
     }
   });
 };
