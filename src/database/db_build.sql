@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS users , projects ,user_project, tasks,sprints,features, mil
 
 CREATE TABLE users(
 id SERIAL PRIMARY KEY,
-username VARCHAR(100) NOT NULL,
+username VARCHAR(100) UNIQUE NOT NULL,
 githubname VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
 password VARCHAR(100) NOT NULL,
@@ -42,6 +42,7 @@ id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL UNIQUE,
 sprint_id  INTEGER REFERENCES sprints(id)
 );
+ALTER TABLE state ADD CONSTRAINT states_name_sprintid_key UNIQUE (sprint_id, name);
 
 
 
@@ -83,9 +84,12 @@ date TIMESTAMP DEFAULT now()
 CREATE TABLE logs(
 id SERIAL PRIMARY KEY,
 project_id INTEGER REFERENCES projects(id),
-user_id INTEGER REFERENCES users(id),
+username VARCHAR(100) REFERENCES users(username),
 context TEXT DEFAULT 'no context',
-date TIMESTAMP NOT NULL
+mdate TIMESTAMP DEFAULT now(),
+type VARCHAR(100) NOT NULL,
+link VARCHAR(100) NOT NULL,
+action_id INTEGER NOT NULL
 );
 
 CREATE TABLE notifications(
@@ -93,7 +97,9 @@ id SERIAL PRIMARY KEY,
 user_id INTEGER REFERENCES users(id),
 context TEXT DEFAULT 'no context',
 seen BOOLEAN DEFAULT False,
-link VARCHAR(100) NOT NULL
+link VARCHAR(100) NOT NULL,
+mdate TIMESTAMP DEFAULT now(),
+
 );
 
 CREATE TABLE labels(

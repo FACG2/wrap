@@ -13,7 +13,7 @@ function removeToken (req,res,next){
       if (err) {
         return res.render('error.hbs', {message: 'Access is denied, Please login'});
       } else {
-        return res.cookie('token', '', {maxAge: 0});;
+        return res.cookie('token', '', {maxAge: 0});
       }
     });
 

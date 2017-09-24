@@ -9,5 +9,6 @@ module.exports = {
   getDashboard: require('./getDashboard.js'),
   getTask: require('./getTask.js'),
   getCurrentProjects: require('./getCurrentProjects.js'),
-  getFinishedProjects: require('./getFinishedProjects.js')
+  getFinishedProjects: require('./getFinishedProjects.js'),
+  getLogout: require('./getLogout')
 };

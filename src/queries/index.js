@@ -1,10 +1,7 @@
-const users = require('./users.js');
-const projects = require('./projects.js');
-const tasks = require('./tasks.js');
-const sprints = require('./sprints.js');
 module.exports = {
-  tasks,
-  users,
-  projects,
-  sprints
+  tasks: require('./tasks.js'),
+  users: require('./users.js'),
+  projects: require('./projects.js'),
+  sprints: require('./sprints.js'),
+  logs: require('./logs.js')
 };
