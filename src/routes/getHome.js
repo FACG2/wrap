@@ -10,6 +10,7 @@ module.exports = (req, res, next) => {
         next(err);
       } else {
         data.scriptName = 'dashboard';
+        data.user = req.user;
         res.render('dashboard.hbs', data);
       }
     });
