@@ -19,11 +19,9 @@ const addWatchersNotification = (userId, projectId, context, link, cb) => {
         });
         let sqlText = `INSERT INTO notifications (user_id, context, link) VALUES `;
         sqlText += res.rows.map((id, i) => {
-          if (i === this.length - 1) {
-            return `($${i + 3},$1,$2)`;
-          }
           return `($${i + 3},$1,$2)`;
         });
+        console.log(sqlText);
         let sqlValues = [context, link, ...ids];
         const sql = {
           text: sqlText,
@@ -36,7 +34,6 @@ const addWatchersNotification = (userId, projectId, context, link, cb) => {
     }
   });
 };
-
 const getAllWatchersExcept = (userId, projectId, cb) => {
   const sql = {
     text: `SELECT user_id FROM user_project WHERE user_id != $1 AND project_id= $2 AND watch = true`,
