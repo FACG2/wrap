@@ -110,6 +110,8 @@ const deleteInvitation = (inviteId, cb) => {
   connection.query(sql, cb);
 };
 
+
+
 module.exports = {
   getUserByEmail,
   getUserById,
