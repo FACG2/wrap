@@ -8,6 +8,8 @@ const addNotification = (userId, context, link, cb) => {
   connection.query(sql, cb);
 };
 
+
+// add notifications to all users except the one who made it (userId)
 const addWatchersNotification = (userId, projectId, context, link, cb) => {
   const sql = {
 // //////////////////////FIX THIS PLEASE!!
