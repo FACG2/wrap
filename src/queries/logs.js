@@ -6,13 +6,7 @@ const addLog = (projectId, userId, context, type, link, actionId, cb) => {
     text: `INSERT INTO logs (project_id, user_id, context, type, link, action_id) VALUES ($1,$2,$3,$4,$5,$6)`,
     values: [projectId, userId, context, type, link, actionId]
   };
-  connection.query(sql, (error, result) => {
-    if (error) {
-      cb(error);
-    } else {
-      cb(null, result.row);
-    }
-  });
+  connection.query(sql, cb);
 };
 
 module.exports = {

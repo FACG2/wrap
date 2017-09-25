@@ -1,5 +1,22 @@
 const connection = require('../database/db_connection.js');
 
+const addNotification = (userId, context, link, cb) => {
+  const sql = {
+    text: `INSERT INTO notifications WHERE user_id=$1`,
+    values: [userId]
+  };
+  connection.query(sql, cb);
+};
+
+const addWatchersNotification = (userId, projectId, context, link, cb) => {
+  const sql = {
+// //////////////////////FIX THIS PLEASE!!
+    text: `INSERT INTO notifications WHERE user_id != $1 AND `,
+    values: [userId]
+  };
+  connection.query(sql, cb);
+};
+
 const unseenNoti = (userId, cb) => {
   const sql = {
     text: `SELECT * FROM notifications WHERE user_id=$1 AND seen = FALSE `,
@@ -44,5 +61,7 @@ const getNotiBySeen = (userId, cb) => {
 module.exports = {
   unseenNoti,
   markAsSeenNoti,
-  getNotiBySeen
+  getNotiBySeen,
+  addNotification,
+  addWatchersNotification
 };
