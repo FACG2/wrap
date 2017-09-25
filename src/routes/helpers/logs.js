@@ -1,7 +1,7 @@
 const queries = require('../../queries/index.js');
 
 const createProject = (username, userId, projectId, projectName, cb) => {
-  const context = `${username} Created New project: ${projectName}`;
+  let context = `${username} Created a New project: ${projectName}`;
   const link = `/projects/${projectId}`;
   const type = 'project';
   const actionId = projectId;
@@ -9,11 +9,27 @@ const createProject = (username, userId, projectId, projectName, cb) => {
     if (err) {
       cb(err);
     } else {
-      queries.logs.addNotification();
+      context = `You Created a New project: ${projectName}`;
+      queries.notifications.addNotification(userId, context, link, cb);
+    }
+  });
+};
+
+const createTask = (username, userId, projectId, taskName, taskId, cb) => {
+  let context = `${username} Created a New task: ${taskName}`;
+  const link = `/tasks/${taskId}`;
+  const type = 'task';
+  const actionId = taskId;
+  queries.logs.addLog(projectId, context, type, link, actionId, username, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      queries.notifications.addWatchersNotification(userId, projectId, context, link, cb);
     }
   });
 };
 
 module.exports = {
-  createProject
+  createProject,
+  createTask
 };

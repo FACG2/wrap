@@ -3,5 +3,6 @@ module.exports = {
   users: require('./users.js'),
   projects: require('./projects.js'),
   sprints: require('./sprints.js'),
-  logs: require('./logs.js')
+  logs: require('./logs.js'),
+  notifications: require('./notifications.js')
 };
