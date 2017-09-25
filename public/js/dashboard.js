@@ -44,6 +44,11 @@
     loading(dashboardContent);
     renderCreateProjectForm(dashboardContent);
   });
+  /*tabels*/
+  if ($('#dataTable')) {
+  $('#dataTable').DataTable();
+}
+
 })();
 
 function loading (container) {

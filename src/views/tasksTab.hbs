@@ -1,9 +1,41 @@
-<h1>My Tasks</h1>
+
+<!-- task -->
+<div class="ml-2 mb-0 mt-4">
+<i class="fa fa-table"></i> Tasks List</div>
+ <hr class="mt-2">
 
 {{#if isEmpty}}
-<h2>No tasks assigned to you for now!<h2>
+<div class="ml-2 mb-0 mt-4">
+<h2>No tasks assigned to you for now!<h2></div>
 {{else}}
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered  text-center" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Task Name</th>
+            <th>State</th>
+            <th>Priorty</th>
+            <th>progress</th>
+            <th>Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
   {{#each tasks}}
-    <p>task id :  {{id}} </p>
+
+  <tr>
+    <td class="task"><a href="#">{{title}}</a></td>
+    <td class="state"><span class="badge badge-secondary">{{state_id}}</span></td>
+    <td class="priorty"><span class="badge badge-success">{{priority}}</span></td>
+    <td class="process"><span class="badge"  style="background-color: #e6e6e6;color:#212551;">{{progress}}%</span></td>
+    <td class="deadline"><i class="fa fa-fw fa-calendar"></i>{{deadline}}</td>
+  </tr>
   {{/each}}
+
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
 {{/if}}
