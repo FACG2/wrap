@@ -1,12 +1,324 @@
-<h1>This is the project page :D</h1>
-<h2>project ID {{project_id}}</h2>
-<div class="backlog">
-  <ul>
-    <li>task1</li>
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  {{> nav}}
+  {{> dashboardNav}}
+</nav>
+
+<div class="content-wrapper" style="background-color: #f2f2f2;">
+  <div class="container-fluid">
+  <div class="mb-0 mt-4">
+    <i class="fa fa-list-alt"></i> Sprint Number {{project_id}}</div>
+     <hr class="mt-2">
+
+<!-- <div class="backlog">
+
+</div> -->
+   <div class="row mt-1">
+
+<!-- Backlog  -->
+     <div class="col-3 my-1">
+       <div class="font-weight-bold text-center my-3 mt-4">Backlog</div>
+       <button type="button" class="btn btn-sm btn-block font-weight-bold my-3"> + Add Task </button>
+       <div class="card mb-2">
+         <button type="button" class="btn btn-danger btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+           <div class="progress bg-white">
+             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+           </div>
+       </div>
+
+
+
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-danger btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-primary btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-warning btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>>
+       </div>
+
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-success btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-danger btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+
+     </div>
+
+<!-- In progress -->
+
+     <div class="col-3 my-1">
+       <div class="font-weight-bold text-center my-3 mt-4">In Progress</div>
+       <div class="card mb-2">
+         <button type="button" class="btn btn-warning btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-secondary btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+
+     </div>
+
+<!-- Testing -->
+     <div class="col-3 my-1">
+       <div class="font-weight-bold text-center my-3 mt-4">Testing</div>
+       <div class="card mb-2">
+         <button type="button" class="btn btn-primary btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+         <div class="progress bg-white">
+           <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+         </div>
+       </div>
+
+       <div class="card mb-2">
+         <button type="button" class="btn btn-success btn-sm pull-left mb-2"></button>
+         <div class="row ml-1">
+           <div class="col-9">
+             <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+             <blockquote class="blockquote">
+           <p class="small font-weight-bold mb-0">Front-end Design</p>
+           <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+          </blockquote>
+           </div>
+           <div class="col-3 p-0">
+               <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+               <div class="media-body small">
+                 <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+             </div>
+           </div>
+         </div>
+           <div class="progress bg-white">
+             <div class="progress-bar   bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+           </div>
+       </div>
+
+     </div>
+
+<!-- Done -->
+  <div class="col-3 my-1">
+    <div class="font-weight-bold text-center my-3 mt-4">Done</div>
+
+    <div class="card mb-2">
+      <button type="button" class="btn btn-info btn-sm pull-left mb-2"></button>
+      <div class="row ml-1">
+        <div class="col-9">
+          <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+          <blockquote class="blockquote">
+        <p class="small font-weight-bold mb-0">Front-end Design</p>
+        <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+       </blockquote>
+        </div>
+        <div class="col-3 p-0">
+            <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+            <div class="media-body small">
+              <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+          </div>
+        </div>
+      </div>
+      <div class="progress bg-white">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      </div>
+    </div>
+
+
+    <div class="card mb-2">
+      <button type="button" class="btn btn-danger btn-sm pull-left mb-2"></button>
+      <div class="row ml-1">
+        <div class="col-9">
+          <!-- <p class="card-text small mb-2 font-weight-bold"> New user Template</p> -->
+          <blockquote class="blockquote">
+        <p class="small font-weight-bold mb-0">Front-end Design</p>
+        <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+       </blockquote>
+        </div>
+        <div class="col-3 p-0">
+            <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:30px">
+            <div class="media-body small">
+              <h6 class=" small ml-0 mb-1"><a href="#">Qamar</a></h6>
+          </div>
+        </div>
+      </div>
+      <div class="progress bg-white">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      </div>
+    </div>
+
+  </div>
 </div>
-<h2>+Add task to backlog</h2>
-<form id="addTaskForm" action="/projects/{{project_id}}/addTask" method="post">
+
+
+
+
+
+
+
+<!-- <form id="addTaskForm" action="/projects/{{project_id}}/addTask" method="post">
   <label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>
   <label>description : <input type="text" name="description" value="..." placeholder="Enter task description.."></label>
   <label>priority :
@@ -27,4 +339,4 @@
     </select>
   </label>
   <input type="submit" name="submit" value="Create Task!">
-</form>
+</form> -->

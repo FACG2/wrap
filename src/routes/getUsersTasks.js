@@ -5,7 +5,6 @@ module.exports = (req, res, next) => {
     if (err) {
       return next(err.message);
     }
-    console.log("hana",data);
     return res.render('tasksTab', {tasks: data, isEmpty: data.length === 0});
   });
 };
