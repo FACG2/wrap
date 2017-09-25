@@ -9,10 +9,38 @@ const addNotification = (userId, context, link, cb) => {
 };
 
 const addWatchersNotification = (userId, projectId, context, link, cb) => {
+  getAllWatchersExcept(userId, projectId, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      if (res.rows.length !== 0) {
+        const ids = res.rows.map((item) => {
+          return item.user_id;
+        });
+        let sqlText = `INSERT INTO notifications (user_id, context, link) VALUES `;
+        sqlText += res.rows.map((id, i) => {
+          if (i === this.length - 1) {
+            return `($${i + 3},$1,$2)`;
+          }
+          return `($${i + 3},$1,$2)`;
+        });
+        let sqlValues = [context, link, ...ids];
+        const sql = {
+          text: sqlText,
+          values: sqlValues
+        };
+        connection.query(sql, cb);
+      } else {
+        cb(null);
+      }
+    }
+  });
+};
+
+const getAllWatchersExcept = (userId, projectId, cb) => {
   const sql = {
-// //////////////////////FIX THIS PLEASE!!
-    text: `INSERT INTO notifications WHERE user_id != $1 AND `,
-    values: [userId]
+    text: `SELECT user_id FROM user_project WHERE user_id != $1 AND project_id= $2 AND watch = true`,
+    values: [userId, projectId]
   };
   connection.query(sql, cb);
 };
