@@ -36,7 +36,6 @@ app.use(auth);
 app.use(routes);
 
 app.use((err, req, res, next) => {
-  console.log('err', err);
   res.status(err.status || 500);
   res.render('error.hbs', {
     message: err.message,

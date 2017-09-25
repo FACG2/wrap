@@ -2,12 +2,11 @@ const connection = require('../database/db_connection.js');
 
 const addNotification = (userId, context, link, cb) => {
   const sql = {
-    text: `INSERT INTO notifications WHERE user_id=$1`,
-    values: [userId]
+    text: `INSERT INTO notifications (user_id,context,link) VALUES ($1,$2,$3)`,
+    values: [userId, context, link]
   };
   connection.query(sql, cb);
 };
-
 
 // add notifications to all users except the one who made it (userId)
 const addWatchersNotification = (userId, projectId, context, link, cb) => {
@@ -23,7 +22,6 @@ const addWatchersNotification = (userId, projectId, context, link, cb) => {
         sqlText += res.rows.map((id, i) => {
           return `($${i + 3},$1,$2)`;
         });
-        console.log(sqlText);
         let sqlValues = [context, link, ...ids];
         const sql = {
           text: sqlText,

@@ -5,7 +5,8 @@ const createProject = (username, userId, projectId, projectName, cb) => {
   const link = `/projects/${projectId}`;
   const type = 'project';
   const actionId = projectId;
-  queries.logs.addLog(projectId, context, type, link, actionId, username, (err, res) => {
+
+  queries.logs.addLog(projectId, username, context, type, link, actionId, (err, res) => {
     if (err) {
       cb(err);
     } else {
