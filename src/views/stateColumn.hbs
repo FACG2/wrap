@@ -1,0 +1,14 @@
+<h1>state tasks</h1>
+  {{#each tasks}}
+
+    <p>task id :  {{id}} </p>
+    <p>title: {{title}}</p>
+  <p>progress: {{progress}}</p>
+  <p>username: {{userName}}</p>
+  <p>avatar: {{avatar}}</p>
+  {{#each label}}
+  <p>label id: {{id}}</p>
+  <p>label color: {{color}}</p>
+  <p>label title: {{title}}</p>
+  {{/each}}
+  {{/each}}

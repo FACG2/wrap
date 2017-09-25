@@ -7,7 +7,8 @@ module.exports = (req, res, next) => {
       next(err);
     } else {
       var arr=helper.groupLabels(result);
-      res.render('stateColumn.hbs',{tasks:arr})
+      console.log(arr);
+      res.render(`stateColumn.hbs`,{tasks:arr})
     }
   });
 };

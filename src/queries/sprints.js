@@ -81,14 +81,6 @@ const getTaskLabels =(taskId,cb)=>{
 }
 
 
-getTasksByState(2, (err, rs) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(rs);
-  }
-});
-
 
 
 // const getTasksByStateName = (sprintId, stateName,cb) => {
