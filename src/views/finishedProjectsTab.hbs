@@ -1,9 +1,24 @@
-<h1>Finished Projects</h1>
+<div class="ml-2 my-2">
+  <h1 >Current Projects</h1>
+
+</div>
 
 {{#if isEmpty}}
-<h2>You dont have projects in progress for now !<h2>
+<div class="ml-2 my-2">
+  <h3>You dont have any Finished projects now !<h3>
+</div>
 {{else}}
+<div class="card-deck ml-1" >
   {{#each projects}}
-    <p>project id :  {{id}} </p>
+  <div class="card " style="width: 15rem;">
+      <div class="card-header text-center">{{title}}</div>
+    <div class="card-footer small">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width:{{progress}}" aria-valuenow={{progress}} aria-valuemin="0" aria-valuemax="100">{{progress}}</div>
+      </div>
+    </div>
+  </div>
+
   {{/each}}
+    </div>
 {{/if}}
