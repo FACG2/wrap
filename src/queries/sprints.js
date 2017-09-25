@@ -9,7 +9,20 @@ const getAllSprints = (projectId, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
+    }
+  });
+};
+
+const getNoOfSprints = (projectId, cb) => {
+  const sql = {
+    text: `SELECT sprints.id FROM sprints WHERE project_id= $1`,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows.length + 1);
     }
   });
 };
@@ -67,7 +80,7 @@ const getTasksByState = (stateId, cb) => {
   });
 };
 
-const getTaskLabels =(taskId,cb)=>{
+const getTaskLabels = (taskId, cb) => {
   const sql = {
     text: `SELECT * FROM labels WHERE task_id= $1`,
     values: [taskId] };
@@ -78,9 +91,47 @@ const getTaskLabels =(taskId,cb)=>{
       cb(null, res.rows);
     }
   });
-}
+};
 
+const addDefaultStates = (sprint_id, cb) => {
+  const sql = {
+    text: `INSERT INTO state (sprint_id,name)
+          SELECT $1,x
+          FROM  unnest(ARRAY['TODO', 'In-progress', 'Testing', 'done']) x`,
+    values: [sprint_id] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
 
+const addSprint = (startingdate, duration, project_id, cb) => {
+  getNoOfSprints(project_id, (err, sprintsNo) => {
+    if (err) {
+      cb(err);
+    } else {
+      const sql = {
+        text: `INSERT INTO sprints (title,startingdate,duration,project_id) VALUES ($1,$2,$3,$4) RETURNING *`,
+        values: ['SP - ' + sprintsNo, startingdate, duration, project_id] };
+      connection.query(sql, (err, res) => {
+        if (err) {
+          cb(err);
+        } else {
+          addDefaultStates(res.rows[0].id, (err, result) => {
+            if (err) {
+              cb(err);
+            } else {
+              cb(null, res.rows);
+            }
+          });
+        }
+      });
+    }
+  });
+};
 
 
 // const getTasksByStateName = (sprintId, stateName,cb) => {
@@ -109,5 +160,8 @@ module.exports = {
   getFinishedSprints,
   getCurrentSprint,
   getTasksByState,
-  getSprintStates
+  getSprintStates,
+  addDefaultStates,
+  getNoOfSprints,
+  addSprint
 };

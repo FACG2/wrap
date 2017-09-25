@@ -207,6 +207,12 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
   });
 };
 
+
+const addFeature=()=>{
+  
+}
+
+
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
