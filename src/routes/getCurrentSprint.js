@@ -10,12 +10,12 @@ module.exports = (req, res, next) => {
           if (err2) {
             next(err);
           } else {
-            const data = {sprintId: result.id, sprintName: result.title, states: result2};
+            const data = {layout: false, sprintId: result.id, sprintName: result.title, states: result2};
             res.render('sprint.hbs', data);
           }
         });
       } else {
-        return res.render('startSprintTab.hbs');
+        return res.render('startSprintTab.hbs', {layout: false});
       }
     }
   });

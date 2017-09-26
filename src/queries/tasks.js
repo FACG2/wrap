@@ -28,12 +28,13 @@ const getTaskDetails = (taskId, cb) => {
   });
 };
 
-const getStateByName = (stateName, cb) => {
+const getStateByName = (stateName, projectId, cb) => {
   const sql = {
-    text: `SELECT id FROM state WHERE name= $1`,
-    values: [stateName] };
+    text: `SELECT id FROM state WHERE name= $1 AND project_id = $2`,
+    values: [stateName, projectId] };
   connection.query(sql, (err, res) => {
     if (err) {
+      console.log('errrrrrr', err);
       cb(err);
     } else {
       cb(null, res.rows[0].id);
@@ -42,7 +43,7 @@ const getStateByName = (stateName, cb) => {
 };
 
 const getProjectTasks = (projectId, state, cb) => {
-  getStateByName(state, (error, stateId) => {
+  getStateByName(state, projectId, (error, stateId) => {
     if (error) {
       cb(error);
     } else {
@@ -201,18 +202,24 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
     if (error) {
       cb(error);
     } else {
-      getStateByName('backlog', (err, state_id) => {
+      getStateByName('backlog', projectId, (err, stateId) => {
         if (err) {
           cb(err);
         } else {
           const sql = {
-            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
-            values: [title, description, priority, deadline, duration, projectId, state_id, order] };
+            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING title, description, priority, deadline, duration, project_id, state_id, orders,id`,
+            values: [title, description, priority, deadline, duration, projectId, stateId, order] };
           connection.query(sql, (err, res) => {
             if (err) {
               cb(err);
             } else {
-              cb(null, res.rows[0]);
+              addDefaultLabel(res.rows[0].id, projectId, (err2, res2) => {
+                if (err) {
+                  cb(err);
+                } else {
+                  cb(null, res.rows);
+                }
+              });
             }
           });
         }
@@ -268,5 +275,6 @@ module.exports = {
   assignMember,
   removeAssign,
   getTaskDetails,
-  getFeatures
+  getFeatures,
+  addDefaultLabel
 };

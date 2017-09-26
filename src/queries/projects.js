@@ -144,14 +144,14 @@ const getMemberByEmail = (email, projectId, cb) => {
 
 const getAllMembersInProject = (projectId, cb) => {
   const sql = {
-    text: `SELECT * FROM user_project WHERE project_id = $1`,
+    text: `SELECT users.avatar,users.username, users.email  FROM user_project INNER JOIN users ON user_project.user_id = users.id WHERE project_id = $1`,
     values: [projectId]
   };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
     }
   });
 };
@@ -240,7 +240,6 @@ const getTasksByState = (sprintId, state, cb) => {
   connection.query(sql, cb);
 };
 
-
 // ////////////// No returning value
 
 const updateProjectProgress = (projectId, cb) => {
@@ -255,7 +254,7 @@ const updateProjectProgress = (projectId, cb) => {
       var totalProgrss = res.rows.reduce(function (sum, task, i) {
         return sum + parseInt(task.progress);
       }, 0);
-      let val = (totalProgrss / res.rows.length) ;
+      let val = (totalProgrss / res.rows.length);
       val = isNaN(val) ? 0 : val;
       const sql2 = {
         text: `UPDATE projects SET progress=$1 WHERE id=$2`,
@@ -278,7 +277,7 @@ const updateSprintProgress = (sprintId, cb) => {
       var totalProgrss = res.rows.reduce(function (sum, task) {
         return sum + parseInt(task.progress);
       }, 0);
-      let val = (totalProgrss / res.rows.length) ;
+      let val = (totalProgrss / res.rows.length);
       val = isNaN(val) ? 0 : val;
       const sql2 = {
         text: `UPDATE sprints SET progress=$1 WHERE id=$2`,
@@ -339,5 +338,6 @@ module.exports = {
   getProjectDetails,
   updateProjectProgress,
   updateSprintProgress,
-  updateTaskProgress
+  updateTaskProgress,
+  getAllMembersInProject
 };

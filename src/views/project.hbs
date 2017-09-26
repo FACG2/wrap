@@ -3,7 +3,7 @@
   {{> projectNav}}
 </nav>
 
-<div class="content-wrapper" style="background-color: #f2f2f2;">
+<div class="content-wrapper" >
   <div class="container-fluid">
     <div class="mb-0 mt-4">
       <i class="fa fa-list-alt"></i> Current Sprint</div>
@@ -14,8 +14,9 @@
            <!-- Backlog  -->
           <div id="backlog" onload="renderBacklog()" class="col-3 my-1 stateColumn">
              <div class="font-weight-bold text-center my-3 mt-4">Backlog</div>
-             <button type="button" class="btn btn-sm btn-block font-weight-bold my-3"> + Add Task </button>
-
+             <div class="addTaskDiv">
+               <button type="button" id="addTaskButton" class="btn btn-sm btn-block font-weight-bold my-3"> + Add Task </button>
+             </div>
              <div class="stateTasks">
 
              </div>

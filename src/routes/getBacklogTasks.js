@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      res.render(`stateColumn.hbs`, {tasks: result});
+      res.render(`stateColumn.hbs`, {layout: false, tasks: result, isEmpty: result.length === 0});
     }
   });
 };

@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  {{> nav}}
+  {{> projectNav}}
+</nav>
+<div class="content-wrapper" >
+  <div class="container-fluid">
+    <div class="mb-0 mt-4">
+      <i class="fa fa-tasks"></i> Project Members</div>
+       <hr class="mt-2">
+        <div class="row">
+       <div class="col-3 text-center ">
+     <a data-toggle="modal" data-target="#addMember">
+       <img class="card-img-top mb-2" src="http://freevector.co/wp-content/uploads/2009/08/64579-add-button.png" alt="Card image cap" style="border-radius: 50%;width: 75%;"></a>
+   </div>
+
+
+          <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="addMemberLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addMemberLabel">Add New Member</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                   <div class="form-group">
+                     <label for="userEmail" class="form-control-label">Member Email:</label>
+                     <input type="text" class="form-control" id="userEmail">
+                   </div>
+                   </form>
+                </div>
+                <div class="modal-footer">
+
+                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                  <a class="btn btn-primary" href="/member">Add Member</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    {{#if isEmpty}}
+    <div class="ml-2 my-2">
+      <h3>You dont have Membersfor this project !<h3>
+    </div>
+
+
+    {{else}}
+
+    {{#each members}}
+    <div class="col-3 text-center ">
+          <a data-toggle="modal" data-target="#deleteMember">
+          <img class="card-img-top mb-2" src="{{avatar}}" alt="{{username}}" style="border-radius: 50%;width: 75%;"></a>
+            <h4 class="card-title ">{{username}}</h4>
+            <p>{{email}}</p>
+        </div>
+    {{/each}}
+</div>
+</div>
+  </div>
+  {{/if}}

@@ -1,26 +1,31 @@
-  <div class="card mb-2" >
-    <button type="button" class="btn btn-warning btn-sm pull-left mb-2"></button>
-    <div class="labels">
-      {{#each label}}
-        <button style="background-color:{{color}};border-color:{{color}}" type="button" data-toggle="tooltip" title="{{title}}" class="btn  btn-sm pull-left mb-2 label"></button>
-      {{/each}}
-    </div>
-    <div class="row ml-1">
-      <div class="col-9">
-        <blockquote class="blockquote">
-          <a href="/tasks/{{id}}" class="small font-weight-bold mb-0">{{title}}</p>
-          <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
-       </blockquote>
+{{#if isEmpty}}
+  <h3>no tasks here!</h3>
+{{else}}
+  {{#each tasks}}
+    <div class="card mb-2" >
+      <button type="button" class="btn btn-warning btn-sm pull-left mb-2"></button>
+      <div class="labels">
+        {{#each label}}
+          <button style="background-color:{{color}};border-color:{{color}}" type="button" data-toggle="tooltip" title="{{title}}" class="btn  btn-sm pull-left mb-2 label"></button>
+        {{/each}}
       </div>
-      <div class="col-3 p-0">
-          <img  src="{{avatar}}" alt="{{userName}}" style="border-radius: 50%;height:30px">
-          <div class="media-body small">
-            <h6 class=" small ml-0 mb-1"><a href="#">{{userName}}</a></h6>
+      <div class="row ml-1">
+        <div class="col-9">
+          <blockquote class="blockquote">
+            <a href="/tasks/{{id}}" class="small font-weight-bold mb-0">{{title}}</p>
+            <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
+         </blockquote>
+        </div>
+        <div class="col-3 p-0">
+            <img  src="{{avatar}}" alt="{{userName}}" style="border-radius: 50%;height:30px">
+            <div class="media-body small">
+              <h6 class=" small ml-0 mb-1"><a href="#">{{userName}}</a></h6>
+          </div>
         </div>
       </div>
+      <div class="progress bg-white">
+        <div class="progress-bar bg-success" role="progressbar" style="width: {{progress}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      </div>
     </div>
-    <div class="progress bg-white">
-      <div class="progress-bar bg-success" role="progressbar" style="width: {{progress}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-    </div>
-  </div>
-{{/each}}
+  {{/each}}
+{{/if}}
