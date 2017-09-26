@@ -55,10 +55,10 @@ const signUp = (username, githubname, email, password, cb) => {
   users.getGithubAvatar(githubname, (err, avatar) => { // error handled by putting avatarRes as optional argument for signup
     let msg, val;
     if (avatar) {
-      msg = `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5)`;
+      msg = `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5) RETURNING *`;
       val = [username, githubname, email, hashed, avatar];
     } else {
-      msg = `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4)`;
+      msg = `INSERT INTO users (username,githubname,email,password) VALUES ($1,$2,$3,$4) RETURNING *`;
       val = [username, githubname, email, hashed];
     }
     const sql = {

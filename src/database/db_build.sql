@@ -7,7 +7,7 @@ username VARCHAR(100) UNIQUE NOT NULL,
 githubname VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
 password VARCHAR(100) NOT NULL,
-avatar VARCHAR(100) DEFAULT 'http://www.iconsdb.com/icons/preview/dark-gray/businessman-xxl.png'
+avatar VARCHAR(100) DEFAULT 'http://www.cheap-accountants-in-london.co.uk/wp-content/uploads/2015/07/User-Avatar.png'
 );
 
 CREATE TABLE projects(
