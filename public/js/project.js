@@ -2,32 +2,30 @@
   var mainConainer = document.getElementsByClassName('sprintStates')[0];
   onPageLoadCheck(mainConainer);
   /* Start new Sprint */
-  document.getElementById('startSprintButton').addEventListener('click', function (e) {
-    mainConainer.innerHTML = generateStartSprintForm();
-    startSprintFormListener();
-  });
-
-  var addTaskForm = document.getElementById('addTaskForm');
-  if (addTaskForm) {
-    addTaskForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var addTaskData = event.target;
-      var addTaskReq = {
-        title: addTaskData[0].value,
-        description: addTaskData[1].value,
-        priority: addTaskData[2].value,
-        deadline: addTaskData[3].value,
-        duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
-      };
-      apiReq(window.location.pathname + 'addTask', 'POST', function (err, data) {
-        if (err || data === 'err') {
-          console.log(err);
-        } else {
-          data = JSON.parse(data);
-        }
-      }, JSON.stringify(addTaskReq));
+  var startSprintButton = document.getElementById('startSprintButton');
+  if (startSprintButton) {
+    document.getElementById('startSprintButton').addEventListener('click', function (e) {
+      mainConainer.innerHTML = generateStartSprintForm();
+      startSprintFormListener();
     });
   }
+
+  /* Add New Task */
+  var addTaskButton = document.getElementById('addTaskButton');
+  var addTaskDiv = document.getElementsByClassName('addTaskDiv')[0];
+  var backlogTasksDiv = document.querySelector('#backlog .stateTasks');
+
+  addTaskButton.addEventListener('click', function (e) {
+    renderAddTaskForm(addTaskDiv);
+    addTaskFormListener(function (err, res) {
+      if (err) {
+        backlogTasksDiv.innerHTML = '<h2>Connection Error!</h2>';
+      } else {
+        loading(backlogTasksDiv);
+        renderBacklog();
+      }
+    });
+  });
 })();
 
 function onPageLoadCheck (container) {
@@ -58,7 +56,7 @@ function loadState (id) {
   });
 }
 function renderBacklog () {
-  const tasksContainer = document.querySelector('#backlog .stateTasks');
+  var tasksContainer = document.querySelector('#backlog .stateTasks');
   loading(tasksContainer);
   // apiReq is defined in request.js
   apiReq(window.location.pathname + '/backlogTasks', 'GET', function (err, data) {
@@ -100,6 +98,47 @@ function startSprintFormListener () {
           }
         }
       }, JSON.stringify(duration));
+    });
+  }
+}
+function renderAddTaskForm (container) {
+  container.innerHTML = '<form id="addTaskForm" action="' + window.location.pathname + '/addTask" method="post">' +
+                          '<label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>' +
+                          '<label>description : <input type="text" name="description" value="..." placeholder="Enter task description.."></label>' +
+                          '<label>priority :' +
+                            '<select name="priority">' +
+                              '<option value="1">1</option>' +
+                              '<option value="2">2</option>' +
+                              '<option value="3">3</option>' +
+                              '<option value="4">4</option>' +
+                              '<option value="5">5</option>' +
+                            '</select>' +
+                          '</label>' +
+                          '<label>deadline<input type="date" name="deadline" value="2014-02-09" required></label>' +
+                          '<label>Duration<input type="number" name="duration" value="1" required>' +
+                            '<select name="duration">' +
+                              '<option value="1">H</option>' +
+                              '<option value="24">D</option>' +
+                              '<option value="168">W</option>' +
+                            '</select>' +
+                          '</label>' +
+                          '<input type="submit" name="submit" value="Create Task!">' +
+                        '</form>';
+}
+function addTaskFormListener (cb) {
+  var addTaskForm = document.getElementById('addTaskForm');
+  if (addTaskForm) {
+    addTaskForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var addTaskData = event.target;
+      var addTaskReq = {
+        title: addTaskData[0].value,
+        description: addTaskData[1].value,
+        priority: addTaskData[2].value,
+        deadline: addTaskData[3].value,
+        duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
+      };
+      apiReq(window.location.pathname + '/addTask', 'POST', cb, JSON.stringify(addTaskReq));
     });
   }
 }
