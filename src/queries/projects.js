@@ -239,53 +239,96 @@ const getTasksByState = (sprintId, state, cb) => {
     values: [sprintId, state] };
   connection.query(sql, cb);
 };
-//
-// // // add member to the project or invite then add the log where the action type will be add or invite
-// const addMember = (adminId, userEmail, projectId, role, cb) => {
-//   getMemberByEmail(userEmail, projectId, (err, res) => {
-//     console.log(res);
-//     if (err) {
-//       cb(err);
-//     } else {
-//       if (res.rows.length > 0) {
-//         // / existed user in the project
-//         cb('User is existed in the project');
-//       } else {
-//         helperUser.existedEmail(userEmail, (erorr, response) => {
-//               if (err && !response) {
-//                 cb(err)
-//               }
-//               else {
-//
-//               }
-//                 // //// user is not exist in the data base >> invite
-//             invite(adminId, userEmail, projectId, (error, invited) => {
-//               if (error) {
-//                 cb(error);
-//               }
-//               // else {
-//               //   cb(null, invited);
-//               // }
-//             });
-//           } else {   // // user is not exist in the project >> add
-//             const sql = {
-//               text: `INSERT INTO user_project (user_id,project_id,role) VALUES ($1,$2,$3) RETURNING *`,
-//               values: [res.rows[0].id, projectId, role]
-//             };
-//             connection.query(sql, (error, result) => {
-//               if (error) {
-//                 cb(error);
-//               } else {
-//                 cb(null, result.row);
-//               }
-//             });
-//           }
-//         });
-//       }
-//     }
-//   });
-// };
-//
+
+
+// ////////////// No returning value
+
+const updateProjectProgress = (projectId, cb) => {
+  const sql = {
+    text: `SELECT tasks.progress FROM tasks WHERE project_id= $1`,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      let sum = 0;
+      var totalProgrss = res.rows.reduce(function (sum, task, i) {
+        return sum + parseInt(task.progress);
+      }, 0);
+      let val = (totalProgrss / res.rows.length) ;
+      val = isNaN(val) ? 0 : val;
+      const sql2 = {
+        text: `UPDATE projects SET progress=$1 WHERE id=$2`,
+        values: [val, projectId] };
+      connection.query(sql2, cb);
+      cb(null);
+    }
+  });
+};
+
+const updateSprintProgress = (sprintId, cb) => {
+  const sql = {
+    text: `SELECT tasks.progress FROM tasks WHERE sprint_id= $1 `,
+    values: [sprintId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      let sum = 0;
+      var totalProgrss = res.rows.reduce(function (sum, task) {
+        return sum + parseInt(task.progress);
+      }, 0);
+      let val = (totalProgrss / res.rows.length) ;
+      val = isNaN(val) ? 0 : val;
+      const sql2 = {
+        text: `UPDATE sprints SET progress=$1 WHERE id=$2`,
+        values: [val, sprintId] };
+      connection.query(sql2, cb);
+      cb(null);
+    }
+  });
+};
+
+const updateTaskProgress = (taskId, cb) => {
+  const sql = {
+    text: `SELECT finished FROM features WHERE task_id= $1`,
+    values: [taskId]
+  };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      let trues = 0;
+      var noTrues = res.rows.reduce(function (sum, item) {
+        if (item.finished === true) {
+          trues += 1;
+        }
+        return trues;
+      }, 0);
+      let val = (noTrues / res.rows.length) * 100;
+      val = isNaN(val) ? 0 : val;
+      const sql2 = {
+        text: `UPDATE tasks SET progress=$1 WHERE id=$2`,
+        values: [val, taskId] };
+      connection.query(sql2, (err, result) => {
+        if (err) {
+          cb(err);
+        } else {
+          const sql3 = {
+            text: `SELECT sprint_id,project_id FROM tasks WHERE id =$1`,
+            values: [taskId]
+          };
+          connection.query(sql3, (err, result2) => {
+            if (result2.rows[0].sprint_id !== null) {
+              updateSprintProgress(result2.rows[0].sprint_id, cb);
+            }
+            updateProjectProgress(result2.rows[0].project_id, cb);
+          });
+        }
+      });
+    }
+  });
+};
 
 module.exports = {
   addProject,
