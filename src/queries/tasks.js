@@ -21,7 +21,7 @@ const getStateByName = (stateName, projectId, cb) => {
     values: [stateName, projectId] };
   connection.query(sql, (err, res) => {
     if (err) {
-      console.log('errrrrrr',err);
+      console.log('errrrrrr', err);
       cb(err);
     } else {
       cb(null, res.rows[0].id);
@@ -183,6 +183,15 @@ const listComments = (taskId, cb) => {
     }
   });
 };
+
+const addDefaultLabel = (taskId, projectId, cb) => {
+  const sql = {
+    text: `INSERT INTO labels (task_id,project_id,title,color) VALUES ($1,$2,$3,$4) `,
+    values: [taskId, projectId, 'BUG', '#dc3545']
+  };
+  connection.query(sql, cb);
+};
+
 const addTask = (title, description, priority, deadline, duration, projectId, cb) => {
   calTaskOrder(projectId, (error, order) => {
     if (error) {
@@ -193,13 +202,19 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
           cb(err);
         } else {
           const sql = {
-            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
+            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING title, description, priority, deadline, duration, project_id, state_id, orders,id`,
             values: [title, description, priority, deadline, duration, projectId, stateId, order] };
           connection.query(sql, (err, res) => {
             if (err) {
               cb(err);
             } else {
-              cb(null, res.rows[0]);
+              addDefaultLabel(res.rows[0].id, projectId, (err2, res2) => {
+                if (err) {
+                  cb(err);
+                } else {
+                  cb(null, res.rows);
+                }
+              });
             }
           });
         }
@@ -233,5 +248,6 @@ module.exports = {
   calTaskOrder,
   addTask,
   assignMember,
-  removeAssign
+  removeAssign,
+  addDefaultLabel
 };

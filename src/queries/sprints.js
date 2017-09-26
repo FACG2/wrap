@@ -68,8 +68,10 @@ const getSprintStates = (sprintId, cb) => {
 };
 
 const getTasksByState = (stateId, cb) => {
+  // text: `SELECT tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,users.username,users.avatar,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN tasks ON tasks.id = labels.task_id INNER JOIN users ON tasks.assigned_id=users.id WHERE tasks.state_id=$1`,
+  // values: [stateId] };
   const sql = {
-    text: `SELECT tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,users.username,users.avatar,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN tasks ON tasks.id = labels.task_id INNER JOIN users ON tasks.assigned_id=users.id WHERE tasks.state_id=$1`,
+    text: `SELECT tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN tasks ON tasks.id = labels.task_id WHERE tasks.state_id=$1`,
     values: [stateId] };
   connection.query(sql, (err, res) => {
     if (err) {
@@ -80,6 +82,7 @@ const getTasksByState = (stateId, cb) => {
     }
   });
 };
+
 const getBacklogId = (projectId, cb) => {
   const sql = {
     text: `SELECT id FROM state WHERE project_id= $1 AND name='backlog'`,
@@ -160,11 +163,10 @@ const addSprint = (duration, projectId, cb) => {
   });
 };
 
-
-const addTaskToSprint = (taskId,sprintId,cb)=>{
+const addTaskToSprint = (taskId, sprintId, cb) => {
   const sql = {
     text: `UPDATE tasks SET sprint_id=$1 WHERE id=$2`,
-    values: [sprintId,taskId] };
+    values: [sprintId, taskId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
@@ -172,8 +174,7 @@ const addTaskToSprint = (taskId,sprintId,cb)=>{
       cb(null, res);
     }
   });
-}
-
+};
 
 // const getTasksByStateName = (sprintId, stateName,cb) => {
 //   const sql = {
