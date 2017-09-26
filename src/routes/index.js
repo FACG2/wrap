@@ -24,5 +24,6 @@ router.post('/addProject', routes.postAddProject);
 router.post('/projects/:project_id/addTask', routes.postAddTask);
 router.post('/projects/:project_id/createSprint', routes.postCreateSprint);
 router.post('/tasks/:task_id/addFeatures', routes.postAddFeature);
+router.post('/projects/:project_id/addMember', routes.postAddMember);
 
 module.exports = router;

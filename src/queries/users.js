@@ -4,10 +4,16 @@ require('env2')('./config.env');
 
 const getUserByEmail = (email, cb) => {
   const sql = {
-    text: `SELECT * FROM users WHERE email = $1`,
+    text: `SELECT id FROM users WHERE email = $1`,
     values: [email] };
 
-  connection.query(sql, cb);
+  connection.query(sql, (err, rs) => {
+    if (err || rs.rows.length===0) {
+      cb('He is not a user in this website');
+    } else {
+      cb(null, rs.rows[0]);
+    }
+  });
 };
 
 const getUserById = (id, cb) => {
@@ -109,8 +115,6 @@ const deleteInvitation = (inviteId, cb) => {
     values: [inviteId] };
   connection.query(sql, cb);
 };
-
-
 
 module.exports = {
   getUserByEmail,

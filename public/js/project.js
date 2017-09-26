@@ -5,11 +5,13 @@
   if (linkHash === '#members') {
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
+    addMemberFormListener();
   }
 
   document.getElementById('membersButton').addEventListener('click', function (event) {
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
+    addMemberFormListener();
   });
 
   if (linkHash === '#logs') {
@@ -71,10 +73,9 @@ function onPageLoadCheck (container) {
 }
 function loading (container) {
   if (!container) {
-    return console.error('Cannot load, no container found.')
+    return console.error('Cannot load, no container found.');
   }
   container.innerHTML = '<h2>Loading.....</h2>';
-
 }
 function getData (url, cb) {
   apiReq(url,'GET', function (err, data) {// eslint-disable-line
@@ -193,6 +194,30 @@ function addTaskFormListener (cb) {
         duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
       };
       apiReq(window.location.pathname + '/addTask', 'POST', cb, JSON.stringify(addTaskReq));
+    });
+  }
+}
+
+function addMemberFormListener () {
+  var addMemberForm = document.getElementById('addMemberForm');
+  if (addMemberForm) {
+    addMemberForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var addMemberData = event.target;
+      var addMemberReq = {
+        email: addMemberData[0].value,
+        role: addMemberData[1].value
+      };
+      console.log(addMemberReq);
+      apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
+        if (err) {
+          alert(err);
+        } else {
+          document.getElementById('userEmail').value = '';
+          document.getElementById('role').value = '';
+          alert('user has been added');
+        }
+      }, JSON.stringify(addMemberReq));
     });
   }
 }
