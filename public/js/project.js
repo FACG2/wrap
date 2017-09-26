@@ -211,11 +211,13 @@ function addMemberFormListener () {
       console.log(addMemberReq);
       apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
         if (err) {
-          alert(err);
+          alert('eee',err);
         } else {
+          console.log(res);
           document.getElementById('userEmail').value = '';
           document.getElementById('role').value = '';
-          alert('user has been added');
+          alert(res);
+          window.location.reload();
         }
       }, JSON.stringify(addMemberReq));
     });

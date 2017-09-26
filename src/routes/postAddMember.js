@@ -11,13 +11,12 @@ module.exports = (req, res, next) => {
         res.send(err2);
       } else {
         console.log(':(((((');
-        queries.projects.addMember(userId.id, req.params.project_id, data.role, (er, memberDetails) => {
-          if (er) {
-            console.log("walid");
-            res.send('er');
+        queries.projects.addMember(userId.id, req.params.project_id, data.role, (isExist, memberDetails) => {
+          if (isExist) {
+            res.send('already a member');
           } else {
             console.log('hanaaaaaaaaa');
-            res.send(null, memberDetails);
+            res.send(memberDetails);
           }
         });
       }
