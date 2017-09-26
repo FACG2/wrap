@@ -1,6 +1,12 @@
 (function () {
   var mainConainer = document.getElementsByClassName('sprintStates')[0];
   onPageLoadCheck(mainConainer);
+  /* Start new Sprint */
+  document.getElementById('startSprintButton').addEventListener('click', function (e) {
+    mainConainer.innerHTML = generateStartSprintForm();
+    startSprintFormListener();
+  });
+
   var addTaskForm = document.getElementById('addTaskForm');
   if (addTaskForm) {
     addTaskForm.addEventListener('submit', function (event) {
@@ -51,7 +57,7 @@ function loadState (id) {
     }
   });
 }
-function renderBacklog() {
+function renderBacklog () {
   const tasksContainer = document.querySelector('#backlog .stateTasks');
   loading(tasksContainer);
   // apiReq is defined in request.js
@@ -62,4 +68,38 @@ function renderBacklog() {
       tasksContainer.innerHTML = data;
     }
   });
+}
+
+function generateStartSprintForm () {
+  return '<form id="startSprintForm">' +
+          '<label>Sprint Duration' +
+            '<input type="number" name="durationNumber" value="1" required>' +
+            '<select name="duration">' +
+              '<option value="7">W</option>' +
+              '<option value="1">D</option>' +
+            '</select>' +
+          '</label>' +
+          '<input type="submit" name="submit" value="Start!">' +
+        '</form>';
+}
+
+function startSprintFormListener () {
+  var startSprintForm = document.getElementById('startSprintForm');
+  if (startSprintForm) {
+    startSprintForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var startSprintData = event.target;
+      var duration = parseInt(startSprintData[0].value) * parseInt(startSprintData[1].value);
+      apiReq(window.location.pathname + '/startsprint', 'POST', function (err, data) {
+        if (err) {
+          alert('connection error');
+        } else {
+          if (data === '/rel') {
+            var mainConainer = document.getElementsByClassName('sprintStates')[0];
+            onPageLoadCheck(mainConainer);
+          }
+        }
+      }, JSON.stringify(duration));
+    });
+  }
 }
