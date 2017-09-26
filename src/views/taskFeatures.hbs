@@ -1,0 +1,16 @@
+     <ul class="list-group list-group-lg">
+       {{#if isEmpty}}
+       <div class="ml-2 my-2">
+         <h3>There is no Features for this task!<h3>
+       </div>
+       {{else}}
+       {{#each features}}
+   <li class="list-group-item ">
+       {{title}}
+       <div class="material-switch pull-right">
+           <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+       </div>
+   </li>
+   {{/each}}
+   {{/if}}
+ </ul>

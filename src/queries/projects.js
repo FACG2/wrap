@@ -336,5 +336,8 @@ module.exports = {
   getAllProjects,
   getTasksByState,
   getProjectDetails,
+  updateProjectProgress,
+  updateSprintProgress,
+  updateTaskProgress,
   getAllMembersInProject
 };

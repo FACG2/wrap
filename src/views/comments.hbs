@@ -1,0 +1,14 @@
+  {{#if isEmpty}}
+  <div class="ml-2 my-2">
+    <h3>There is no Comments!<h3>
+  </div>
+  {{else}}
+  {{#each comments}}
+<div class="media mt-3">
+  <img class="d-flex mr-3" src="{{avatar}}" alt="" style="border-radius: 50%;height:40px">
+  <div class="media-body">
+    <h6 class="mt-0 mb-1"><a href="#">{{username}}</a></h6>{{context}}
+  </div>
+</div>
+{{/each}}
+{{/if}}
