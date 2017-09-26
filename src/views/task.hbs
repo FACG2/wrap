@@ -5,7 +5,7 @@
 <div class="content-wrapper">
   <div class="container-fluid">
     <div class="mb-0 mt-4">
-      <i class="fa fa-tasks"></i> Task Title</div>
+      <i class="fa fa-tasks"></i> {{task.title}}</div>
        <hr class="mt-2">
        <div class="row mt-3">
       <div class="col-8">
@@ -13,7 +13,7 @@
 
         <div class="card-body">
           <h6 class="card-title mb-1">Task Description</h6>
-          <p class="card-text small">Login page should have front-end and back-end validation</p>
+          <p class="card-text small">{{task.description}}</p>
         </div>
         <hr class="my-0">
         <div class="col-lg-6 ml-1">
@@ -25,8 +25,9 @@
 
         </div>
         </div>
-        <div class="card-body small bg-faded">
-          <ul class="list-group list-group-lg">
+        <div class="card-body small bg-faded" id="featuresDiv">
+
+          <!-- <ul class="list-group list-group-lg">
                    <li class="list-group-item">
                       Front-end Design
                        <div class="material-switch pull-right">
@@ -51,7 +52,8 @@
                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
                        </div>
                    </li>
-               </ul>
+               </ul> -->
+
         </div>
         <div class="card-footer small text-muted">
           <div class="progress">
@@ -64,13 +66,13 @@
         <div class="card mb-3">
 
           <div class="card-body">
-            <h6 class="card-title">State: <span class="badge badge-secondary">Backlog</span></h6>
+            <h6 class="card-title">State: <span class="badge badge-secondary">{{task.name}}</span></h6>
             <hr class="mt-2">
-            <h6 class="card-title ">Assign To: <span class="badge badge-primary">hana</span></h6>
+            <h6 class="card-title ">Assign To: <span class="badge badge-primary">{{task.username}}</span></h6>
             <hr class="mt-2">
             <h6 class="card-title ">Priorty: <span class="badge badge-danger">Very High</span></h6>
             <hr class="mt-2">
-            <h6 class="card-title ">Deadline: <i class="fa fa-fw fa-calendar"></i>10/24/2017</h6>
+            <h6 class="card-title ">Deadline: <i class="fa fa-fw fa-calendar"></i>{{task.deadline}}</h6>
 
           </div>
         </div>
@@ -82,8 +84,10 @@
           <input type="text" style="border-radius:20px;height:30px;font-size:0.8rem;" class="form-control ml-1" placeholder="Add Comment" aria-label="Add Comment">
         </div>
       </div>
-          <div class="card-body">
-            <div class="media">
+          <div class="card-body" id="commentsDiv">
+
+
+            <!-- <div class="media">
               <img class="d-flex mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6IV6GQLHxEQkVit8TXBbFL-SXy4aJJG9atxUUFX_Jx_IGaalLIA" alt="" style="border-radius: 50%;height:40px">
               <div class="media-body">
                 <h6 class="mt-0 mb-1"><a href="#">Qamar</a></h6>Good Job Hana 💖
@@ -100,10 +104,10 @@
               <div class="media-body">
                 <h6 class="mt-0 mb-1"><a href="#">Walid</a></h6>6yeb :3
               </div>
-            </div>
-          </div>
-        </div>
+            </div> -->
 
+        </div>
+      </div>
       </div>
     </div>
   </div>
