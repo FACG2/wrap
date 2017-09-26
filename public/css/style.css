@@ -350,6 +350,8 @@ footer.sticky-footer {
     border-radius: 0 11px 11px 0;
 }
 
+
+
 /*Project Page*/
 .stateColumn{
   width: 270px;
@@ -364,9 +366,16 @@ footer.sticky-footer {
 .statesWrapper{
   flex:none;
   display: block;
-  width: 1100px;
+  width: 1370px;
 }
 .label{
   width: 30px;
   margin: 0 3px;
+}
+
+
+.col-3{
+  background-color: #f2f2f2;
+  min-height: 400px;
+  margin: 0 2px;
 }
