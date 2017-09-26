@@ -17,7 +17,7 @@ const getTasksByUserId = (userId, cb) => {
 };
 const getTaskDetails = (taskId, cb) => {
   const sql = {
-    text: `SELECT tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.id= $1`,
+    text: `SELECT tasks.id,tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.id= $1`,
     values: [taskId] };
   connection.query(sql, (err, res) => {
     if (err) {
@@ -249,7 +249,7 @@ const getFeatures = (taskId, cb) => {
   });
 };
 
-const addFeature = (title, taskId,cb) => {
+const addFeature = (title, taskId, cb) => {
   const sql = {
     text: `INSERT INTO features (title,finished,task_id) VALUES ($1,$2,$3) RETURNING *`,
     values: [title, false, taskId] };
@@ -257,13 +257,14 @@ const addFeature = (title, taskId,cb) => {
     if (err) {
       cb(err);
     } else {
-      project.updateTaskProgress(taskId, (err, rs) => {
-        if (err) {
-          cb(err);
-        } else {
-          cb(null, res.rows[0]);
-        }
-      });
+      // project.updateTaskProgress(taskId, (err, rs) => {
+      //   if (err) {
+      //     cb(err);
+      //   } else {
+      //     cb(null, res.rows[0]);
+      //   }
+      // });
+      cb(null, res.rows[0]);
     }
   });
 };
@@ -283,5 +284,6 @@ module.exports = {
   removeAssign,
   getTaskDetails,
   getFeatures,
-  addDefaultLabel
+  addDefaultLabel,
+  addFeature
 };

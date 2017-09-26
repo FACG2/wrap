@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
       next(err);
     } else {
       const isEmpty = result.length == 0 ? true : false;
-      res.render(`comments.hbs`, {comments: result, isEmpty: isEmpty });
+      res.render(`comments.hbs`, {layout: false,comments: result, isEmpty: isEmpty });
     }
   });
 };
