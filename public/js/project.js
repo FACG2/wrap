@@ -36,6 +36,7 @@ function onPageLoadCheck (container) {
       container.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       container.innerHTML = data;
+      renderBacklog();
     }
   });
 }
