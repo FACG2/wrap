@@ -134,6 +134,20 @@ const addSprint = (startingdate, duration, project_id, cb) => {
 };
 
 
+const addTaskToSprint = (taskId,sprintId,cb)=>{
+  const sql = {
+    text: `UPDATE tasks SET sprint_id=$1 WHERE id=$2`,
+    values: [sprintId,taskId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
+}
+
+
 // const getTasksByStateName = (sprintId, stateName,cb) => {
 //   const sql = {
 //     text: `SELECT * FROM tasks INNER JOIN state ON state.id = tasks.state_id WHERE state.sprint_id=$1 AND state.name = (SELECT * FROM state WHERE sprint_id= $1)`,
@@ -163,5 +177,6 @@ module.exports = {
   getSprintStates,
   addDefaultStates,
   getNoOfSprints,
-  addSprint
+  addSprint,
+  addTaskToSprint
 };
