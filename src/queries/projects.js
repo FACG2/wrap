@@ -194,7 +194,13 @@ const addProject = (title, wDay, wHour, description, userId, cb) => {
         if (err) {
           cb(err);
         } else {
-          cb(null, project.rows[0]);
+          createBacklog(project.rows[0].id, (err2, res2) => {
+            if (err) {
+              cb(err);
+            } else {
+              cb(null, project.rows[0]);
+            }
+          });
         }
       });
     }
