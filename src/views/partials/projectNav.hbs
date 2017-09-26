@@ -1,0 +1,102 @@
+<div class="collapse navbar-collapse" id="navbarResponsive">
+  <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+      <a class="nav-link" href="#dashboard" id="dashboardButton">
+        <i class="fa fa-fw fa-tasks"></i>
+        <span class="nav-link-text">Project Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tasks">
+      <a class="nav-link" href="#tasks" id="tasksButton">
+        <i class="fa fa-fw fa-asterisk"></i>
+        <span class="nav-link-text">Sprints</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tasks">
+      <a class="nav-link" href="#tasks" id="tasksButton">
+        <i class="fa fa-fw fa-user"></i>
+        <span class="nav-link-text">Members</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tasks">
+      <a class="nav-link" href="#tasks" id="tasksButton">
+        <i class="fa fa-fw fa-tags"></i>
+        <span class="nav-link-text">Labels</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+      <a class="nav-link" href="#settings" id="settingsButton">
+        <i class="fa fa-fw fa-line-chart"></i>
+        <span class="nav-link-text">Insights</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+      <a class="nav-link" href="#settings" id="settingsButton">
+        <i class="fa fa-fw fa-cog"></i>
+        <span class="nav-link-text">Settings</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="navbar-nav sidenav-toggler">
+    <li class="nav-item">
+      <a class="nav-link text-center" id="sidenavToggler">
+        <i class="fa fa-fw fa-angle-left"></i>
+      </a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <div class="nav-link" title="user">
+           <a href="/"><img src="{{user.avatar}}" alt="" style="height:25px">{{user.username}}</a>
+         </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-fw fa-bell"></i>
+        <span class="d-lg-none">Alerts
+          <span class="badge badge-pill badge-warning">6 New</span>
+        </span>
+        <span class="indicator text-warning d-none d-lg-block">
+          <i class="fa fa-fw fa-circle"></i>
+        </span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+        <h6 class="dropdown-header">New Alerts:</h6>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">
+          <span class="text-success">
+            <strong>
+              <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+          </span>
+          <span class="small float-right text-muted">11:21 AM</span>
+          <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">
+          <span class="text-danger">
+            <strong>
+              <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+          </span>
+          <span class="small float-right text-muted">11:21 AM</span>
+          <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">
+          <span class="text-success">
+            <strong>
+              <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+          </span>
+          <span class="small float-right text-muted">11:21 AM</span>
+          <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item small" href="#">View all alerts</a>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+    </li>
+  </ul>
+</div>
