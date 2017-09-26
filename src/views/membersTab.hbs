@@ -19,18 +19,20 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form id="addMemberForm">
                    <div class="form-group">
                      <label for="userEmail" class="form-control-label">Member Email:</label>
-                     <input type="text" class="form-control" id="userEmail">
+                     <input type="email" class="form-control" id="userEmail">
                    </div>
+                   <div class="form-group">
+                     <label for="role" class="form-control-label">Role:</label>
+                     <input type="text" class="form-control" id="role">
+                   </div>
+                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                     <input type="submit" name="submit" class="btn btn-primary" value="Add member">
                    </form>
                 </div>
-                <div class="modal-footer">
 
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-primary" href="/member">Add Member</a>
-                </div>
               </div>
               </div>
           </div>
