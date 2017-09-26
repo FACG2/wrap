@@ -6,7 +6,8 @@ module.exports = (req, res, next) => {
     data += chunk;
   });
   req.on('end', function () {
-    const durationInDays = JSON.parse(data);
+    const durationInDays = parseInt(data);
+    console.log('wwwwwwwwwwwww',durationInDays);
     queries.sprints.addSprint(durationInDays, req.params.project_id, (err, result) => {
       if (err) {
         return next(err);

@@ -87,6 +87,7 @@ function startSprintFormListener () {
   var startSprintForm = document.getElementById('startSprintForm');
   if (startSprintForm) {
     startSprintForm.addEventListener('submit', function (event) {
+      alert('hi')
       event.preventDefault();
       var startSprintData = event.target;
       var duration = parseInt(startSprintData[0].value) * parseInt(startSprintData[1].value);
