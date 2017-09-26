@@ -135,14 +135,14 @@ const addDefaultStates = (sprintId, cb) => {
   });
 };
 
-const addSprint = (startingdate, duration, projectId, cb) => {
+const addSprint = (duration, projectId, cb) => {
   getNoOfSprints(projectId, (err, sprintsNo) => {
     if (err) {
       cb(err);
     } else {
       const sql = {
-        text: `INSERT INTO sprints (title,startingdate,duration,project_id) VALUES ($1,$2,$3,$4) RETURNING *`,
-        values: ['SP - ' + sprintsNo, startingdate, duration, projectId] };
+        text: `INSERT INTO sprints (title,duration,project_id) VALUES ($1,$2,$3) RETURNING *`,
+        values: ['SP - ' + sprintsNo, duration, projectId] };
       connection.query(sql, (err, res) => {
         if (err) {
           cb(err);
