@@ -190,5 +190,6 @@ module.exports = {
   addDefaultStates,
   getNoOfSprints,
   addSprint,
-  getTaskLabels
+  getTaskLabels,
+  getBacklogTasks
 };
