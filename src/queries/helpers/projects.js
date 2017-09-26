@@ -21,7 +21,7 @@ const groupLabels = (arr) => {
     title: item.label_title
   });
   const groupedLabels = arr.reduce((a, item) => {
-    if(a[item.task_id]) {
+    if (a[item.task_id]) {
       a[item.task_id].label.push(itemToLabel(item));
     } else {
       a[item.task_id] = {
@@ -38,7 +38,6 @@ const groupLabels = (arr) => {
   }, {});
 
   return Object.keys(groupedLabels).map(taskId => groupedLabels[taskId]);
-
 };
 
 module.exports = {

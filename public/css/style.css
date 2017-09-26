@@ -366,3 +366,7 @@ footer.sticky-footer {
   display: block;
   width: 1100px;
 }
+.label{
+  width: 30px;
+  margin: 0 3px;
+}

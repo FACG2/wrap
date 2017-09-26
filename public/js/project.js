@@ -26,6 +26,7 @@
 
 function onPageLoadCheck (container) {
   loading(container);
+  // apiReq is defined in request.js
   apiReq(window.location.pathname + '/currentSprint', 'GET', function (err, data) {
     if (err) {
       container.innerHTML = '<h1>Failed to Load</h1>';
@@ -36,4 +37,29 @@ function onPageLoadCheck (container) {
 }
 function loading (container) {
   container.innerHTML = '<h2>Loading.....</h2>';
+}
+function loadState (id) {
+  const tasksContainer = document.querySelector('#state-' + id + '>.stateTasks');
+  loading(tasksContainer);
+
+  // apiReq is defined in request.js
+  apiReq(window.location.pathname + '/stateTasks/' + id, 'GET', function (err, data) {
+    if (err) {
+      tasksContainer.innerHTML = '<h1>Failed to Load</h1>';
+    } else {
+      tasksContainer.innerHTML = data;
+    }
+  });
+}
+function renderBacklog() {
+  const tasksContainer = document.querySelector('#backlog .stateTasks');
+  loading(tasksContainer);
+  // apiReq is defined in request.js
+  apiReq(window.location.pathname + '/backlogTasks', 'GET', function (err, data) {
+    if (err) {
+      tasksContainer.innerHTML = '<h1>Failed to Load</h1>';
+    } else {
+      tasksContainer.innerHTML = data;
+    }
+  });
 }
