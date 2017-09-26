@@ -90,7 +90,7 @@ function startSprintFormListener () {
       event.preventDefault();
       var startSprintData = event.target;
       var duration = parseInt(startSprintData[0].value) * parseInt(startSprintData[1].value);
-      apiReq(window.location.pathname + '/startsprint', 'POST', function (err, data) {
+      apiReq(window.location.pathname + '/createSprint', 'POST', function (err, data) {
         if (err) {
           alert('connection error');
         } else {
