@@ -20,5 +20,6 @@ module.exports = {
   postAddFeature: require('./postAddFeature.js'),
   postAddComment: require('./postAddComment.js'), 
   getLogs: require('./getLogs.js'),
-  getMembers: require('./getMembers.js')
+  getMembers: require('./getMembers.js'),
+  postAddMember: require('./postAddMember.js')
 };

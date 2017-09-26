@@ -1,4 +1,35 @@
 (function () {
+/* Tabs */
+  var linkHash = window.location.hash;
+  var projectContent = document.getElementsByClassName('content-wrapper')[0];
+  if (linkHash === '#members') {
+    loading(projectContent);
+    render(window.location.pathname + '/members', projectContent);
+    addMemberFormListener();
+  }
+
+  document.getElementById('membersButton').addEventListener('click', function (event) {
+    loading(projectContent);
+    render(window.location.pathname + '/members', projectContent);
+    addMemberFormListener();
+  });
+
+  if (linkHash === '#logs') {
+    loading(projectContent);
+    render(window.location.pathname + '/logs', projectContent);
+  }
+
+  document.getElementById('logsButton').addEventListener('click', function (event) {
+    loading(projectContent);
+    render(window.location.pathname + '/logs', projectContent);
+  });
+
+  document.getElementById('projectsButton').addEventListener('click', function (event) {
+    window.location.hash = '';
+    window.location.reload();
+  });
+
+/* /tabs */
   var mainConainer = document.getElementsByClassName('sprintStates')[0];
   onPageLoadCheck(mainConainer);
   /* Start new Sprint */
@@ -36,12 +67,36 @@ function onPageLoadCheck (container) {
       container.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       container.innerHTML = data;
+      renderBacklog();
     }
   });
 }
 function loading (container) {
+  if (!container) {
+    return console.error('Cannot load, no container found.');
+  }
   container.innerHTML = '<h2>Loading.....</h2>';
 }
+function getData (url, cb) {
+  apiReq(url,'GET', function (err, data) {// eslint-disable-line
+    if (err) {
+      cb('Connection Error!');
+    } else {
+      cb(null, data);
+    }
+  });
+}
+
+function render (url, container) {
+  getData(url, function (err, data) {
+    if (err) {
+      container.innerHTML = '<h2>' + err + '</h2>';
+    } else {
+      container.innerHTML = data;
+    }
+  });
+}
+
 function loadState (id) {
   const tasksContainer = document.querySelector('#state-' + id + '>.stateTasks');
   loading(tasksContainer);
@@ -139,6 +194,32 @@ function addTaskFormListener (cb) {
         duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
       };
       apiReq(window.location.pathname + '/addTask', 'POST', cb, JSON.stringify(addTaskReq));
+    });
+  }
+}
+
+function addMemberFormListener () {
+  var addMemberForm = document.getElementById('addMemberForm');
+  if (addMemberForm) {
+    addMemberForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var addMemberData = event.target;
+      var addMemberReq = {
+        email: addMemberData[0].value,
+        role: addMemberData[1].value
+      };
+      console.log(addMemberReq);
+      apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
+        if (err) {
+          alert('eee',err);
+        } else {
+          console.log(res);
+          document.getElementById('userEmail').value = '';
+          document.getElementById('role').value = '';
+          alert(res);
+          window.location.reload();
+        }
+      }, JSON.stringify(addMemberReq));
     });
   }
 }

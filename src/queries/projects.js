@@ -137,7 +137,7 @@ const getMemberByEmail = (email, projectId, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows);
     }
   });
 };
@@ -173,13 +173,15 @@ const addMember = (userId, projectId, role, cb) => {
           if (error) {
             cb(error);
           } else {
-            cb(null, result.row);
+            cb(null, result.rows);
           }
         });
       }
     }
   });
 };
+
+
 
 const addProject = (title, wDay, wHour, description, userId, cb) => {
   const sql = {
@@ -331,8 +333,10 @@ const updateTaskProgress = (taskId, cb) => {
 
 module.exports = {
   addProject,
+  addMember,
   getCurrentProjects,
   getFinishedProjects,
+  getMemberByEmail,
   getAllProjects,
   getTasksByState,
   getProjectDetails,
