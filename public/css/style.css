@@ -349,3 +349,24 @@ footer.sticky-footer {
 .progress-bar{
     border-radius: 0 11px 11px 0;
 }
+
+/*Project Page*/
+.stateColumn{
+  width: 270px;
+  max-width: 500px;
+  flex: none;
+  float: left;
+}
+.statesContainer{
+  overflow-x: scroll;
+  max-height: calc(100vh - 210px);
+}
+.statesWrapper{
+  flex:none;
+  display: block;
+  width: 1100px;
+}
+.label{
+  width: 30px;
+  margin: 0 3px;
+}

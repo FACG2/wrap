@@ -1,6 +1,6 @@
 module.exports = (req, res, next) => {
   const data = {project_id: req.params.project_id};
-console.log("heba",data);
   data.user = req.user;
+  data.scriptName = 'project';
   res.render('project.hbs', data);
 };

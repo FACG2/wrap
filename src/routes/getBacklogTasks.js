@@ -1,7 +1,6 @@
 const queries = require('../queries/index.js');
-
 module.exports = (req, res, next) => {
-  queries.sprints.getTasksByState(req.params.state_id, (err, result) => {
+  queries.sprints.getBacklogTasks(req.params.project_id, (err, result) => {
     if (err) {
       next(err);
     } else {
