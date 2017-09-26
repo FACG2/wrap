@@ -182,6 +182,13 @@ const calTaskOrder = (projectId, cb) => {
     }
   });
 };
+const addDefaultLabel = (taskId, projectId, cb) => {
+  const sql = {
+    text: `INSERT INTO labels (task_id,project_id,title,color) VALUES ($1,$2,$3,$4) `,
+    values: [taskId, projectId, 'BUG', '#dc3545']
+  };
+  connection.query(sql, cb);
+};
 
 const listComments = (taskId, cb) => {
   const sql = {
