@@ -15,6 +15,17 @@ body.fixed-nav {
 .nav-item >.show{
   left: -170px;
 }
+
+.nav-link img{
+  margin-right: 10px;
+}
+
+nav{
+  max-height: 56px;
+}
+nav .logo{
+  width: 70px;
+}
 .content-wrapper {
   min-height: calc(100vh - 56px);
   padding-top: 1rem; }
