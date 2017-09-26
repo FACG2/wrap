@@ -209,7 +209,16 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
 
 
 const addFeature=()=>{
-  
+  const sql = {
+    text: `UPDATE tasks SET assigned_id=$1 WHERE tasks.id=$2 RETURNING *`,
+    values: [commentId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res);
+    }
+  });
 }
 
 

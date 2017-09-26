@@ -30,6 +30,20 @@ const getCurrentProjects = (userId, cb) => {
   });
 };
 
+const createBacklog = (projectId, cb) => {
+  const sql = {
+    text: `INSERT INTO state (name,project_id) VALUES ('backlog',$1) RETURNING *`,
+    values: [projectId]
+  };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
+
 const getProjectDetails = (projectId, cb) => {
   const sql = {
     text: `SELECT projects.title,projects.progress  FROM projects WHERE projects.id = $1`,
@@ -180,7 +194,13 @@ const addProject = (title, wDay, wHour, description, userId, cb) => {
         if (err) {
           cb(err);
         } else {
-          cb(null, project.rows[0]);
+          createBacklog(project.rows[0].id, (err2, res2) => {
+            if (err) {
+              cb(err);
+            } else {
+              cb(null, project.rows[0]);
+            }
+          });
         }
       });
     }

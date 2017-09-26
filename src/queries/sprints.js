@@ -1,5 +1,6 @@
 const connection = require('../database/db_connection.js');
 require('env2')('./config.env');
+const helpers = require('./helpers/index.js');
 
 const getAllSprints = (projectId, cb) => {
   const sql = {
@@ -55,7 +56,7 @@ const getCurrentSprint = (projectId, cb) => {
 
 const getSprintStates = (sprintId, cb) => {
   const sql = {
-    text: `SELECT name FROM state WHERE sprint_id= $1`,
+    text: `SELECT name,id FROM state WHERE sprint_id= $1`,
     values: [sprintId] };
   connection.query(sql, (err, res) => {
     if (err) {
@@ -68,14 +69,40 @@ const getSprintStates = (sprintId, cb) => {
 
 const getTasksByState = (stateId, cb) => {
   const sql = {
-    // text: `SELECT * FROM tasks WHERE state_id=(SELECT state_id FROM state WHERE name=$1)`,
     text: `SELECT tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,users.username,users.avatar,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN tasks ON tasks.id = labels.task_id INNER JOIN users ON tasks.assigned_id=users.id WHERE tasks.state_id=$1`,
     values: [stateId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res.rows);
+      const data = helpers.projects.groupLabels(res.rows);
+      cb(null, data);
+    }
+  });
+};
+const getBacklogId = (projectId, cb) => {
+  const sql = {
+    text: `SELECT id FROM state WHERE project_id= $1 AND name='backlog'`,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      if (res.rows[0]) {
+        cb(null, res.rows[0].id);
+      } else {
+        cb(new Error('No Backlog!'));
+      }
+    }
+  });
+};
+
+const getBacklogTasks = (projectId, cb) => {
+  getBacklogId(projectId, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      getTasksByState(res, cb);
     }
   });
 };
@@ -93,12 +120,12 @@ const getTaskLabels = (taskId, cb) => {
   });
 };
 
-const addDefaultStates = (sprint_id, cb) => {
+const addDefaultStates = (sprintId, cb) => {
   const sql = {
     text: `INSERT INTO state (sprint_id,name)
           SELECT $1,x
           FROM  unnest(ARRAY['TODO', 'In-progress', 'Testing', 'done']) x`,
-    values: [sprint_id] };
+    values: [sprintId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
@@ -108,14 +135,14 @@ const addDefaultStates = (sprint_id, cb) => {
   });
 };
 
-const addSprint = (startingdate, duration, project_id, cb) => {
-  getNoOfSprints(project_id, (err, sprintsNo) => {
+const addSprint = (duration, projectId, cb) => {
+  getNoOfSprints(projectId, (err, sprintsNo) => {
     if (err) {
       cb(err);
     } else {
       const sql = {
-        text: `INSERT INTO sprints (title,startingdate,duration,project_id) VALUES ($1,$2,$3,$4) RETURNING *`,
-        values: ['SP - ' + sprintsNo, startingdate, duration, project_id] };
+        text: `INSERT INTO sprints (title,duration,project_id) VALUES ($1,$2,$3) RETURNING *`,
+        values: ['SP - ' + sprintsNo, duration, projectId] };
       connection.query(sql, (err, res) => {
         if (err) {
           cb(err);
@@ -178,5 +205,7 @@ module.exports = {
   addDefaultStates,
   getNoOfSprints,
   addSprint,
-  addTaskToSprint
+  addTaskToSprint,
+  getTaskLabels,
+  getBacklogTasks
 };

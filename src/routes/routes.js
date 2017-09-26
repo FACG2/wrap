@@ -11,5 +11,8 @@ module.exports = {
   getCurrentProjects: require('./getCurrentProjects.js'),
   getFinishedProjects: require('./getFinishedProjects.js'),
   getLogout: require('./getLogout'),
-  getStateTasks: require('./getStateTasks.js')
+  getStateTasks: require('./getStateTasks.js'),
+  getCurrentSprint: require('./getCurrentSprint.js'),
+  getBacklogTasks: require('./getBacklogTasks.js'),
+  postCreateSprint: require('./postCreateSprint.js')
 };

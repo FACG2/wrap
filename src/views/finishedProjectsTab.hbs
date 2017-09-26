@@ -1,6 +1,7 @@
 <div class="ml-2 my-2">
-  <h1 >Current Projects</h1>
-
+  <div class="mb-0 mt-4">
+    <i class="fa fa-tasks"></i> Current Projects</div>
+     <hr class="mt-2">
 </div>
 
 {{#if isEmpty}}
@@ -8,13 +9,13 @@
   <h3>You dont have any Finished projects now !<h3>
 </div>
 {{else}}
-<div class="card-deck ml-1" >
+<div class="row ml-1" >
   {{#each projects}}
-  <div class="card " style="width: 15rem;">
-      <div class="card-header text-center">{{title}}</div>
-    <div class="card-footer small">
+  <div class="card col-3 m-2">
+      <div class="card-header text-center border">{{title}}</div>
+    <div class="card-footer small border">
       <div class="progress">
-        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width:{{progress}}" aria-valuenow={{progress}} aria-valuemin="0" aria-valuemax="100">{{progress}}</div>
+        <div class="progress-bar bg-info" role="progressbar" style="width:{{progress}}" aria-valuenow={{progress}} aria-valuemin="0" aria-valuemax="100">{{progress}}</div>
       </div>
     </div>
   </div>

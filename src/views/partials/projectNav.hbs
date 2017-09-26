@@ -3,40 +3,32 @@
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
       <a class="nav-link" href="#dashboard" id="dashboardButton">
         <i class="fa fa-fw fa-tasks"></i>
-        <span class="nav-link-text">Dashboard</span>
+        <span class="nav-link-text">Project Dashboard</span>
       </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tasks">
       <a class="nav-link" href="#tasks" id="tasksButton">
-        <i class="fa fa-fw fa-tasks"></i>
-        <span class="nav-link-text">Tasks</span>
+        <i class="fa fa-fw fa-asterisk"></i>
+        <span class="nav-link-text">Sprints</span>
       </a>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Projects">
-      <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#Projects">
-        <i class="fa fa-fw fa-list-alt"></i>
-        <span class="nav-link-text">Projects</span>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tasks">
+      <a class="nav-link" href="#tasks" id="tasksButton">
+        <i class="fa fa-fw fa-user"></i>
+        <span class="nav-link-text">Members</span>
       </a>
-      <ul class="sidenav-second-level collapse" id="collapseComponents">
-        <li>
-          <a href="#createProject" id="createProjectButton">
-            <i class="fa fa-fw fa-plus"></i>
-            <span class="nav-link-text">Create project</span>
-            </a>
-        </li>
-        <li>
-          <a href="#currentProject" id="currentProjectsButton">
-            <i class="fa fa-fw fa-spinner"></i>
-            <span class="nav-link-text">Current Projects</span>
-            </a>
-        </li>
-        <li>
-          <a href="#completedProjects" id="finishedProjectsButton">
-            <i class="fa fa-fw fa-check"></i>
-            <span class="nav-link-text">Completed Projects</span>
-            </a>
-        </li>
-      </ul>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tasks">
+      <a class="nav-link" href="#tasks" id="tasksButton">
+        <i class="fa fa-fw fa-tags"></i>
+        <span class="nav-link-text">Labels</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+      <a class="nav-link" href="#settings" id="settingsButton">
+        <i class="fa fa-fw fa-line-chart"></i>
+        <span class="nav-link-text">Insights</span>
+      </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
       <a class="nav-link" href="#settings" id="settingsButton">
@@ -55,7 +47,7 @@
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
       <div class="nav-link" title="user">
-           <a href="/"><img src="{{user.avatar}}" alt="{{user.username}}" style="border-radius:50%;height:25px;">{{user.username}}</a>
+           <a href="/"><img src="{{user.avatar}}" alt="" style="border-radius:50%;height:25px;">{{user.username}}</a>
          </div>
     </li>
     <li class="nav-item dropdown">

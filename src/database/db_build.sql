@@ -7,7 +7,7 @@ username VARCHAR(100) UNIQUE NOT NULL,
 githubname VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
 password VARCHAR(100) NOT NULL,
-avatar VARCHAR(100) DEFAULT 'http://www.iconsdb.com/icons/preview/dark-gray/businessman-xxl.png'
+avatar VARCHAR(100) DEFAULT 'http://www.cheap-accountants-in-london.co.uk/wp-content/uploads/2015/07/User-Avatar.png'
 );
 
 CREATE TABLE projects(
@@ -31,7 +31,7 @@ CREATE TABLE sprints(
 id SERIAL PRIMARY KEY,
 title VARCHAR(100) NOT NULL,
 progress NUMERIC DEFAULT 0,
-startingdate date NOT NULL,
+startingdate date DEFAULT now(),
 duration INTEGER NOT NULL,
 closed BOOLEAN DEFAULT False,
 project_id INTEGER REFERENCES projects(id)
@@ -40,7 +40,8 @@ project_id INTEGER REFERENCES projects(id)
 CREATE TABLE state(
 id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL UNIQUE,
-sprint_id  INTEGER REFERENCES sprints(id)
+sprint_id  INTEGER REFERENCES sprints(id),
+project_id INTEGER REFERENCES projects(id)
 );
 ALTER TABLE state ADD CONSTRAINT states_name_sprintid_key UNIQUE (sprint_id, name);
 
