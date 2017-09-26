@@ -328,9 +328,9 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 
 @media (min-width: 768px) {
   .card-columns {
-    column-count: 2; } }
 
 @media (min-width: 1200px) {
+  column-count: 2; } }
   .card-columns {
     column-count: 2; } }
 

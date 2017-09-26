@@ -9,6 +9,21 @@ const addLog = (projectId, username, context, type, link, actionId, cb) => {
   connection.query(sql, cb);
 };
 
+const viewLogs = (projectId, cb) => {
+  const sql = {
+    text: `SELECT username,context,link,mdate  FROM logs WHERE project_id=$1`,
+    values: [projectId] };
+
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
+
 module.exports = {
-  addLog
+  addLog,
+  viewLogs
 };
