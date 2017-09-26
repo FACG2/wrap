@@ -12,6 +12,8 @@ router.get('/finishedProjects', routes.getFinishedProjects);
 router.get('/logout', routes.getLogout);
 router.get('/stateTasks/:state_id', routes.getStateTasks);
 router.get('/projects/:project_id/currentSprint', routes.getCurrentSprint);
+router.get('/projects/:project_id/stateTasks/:state_id', routes.getStateTasks);
+router.get('/backlogTasks', routes.getBacklogTasks);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);
