@@ -40,7 +40,8 @@ project_id INTEGER REFERENCES projects(id)
 CREATE TABLE state(
 id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL UNIQUE,
-sprint_id  INTEGER REFERENCES sprints(id)
+sprint_id  INTEGER REFERENCES sprints(id),
+project_id INTEGER REFERENCES projects(id)
 );
 ALTER TABLE state ADD CONSTRAINT states_name_sprintid_key UNIQUE (sprint_id, name);
 
