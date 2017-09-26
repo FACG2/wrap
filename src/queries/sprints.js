@@ -88,13 +88,23 @@ const getBacklogId = (projectId, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res.rows[0]);
+      if (res.rows[0]) {
+        cb(null, res.rows[0].id);
+      } else {
+        cb(new Error('No Backlog!'));
+      }
     }
   });
 };
 
 const getBacklogTasks = (projectId, cb) => {
-  //
+  getBacklogId(projectId, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      getTasksByState(res, cb);
+    }
+  });
 };
 
 const getTaskLabels = (taskId, cb) => {
