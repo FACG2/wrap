@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
       res.status(500);
       next(err);
     } else {
+      data.layout = false;
       res.render('dashboardTab.hbs', data);
     }
   });
