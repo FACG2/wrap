@@ -18,5 +18,6 @@ router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);
 router.post('/projects/:project_id/addTask', routes.postAddTask);
+router.post('/projects/:project_id/createSprint', routes.postCreateSprint);
 
 module.exports = router;
