@@ -17,8 +17,8 @@ module.exports = {
   getCurrentSprint: require('./getCurrentSprint.js'),
   getBacklogTasks: require('./getBacklogTasks.js'),
   postCreateSprint: require('./postCreateSprint.js'),
-  postAddFeature: require('./postAddFeature.js'), //
-  // postComment: require('./postComment.js') //
+  postAddFeature: require('./postAddFeature.js'),
+  postAddComment: require('./postAddComment.js'), 
   getLogs: require('./getLogs.js'),
   getMembers: require('./getMembers.js')
 };

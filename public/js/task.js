@@ -1,4 +1,42 @@
 (function () {
+  var addFeatureForm = document.getElementById('addFeatureForm');
+  if (addFeatureForm) {
+    addFeatureForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var addFeatureData = event.target;
+      var addFeatureReq = {
+        title: addFeatureData[0].value,
+        id: parseInt(window.location.pathname[window.location.pathname.length - 1])
+      };
+      apiReq(window.location.pathname + '/addFeature', 'POST', function (err, data) {
+        if (err) {
+          alert('connection error');
+        } else {
+          renderFeatures();
+        }
+      }, JSON.stringify(addFeatureReq));
+    });
+  }
+
+  var addCommentForm = document.getElementById('addCommentForm');
+  if (addCommentForm) {
+    addCommentForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var addCommentData = event.target;
+      var addCommentReq = {
+        context: addCommentData[0].value,
+        id:parseInt(window.location.pathname[window.location.pathname.length - 1])
+      };
+      apiReq(window.location.pathname + '/addComment', 'POST', function (err, data) {
+        if (err) {
+          alert('connection error');
+        } else {
+            renderComments();
+        }
+      }, JSON.stringify(addCommentReq));
+    });
+  }
+
   renderFeatures();
   renderComments();
 })();

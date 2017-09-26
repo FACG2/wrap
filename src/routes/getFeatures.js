@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
       next(err);
     } else {
       const isEmpty = result.length == 0 ? true : false;
-      res.render(`taskFeatures.hbs`, {features: result, isEmpty: isEmpty });
+      res.render(`taskFeatures.hbs`, {layout: false,features: result, isEmpty: isEmpty });
     }
   });
 };

@@ -6,12 +6,12 @@ module.exports = (req, res, next) => {
   });
   req.on('end', function () {
       data = JSON.parse(data);
-    queries.tasks.addFeature(data.title, req.params.task_id, (err, featureDetails) => {
+    queries.tasks.addComment(req.user.id,data.context, req.params.task_id, (err, commentDetails) => {
       if (err) {
         res.send('err');
       } else {
-        console.log(featureDetails);
-        res.send(featureDetails)
+        console.log(commentDetails);
+        res.send(commentDetails)
       }
     });
   });
