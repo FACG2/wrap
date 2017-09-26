@@ -1,4 +1,33 @@
 (function () {
+/* Tabs */
+  var linkHash = window.location.hash;
+  var projectContent = document.getElementsByClassName('content-wrapper')[0];
+  if (linkHash === '#members') {
+    loading(projectContent);
+    render(window.location.pathname + '/members', projectContent);
+  }
+
+  document.getElementById('membersButton').addEventListener('click', function (event) {
+    loading(projectContent);
+    render(window.location.pathname + '/members', projectContent);
+  });
+
+  if (linkHash === '#logs') {
+    loading(projectContent);
+    render(window.location.pathname + '/logs', projectContent);
+  }
+
+  document.getElementById('logsButton').addEventListener('click', function (event) {
+    loading(projectContent);
+    render(window.location.pathname + '/logs', projectContent);
+  });
+
+  document.getElementById('projectsButton').addEventListener('click', function (event) {
+    window.location.hash = '';
+    window.location.reload();
+  });
+
+/* /tabs */
   var mainConainer = document.getElementsByClassName('sprintStates')[0];
   onPageLoadCheck(mainConainer);
   /* Start new Sprint */
@@ -40,8 +69,32 @@ function onPageLoadCheck (container) {
   });
 }
 function loading (container) {
+  if (!container) {
+    return console.error('Cannot load, no container found.')
+  }
   container.innerHTML = '<h2>Loading.....</h2>';
+
 }
+function getData (url, cb) {
+  apiReq(url,'GET', function (err, data) {// eslint-disable-line
+    if (err) {
+      cb('Connection Error!');
+    } else {
+      cb(null, data);
+    }
+  });
+}
+
+function render (url, container) {
+  getData(url, function (err, data) {
+    if (err) {
+      container.innerHTML = '<h2>' + err + '</h2>';
+    } else {
+      container.innerHTML = data;
+    }
+  });
+}
+
 function loadState (id) {
   const tasksContainer = document.querySelector('#state-' + id + '>.stateTasks');
   loading(tasksContainer);
