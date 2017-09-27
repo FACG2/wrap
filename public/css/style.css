@@ -393,3 +393,6 @@ footer.sticky-footer {
 #addTaskButton:hover{
   background: #0b0064;
 }
+.date{
+  font-size: 12px;
+}
