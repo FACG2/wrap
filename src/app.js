@@ -28,7 +28,7 @@ app.engine(
   })
 );
 
-app.use(auth);
+app.use(auth.loginCheck);
 // app.use((req, res, next) => {
 //   console.log(req.url, req.method);
 //   next();

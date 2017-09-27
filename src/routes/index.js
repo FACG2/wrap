@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = require('./routes.js');
 const router = express.Router();
+// const accessCheck = require('./helpers/index.js').auth.accessCheck;
 
 router.get('/', routes.getHome);
 router.get('/projects/:project_id', routes.getProjectPage);
@@ -26,5 +27,6 @@ router.post('/projects/:project_id/addTask', routes.postAddTask);
 router.post('/projects/:project_id/createSprint', routes.postCreateSprint);
 router.post('/tasks/:task_id/addFeature', routes.postAddFeature);
 router.post('/tasks/:task_id/addComment', routes.postAddComment);
+router.post('/projects/:project_id/addMember', routes.postAddMember);
 
 module.exports = router;

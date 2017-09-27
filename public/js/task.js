@@ -12,7 +12,9 @@
         if (err) {
           alert('connection error');
         } else {
+          addFeatureData[0].value = '';
           renderFeatures();
+          renderProgress();
         }
       }, JSON.stringify(addFeatureReq));
     });
@@ -31,12 +33,13 @@
         if (err) {
           alert('connection error');
         } else {
+          addCommentData[0].value = '';
           renderComments();
         }
       }, JSON.stringify(addCommentReq));
     });
   }
-  // renderProgress();
+  renderProgress();
   renderFeatures();
   renderComments();
 })();
@@ -76,7 +79,6 @@ function renderProgress () {
     } else {
       progress.innerHTML = data;
       progress.value = data;
-      alert(data);
     }
   });
 }

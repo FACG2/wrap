@@ -1,9 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-  {{> nav}}
-  {{> projectNav}}
-</nav>
-<div class="content-wrapper" >
-  <div class="container-fluid">
+  <div class="container-fluid ml-3">
     <div class="mb-0 mt-4">
       <i class="fa fa-tasks"></i> Project Logs</div>
        <hr class="mt-2">
@@ -15,13 +10,11 @@
 
     {{#each logs}}
 <div class="card m-2 text-center" >
-  <h6 class="card-title my-2"><a href="{{link}}">Context: {{context}}</a></h6>
-  <h6 class="card-title my-2">Done By: {{username}}</h6>
-  <h6 class="card-title my-2">Finished in: {{mdate}}</h6>
+  <h5 class="card-title my-2"><a href="{{link}}">{{context}}</a></h5>
+  <spam class="date card-title my-2">{{mdate}}</spam>
 
 </div>
     {{/each}}
 
 </div>
-  </div>
   {{/if}}

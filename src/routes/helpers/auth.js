@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const queries = require('../../queries/index.js');
 
-module.exports = (req, res, next) => {
+const loginCheck = (req, res, next) => {
   const url = req.url;
   const token = req.cookies.token;
   if (!token) {
@@ -19,4 +20,28 @@ module.exports = (req, res, next) => {
       }
     });
   }
+};
+const calcRole = {
+  'user': 1,
+  'member': 2,
+  'admin': 3
+};
+const accessCheck = (minRole, projectId, req, res, next) => {
+  queries.users.getRole(req.user.id, projectId, (err, res) => {
+    if (err || res.rows.length === 0) {
+      res.render('error.hbs', {message: 'Access is denied, Please login'});
+    } else {
+      const userRole = res.rows[0].role;
+      if (calcRole[userRole] && calcRole[userRole] >= calcRole[minRole]) {
+        next();
+      } else {
+        res.render('error.hbs', {message: 'Access is denied, Please login'});
+      }
+    }
+  });
+};
+
+module.exports = {
+  loginCheck,
+  accessCheck
 };
