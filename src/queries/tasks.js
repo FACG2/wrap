@@ -270,10 +270,10 @@ const addFeature = (title, taskId, cb) => {
   });
 };
 
-const changeState = (sprintId, StateId, taskId, cb) => {
+const changeState = (sprintId, stateId, taskId, cb) => {
   const sql = {
-    text: `UPDATE tasks SET state_id=$2 WHERE id=$3 AND sprint_id=$1 RETURNING *`,
-    values: [sprintId, StateId, taskId] };
+    text: `UPDATE tasks SET state_id=$2, sprint_id=$1 WHERE id=$3 RETURNING *`,
+    values: [sprintId, stateId, taskId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
@@ -306,14 +306,6 @@ const moveToBacklog = (taskId, projectId, cb) => {
     }
   });
 };
-
-moveToBackLog(35, 18, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res);
-  }
-});
 
 module.exports = {
   getCurrentTasks,
