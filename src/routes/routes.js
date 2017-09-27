@@ -21,5 +21,6 @@ module.exports = {
   postAddComment: require('./postAddComment.js'),
   getLogs: require('./getLogs.js'),
   getMembers: require('./getMembers.js'),
+  getProgress: require('./getProgress.js'),
   postAddMember: require('./postAddMember.js')
 };

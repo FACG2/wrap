@@ -19,6 +19,7 @@ router.get('/tasks/:task_id/features', routes.getFeatures);
 router.get('/tasks/:task_id/comments', routes.getComments);
 router.get('/projects/:project_id/logs', routes.getLogs);
 router.get('/projects/:project_id/members', routes.getMembers);
+router.get('/tasks/:task_id/progress', routes.getProgress);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);

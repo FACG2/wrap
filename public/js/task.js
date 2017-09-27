@@ -14,6 +14,7 @@
         } else {
           addFeatureData[0].value = '';
           renderFeatures();
+          renderProgress();
         }
       }, JSON.stringify(addFeatureReq));
     });
@@ -38,7 +39,7 @@
       }, JSON.stringify(addCommentReq));
     });
   }
-
+  renderProgress();
   renderFeatures();
   renderComments();
 })();
@@ -65,6 +66,19 @@ function renderComments () {
       commentsContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       commentsContainer.innerHTML = data;
+    }
+  });
+}
+
+function renderProgress () {
+  const progress = document.querySelector('#progressBar');
+  loading(progress);
+  apiReq(window.location.pathname + `/progress`, 'GET', function (err, data) {
+    if (err) {
+      progress.innerHTML = '<h1>Failed to Load</h1>';
+    } else {
+      progress.innerHTML = data;
+      progress.value = data;
     }
   });
 }

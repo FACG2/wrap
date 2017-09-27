@@ -309,7 +309,7 @@ const updateTaskProgress = (taskId, cb) => {
       let val = (noTrues / res.rows.length) * 100;
       val = isNaN(val) ? 0 : val;
       const sql2 = {
-        text: `UPDATE tasks SET progress=$1 WHERE id=$2`,
+        text: `UPDATE tasks SET progress=$1 WHERE id=$2 RETURNING progress`,
         values: [val, taskId] };
       connection.query(sql2, (err, result) => {
         if (err) {
@@ -320,11 +320,12 @@ const updateTaskProgress = (taskId, cb) => {
             values: [taskId]
           };
           connection.query(sql3, (err, result2) => {
-            if (result2.rows[0].sprint_id !== null) {
-              updateSprintProgress(result2.rows[0].sprint_id, cb);
-            }
-            updateProjectProgress(result2.rows[0].project_id, cb);
+            // if (result2.rows[0].sprint_id !== null) {
+            //   updateSprintProgress(result2.rows[0].sprint_id, cb);
+            // }
+            // updateProjectProgress(result2.rows[0].project_id, cb);
           });
+          cb(null, result.rows[0].progress);
         }
       });
     }
