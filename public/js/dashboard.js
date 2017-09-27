@@ -46,11 +46,10 @@
     loading(dashboardContent);
     renderCreateProjectForm(dashboardContent);
   });
-  /*tabels*/
+  /* tabels */
   if ($('#dataTable')) {
-  $('#dataTable').DataTable();
-}
-
+    $('#dataTable').DataTable();
+  }
 })();
 
 function loading (container) {

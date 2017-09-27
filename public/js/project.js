@@ -221,19 +221,14 @@ function findParetId (listNodeObj, idString) {
 }
 function allowDrop (ev) {
   ev.preventDefault();
-  console.log('allow');
 }
 
 function drag (ev) {
   ev.dataTransfer.setData('text', ev.target.id);
-  console.log('drag');
 }
 function drop (ev) {
   ev.preventDefault();
-  console.log('drop');
   var data = ev.dataTransfer.getData('text');
-  console.log('ww', data);
   var state = findParetId(ev.target, 'state');
-  console.log('www', state);
   state.appendChild(document.getElementById(data));
 }
