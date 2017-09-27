@@ -399,3 +399,6 @@ footer.sticky-footer {
 .loading{
   opacity: 0.4;
 }
+.stateColumn .card{
+  cursor: grab;
+}
