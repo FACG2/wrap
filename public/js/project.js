@@ -190,10 +190,8 @@ function addMemberFormListener () {
         if (err) {
           alert('eee', err);
         } else {
-          console.log(res);
           document.getElementById('userEmail').value = '';
           document.getElementById('role').value = '';
-          // alert(res);
           window.location.reload();
         }
       }, JSON.stringify(addMemberReq));

@@ -34,7 +34,6 @@ const getStateByName = (stateName, projectId, cb) => {
     values: [stateName, projectId] };
   connection.query(sql, (err, res) => {
     if (err) {
-      console.log('errrrrrr', err);
       cb(err);
     } else {
       cb(null, res.rows[0].id);
@@ -218,7 +217,6 @@ const addTask = (title, priority, projectId, userId, cb) => {
             values: [userId, title, priority, projectId, stateId, order] };
           connection.query(sql, (err, res) => {
             if (err) {
-              console.log(err);
               cb(err);
             } else {
               addDefaultLabel(res.rows[0].id, projectId, (err2, res2) => {
@@ -312,7 +310,6 @@ const moveToBacklog = (taskId, projectId, cb) => {
         if (err2) {
           cb(err2);
         } else {
-          console.log('hana', res.state_id);
           cb(null, taskDetails.rows);
         }
       });

@@ -10,12 +10,10 @@ module.exports = (req, res, next) => {
       if (err2) {
         res.send(err2);
       } else {
-        console.log(':(((((');
         queries.projects.addMember(userId.id, req.params.project_id, data.role, (isExist, memberDetails) => {
           if (isExist) {
             res.send('already a member');
           } else {
-            console.log('hanaaaaaaaaa');
             res.send(memberDetails);
           }
         });

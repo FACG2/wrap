@@ -7,7 +7,6 @@ module.exports = (req, res, next) => {
   });
   req.on('end', function () {
     data = JSON.parse(data);
-    console.log(data);
     queries.tasks.moveToBacklog(data.taskId, req.params.project_id, (err, taskDetails) => {
       if (err) {
         res.send('err');
