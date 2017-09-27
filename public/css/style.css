@@ -19,7 +19,9 @@ body.fixed-nav {
 .nav-link img{
   margin-right: 10px;
 }
-
+.hidden{
+  display: none;
+}
 nav{
   max-height: 56px;
 }

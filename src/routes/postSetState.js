@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
   });
   req.on('end', function () {
     data = JSON.parse(data);
-    queries.tasks.changeState(data.sprint_id, data.state_id, data.task_id, (err, taskDetails) => {
+    queries.tasks.changeState(data.sprintId, data.stateId, data.taskId, (err, taskDetails) => {
       if (err) {
         res.send('err');
       } else {
