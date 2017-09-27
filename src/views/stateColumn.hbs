@@ -3,7 +3,7 @@
 {{else}}
   {{#each tasks}}
     <div class="card mb-2" >
-      <button type="button" class="btn btn-warning btn-sm pull-left mb-2"></button>
+      <button type="button" style="background-color:{{priorityColor}};border-color:{{priorityColor}}" data-toggle="tooltip" title="Priority:{{priority}}" class="btn btn-sm pull-left mb-2"></button>
       <div class="labels">
         {{#each label}}
           <button style="background-color:{{color}};border-color:{{color}}" type="button" data-toggle="tooltip" title="{{title}}" class="btn  btn-sm pull-left mb-2 label"></button>

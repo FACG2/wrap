@@ -159,7 +159,6 @@ function startSprintFormListener () {
 function renderAddTaskForm (container) {
   container.innerHTML = '<form id="addTaskForm" action="' + window.location.pathname + '/addTask" method="post">' +
                           '<label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>' +
-                          '<label>description : <input type="text" name="description" value="..." placeholder="Enter task description.."></label>' +
                           '<label>priority :' +
                             '<select name="priority">' +
                               '<option value="1">1</option>' +
@@ -167,14 +166,6 @@ function renderAddTaskForm (container) {
                               '<option value="3">3</option>' +
                               '<option value="4">4</option>' +
                               '<option value="5">5</option>' +
-                            '</select>' +
-                          '</label>' +
-                          '<label>deadline<input type="date" name="deadline" value="2014-02-09" required></label>' +
-                          '<label>Duration<input type="number" name="duration" value="1" required>' +
-                            '<select name="duration">' +
-                              '<option value="1">H</option>' +
-                              '<option value="24">D</option>' +
-                              '<option value="168">W</option>' +
                             '</select>' +
                           '</label>' +
                           '<input type="submit" name="submit" value="Create Task!">' +
@@ -188,10 +179,8 @@ function addTaskFormListener (cb) {
       var addTaskData = event.target;
       var addTaskReq = {
         title: addTaskData[0].value,
-        description: addTaskData[1].value,
-        priority: addTaskData[2].value,
-        deadline: addTaskData[3].value,
-        duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
+        priority: addTaskData[1].value
+        //duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
       };
       apiReq(window.location.pathname + '/addTask', 'POST', cb, JSON.stringify(addTaskReq));
     });
@@ -208,7 +197,7 @@ function addMemberFormListener () {
         email: addMemberData[0].value,
         role: addMemberData[1].value
       };
-      console.log(addMemberReq);
+     
       apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
         if (err) {
           alert('eee',err);

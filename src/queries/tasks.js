@@ -204,7 +204,7 @@ const listComments = (taskId, cb) => {
   });
 };
 
-const addTask = (title, description, priority, deadline, duration, projectId, cb) => {
+const addTask = (title, priority, projectId, userId, cb) => {
   calTaskOrder(projectId, (error, order) => {
     if (error) {
       cb(error);
@@ -214,10 +214,11 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
           cb(err);
         } else {
           const sql = {
-            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING title, description, priority, deadline, duration, project_id, state_id, orders,id`,
-            values: [title, description, priority, deadline, duration, projectId, stateId, order] };
+            text: `INSERT INTO tasks (assigned_id,title,priority,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+            values: [userId, title, priority, projectId, stateId, order] };
           connection.query(sql, (err, res) => {
             if (err) {
+              console.log(err);
               cb(err);
             } else {
               addDefaultLabel(res.rows[0].id, projectId, (err2, res2) => {
