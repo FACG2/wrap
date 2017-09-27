@@ -17,7 +17,7 @@ const getTasksByUserId = (userId, cb) => {
 };
 const getTaskDetails = (taskId, cb) => {
   const sql = {
-    text: `SELECT tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.id= $1`,
+    text: `SELECT tasks.id,tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.id= $1`,
     values: [taskId] };
   connection.query(sql, (err, res) => {
     if (err) {
@@ -204,7 +204,7 @@ const listComments = (taskId, cb) => {
   });
 };
 
-const addTask = (title, description, priority, deadline, duration, projectId, cb) => {
+const addTask = (title, priority, projectId, userId, cb) => {
   calTaskOrder(projectId, (error, order) => {
     if (error) {
       cb(error);
@@ -214,10 +214,11 @@ const addTask = (title, description, priority, deadline, duration, projectId, cb
           cb(err);
         } else {
           const sql = {
-            text: `INSERT INTO tasks (title,description,priority,deadline,duration,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING title, description, priority, deadline, duration, project_id, state_id, orders,id`,
-            values: [title, description, priority, deadline, duration, projectId, stateId, order] };
+            text: `INSERT INTO tasks (assigned_id,title,priority,project_id,state_id,orders) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+            values: [userId, title, priority, projectId, stateId, order] };
           connection.query(sql, (err, res) => {
             if (err) {
+              console.log(err);
               cb(err);
             } else {
               addDefaultLabel(res.rows[0].id, projectId, (err2, res2) => {
@@ -249,7 +250,7 @@ const getFeatures = (taskId, cb) => {
   });
 };
 
-const addFeature = (title, taskId,cb) => {
+const addFeature = (title, taskId, cb) => {
   const sql = {
     text: `INSERT INTO features (title,finished,task_id) VALUES ($1,$2,$3) RETURNING *`,
     values: [title, false, taskId] };
@@ -257,13 +258,14 @@ const addFeature = (title, taskId,cb) => {
     if (err) {
       cb(err);
     } else {
-      project.updateTaskProgress(taskId, (err, rs) => {
-        if (err) {
-          cb(err);
-        } else {
-          cb(null, res.rows[0]);
-        }
-      });
+      // project.updateTaskProgress(taskId, (err, rs) => {
+      //   if (err) {
+      //     cb(err);
+      //   } else {
+      //     cb(null, res.rows[0]);
+      //   }
+      // });
+      cb(null, res.rows[0]);
     }
   });
 };
@@ -283,5 +285,6 @@ module.exports = {
   removeAssign,
   getTaskDetails,
   getFeatures,
-  addDefaultLabel
+  addDefaultLabel,
+  addFeature
 };

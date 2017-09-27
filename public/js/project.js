@@ -5,11 +5,13 @@
   if (linkHash === '#members') {
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
+    addMemberFormListener();
   }
 
   document.getElementById('membersButton').addEventListener('click', function (event) {
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
+    addMemberFormListener();
   });
 
   if (linkHash === '#logs') {
@@ -71,10 +73,9 @@ function onPageLoadCheck (container) {
 }
 function loading (container) {
   if (!container) {
-    return console.error('Cannot load, no container found.')
+    return console.error('Cannot load, no container found.');
   }
   container.innerHTML = '<h2>Loading.....</h2>';
-
 }
 function getData (url, cb) {
   apiReq(url,'GET', function (err, data) {// eslint-disable-line
@@ -158,7 +159,6 @@ function startSprintFormListener () {
 function renderAddTaskForm (container) {
   container.innerHTML = '<form id="addTaskForm" action="' + window.location.pathname + '/addTask" method="post">' +
                           '<label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>' +
-                          '<label>description : <input type="text" name="description" value="..." placeholder="Enter task description.."></label>' +
                           '<label>priority :' +
                             '<select name="priority">' +
                               '<option value="1">1</option>' +
@@ -166,14 +166,6 @@ function renderAddTaskForm (container) {
                               '<option value="3">3</option>' +
                               '<option value="4">4</option>' +
                               '<option value="5">5</option>' +
-                            '</select>' +
-                          '</label>' +
-                          '<label>deadline<input type="date" name="deadline" value="2014-02-09" required></label>' +
-                          '<label>Duration<input type="number" name="duration" value="1" required>' +
-                            '<select name="duration">' +
-                              '<option value="1">H</option>' +
-                              '<option value="24">D</option>' +
-                              '<option value="168">W</option>' +
                             '</select>' +
                           '</label>' +
                           '<input type="submit" name="submit" value="Create Task!">' +
@@ -187,12 +179,35 @@ function addTaskFormListener (cb) {
       var addTaskData = event.target;
       var addTaskReq = {
         title: addTaskData[0].value,
-        description: addTaskData[1].value,
-        priority: addTaskData[2].value,
-        deadline: addTaskData[3].value,
-        duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
+        priority: addTaskData[1].value
+        //duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
       };
       apiReq(window.location.pathname + '/addTask', 'POST', cb, JSON.stringify(addTaskReq));
+    });
+  }
+}
+
+function addMemberFormListener () {
+  var addMemberForm = document.getElementById('addMemberForm');
+  if (addMemberForm) {
+    addMemberForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var addMemberData = event.target;
+      var addMemberReq = {
+        email: addMemberData[0].value,
+        role: addMemberData[1].value
+      };
+      apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
+        if (err) {
+          alert('eee',err);
+        } else {
+          console.log(res);
+          document.getElementById('userEmail').value = '';
+          document.getElementById('role').value = '';
+          alert(res);
+          window.location.reload();
+        }
+      }, JSON.stringify(addMemberReq));
     });
   }
 }

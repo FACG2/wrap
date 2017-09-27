@@ -3,5 +3,6 @@ module.exports = {
   token: require('./token.js'),
   auth: require('./auth.js'),
   dashboard: require('./dashboard.js'),
-  logs: require('./logs.js')
+  logs: require('./logs.js'),
+  projects: require('./projects.js')
 };
