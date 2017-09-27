@@ -55,7 +55,7 @@ function renderFeatures () {
       featuresContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       featuresContainer.innerHTML = data;
-      FeatureEvenListener ();
+      FeatureEvenListener();
     }
   });
 }
@@ -99,61 +99,8 @@ function FeatureEvenListener () {
             renderProgress();
             data = JSON.parse(data);
           }
-        }, JSON.stringify(featureCheckDiv.checked));
+        }, JSON.stringify({checked: featureCheckDiv.checked}));
       });
     });
   }
-}
-function checkFeature () {
-  // var checkbox = document.getElementById('someSwitchOptionPrimary');
-  // checkbox = event.target;
-  // var featureId = parseInt(checkbox.parentElement.parentElement.id.split('-')[1]);
-  // event.preventDefault();
-  // var featureReq = {
-  //   finished: checkbox.checked}
-  // if (checkbox.checked) {
-  //   apiReq(window.location.pathname + `/` + featureId, 'POST', function (err, data) {
-  //     if (err) {
-  //       progress.innerHTML = '<h1>Failed to Load</h1>';
-  //     } else {
-  //       renderFeatures();
-  //       renderProgress();
-  //       data = JSON.parse(data);
-  //       alert(checkbox.value)
-  //       checkbox.value=data.finished;
-  //         alert(checkbox.value)
-  //       // alert(featureReq.state)
-  //     }
-  //   }, JSON.stringify(featureReq));
-  //
-  // } else {
-  //   apiReq(window.location.pathname + `/` + featureId, 'POST', function (err, data) {
-  //     if (err) {
-  //       progress.innerHTML = '<h1>Failed to Load</h1>';
-  //     } else {
-  //       renderFeatures();
-  //       renderProgress();
-  //       data = JSON.parse(data);
-  //       alert(checkbox.value)
-  //       checkbox.value=data.finished;
-  //         alert(checkbox.value)
-  //       // alert(featureReq.state)
-  //     }
-  //   }, JSON.stringify(featureReq));
-
-    // var featureReq = {
-    //   state: false}
-    // apiReq(window.location.pathname + `/` + featureId, 'POST', function (err, data) {
-    //   if (err) {
-    //     progress.innerHTML = '<h1>Failed to Load</h1>';
-    //   } else {
-    //     renderFeatures();
-    //     renderProgress();
-    //
-    //     alert(checkbox.value)
-    //
-    //   }
-    // }, JSON.stringify(featureReq));
-    // // alert(document.getElementById('someSwitchOptionPrimary').checked);  // Checkbox has been unchecked
-  // }
 }
