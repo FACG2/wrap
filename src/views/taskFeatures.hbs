@@ -5,10 +5,11 @@
        </div>
        {{else}}
        {{#each features}}
-   <li class="list-group-item ">
+   <li id="feature-{{id}}" class="list-group-item ">
        {{title}}
+       <p>{{finished}}</p>
        <div class="material-switch pull-right">
-           <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+           <input class="featureCheck" id="check-{{id}}"  {{#if finished}}checked {{/if}}  name="someSwitchOption001" type="checkbox" />
        </div>
    </li>
    {{/each}}

@@ -23,6 +23,7 @@ module.exports = {
   getMembers: require('./getMembers.js'),
   getProgress: require('./getProgress.js'),
   postAddMember: require('./postAddMember.js'),
+  postCheckFeature: require('./postCheckFeature.js'),
   postSetState: require('./postSetState.js'),
   postMoveToBacklog: require('./postMoveToBacklog.js')
 
