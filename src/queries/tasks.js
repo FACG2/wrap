@@ -270,6 +270,20 @@ const addFeature = (title, taskId, cb) => {
   });
 };
 
+const checkFeature = (state,task_id, featureId,cb) => {
+  const sql = {
+    text: `UPDATE features SET finished=$1 WHERE id=$2 AND task_id=$3 RETURNING id,task_id,finished`,
+    values: [state,featureId, task_id] };
+
+  connection.query(sql, (error, result) => {
+    if (error) {
+      cb(error);
+    } else {
+      cb(null, result.rows[0]);
+    }
+  });
+};
+
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
@@ -286,5 +300,6 @@ module.exports = {
   getTaskDetails,
   getFeatures,
   addDefaultLabel,
-  addFeature
+  addFeature,
+  checkFeature
 };
