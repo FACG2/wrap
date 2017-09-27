@@ -1,21 +1,6 @@
 const connection = require('../database/db_connection.js');
-const users = require('./helpers/users.js');
 require('env2')('./config.env');
-// const helperUser = require('../../routes/helpers/users.js');
-//
-// const getTasksByUserName = (userName, cb) => {
-//   const sql = {
-//     text: `SELECT project_id FROM user_project WHERE assigned = $1`,
-//     values: [userName] };
-//
-//   connection.query(sql, (err, res) => {
-//     if (err) {
-//       cb(err);
-//     } else {
-//       cb(null, res);
-//     }
-//   });
-// };
+
 const getCurrentProjects = (userId, cb) => {
   const sql = {
     text: `SELECT * FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1 AND projects.finished= false`,
@@ -320,10 +305,6 @@ const updateTaskProgress = (taskId, cb) => {
             values: [taskId]
           };
           connection.query(sql3, (err, result2) => {
-            // if (result2.rows[0].sprint_id !== null) {
-            //   updateSprintProgress(result2.rows[0].sprint_id, cb);
-            // }
-            // updateProjectProgress(result2.rows[0].project_id, cb);
           });
           cb(null, result.rows[0].progress);
         }

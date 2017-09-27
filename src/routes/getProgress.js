@@ -4,8 +4,7 @@ module.exports = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      console.log(result);
-      if(result===undefined){
+      if (result === undefined) {
         result = 0;
       }
       res.send(result);

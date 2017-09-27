@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
       if (err) {
         res.send('err');
       } else {
-        console.log(commentDetails);
         res.send(commentDetails)
       }
     });

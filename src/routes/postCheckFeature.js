@@ -7,8 +7,7 @@ module.exports = (req, res, next) => {
   });
   req.on('end', function () {
     data = JSON.parse(data);
-    console.log('qqqqqq',req.params.task_id, req.params.feature_id,data);
-    queries.tasks.checkFeature(req.params.task_id, req.params.feature_id,data, (err, taskDetails) => {
+    queries.tasks.checkFeature(req.params.feature_id, data.checked, (err, taskDetails) => {
       if (err) {
         res.send('err');
       } else {
