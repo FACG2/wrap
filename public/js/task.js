@@ -12,6 +12,7 @@
         if (err) {
           alert('connection error');
         } else {
+          addFeatureData[0].value = '';
           renderFeatures();
         }
       }, JSON.stringify(addFeatureReq));
@@ -31,7 +32,8 @@
         if (err) {
           alert('connection error');
         } else {
-            renderComments();
+          addCommentData[0].value = '';
+          renderComments();
         }
       }, JSON.stringify(addCommentReq));
     });
