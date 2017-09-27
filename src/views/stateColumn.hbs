@@ -2,7 +2,7 @@
   <h3>no tasks here!</h3>
 {{else}}
   {{#each tasks}}
-    <div class="card mb-2" >
+    <div class="card mb-2" id="task-{{id}}" draggable="true" ondragstart="drag(event)" >
       <button type="button" style="background-color:{{priorityColor}};border-color:{{priorityColor}}" data-toggle="tooltip" title="Priority:{{priority}}" class="btn btn-sm pull-left mb-2"></button>
       <div class="labels">
         {{#each label}}
