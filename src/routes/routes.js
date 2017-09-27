@@ -7,9 +7,9 @@ module.exports = {
   postAddProject: require('./postAddProject.js'),
   getUsersTasks: require('./getUsersTasks.js'),
   getDashboard: require('./getDashboard.js'),
-  getTask: require('./getTask.js'), //
-  getComments: require('./getComments.js'), //
-  getFeatures: require('./getFeatures.js'), //
+  getTask: require('./getTask.js'),
+  getComments: require('./getComments.js'),
+  getFeatures: require('./getFeatures.js'),
   getCurrentProjects: require('./getCurrentProjects.js'),
   getFinishedProjects: require('./getFinishedProjects.js'),
   getLogout: require('./getLogout'),
@@ -18,7 +18,7 @@ module.exports = {
   getBacklogTasks: require('./getBacklogTasks.js'),
   postCreateSprint: require('./postCreateSprint.js'),
   postAddFeature: require('./postAddFeature.js'),
-  postAddComment: require('./postAddComment.js'), 
+  postAddComment: require('./postAddComment.js'),
   getLogs: require('./getLogs.js'),
   getMembers: require('./getMembers.js'),
   postAddMember: require('./postAddMember.js')
