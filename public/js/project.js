@@ -205,7 +205,7 @@ function addMemberFormListener () {
           console.log(res);
           document.getElementById('userEmail').value = '';
           document.getElementById('role').value = '';
-          alert(res);
+          // alert(res);
           window.location.reload();
         }
       }, JSON.stringify(addMemberReq));
@@ -224,7 +224,8 @@ function allowDrop (ev) {
 }
 
 function drag (ev) {
-  ev.dataTransfer.setData('text', ev.target.id);
+  var task = findParetId(ev.target, 'task');
+  ev.dataTransfer.setData('text', task.id);
 }
 function drop (ev) {
   ev.preventDefault();

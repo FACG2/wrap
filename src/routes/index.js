@@ -1,10 +1,10 @@
 const express = require('express');
 const routes = require('./routes.js');
 const router = express.Router();
-// const accessCheck = require('./helpers/index.js').auth.accessCheck;
+const accessCheck = require('./helpers/index.js').auth.accessCheck;
 
 router.get('/', routes.getHome);
-router.get('/projects/:project_id', routes.getProjectPage);
+router.get('/projects/:project_id',accessCheck('member') , routes.getProjectPage);
 router.get('/getUsersTasks', routes.getUsersTasks);
 router.get('/getDashboard', routes.getDashboard);
 router.get('/tasks/:task_id', routes.getTask);
