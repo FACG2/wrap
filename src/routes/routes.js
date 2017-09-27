@@ -18,7 +18,8 @@ module.exports = {
   getBacklogTasks: require('./getBacklogTasks.js'),
   postCreateSprint: require('./postCreateSprint.js'),
   postAddFeature: require('./postAddFeature.js'),
-  postAddComment: require('./postAddComment.js'), 
+  postAddComment: require('./postAddComment.js'),
   getLogs: require('./getLogs.js'),
-  getMembers: require('./getMembers.js')
+  getMembers: require('./getMembers.js'),
+  getProgress: require('./getProgress.js')
 };

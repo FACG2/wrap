@@ -25,18 +25,18 @@
       var addCommentData = event.target;
       var addCommentReq = {
         context: addCommentData[0].value,
-        id:parseInt(window.location.pathname[window.location.pathname.length - 1])
+        id: parseInt(window.location.pathname[window.location.pathname.length - 1])
       };
       apiReq(window.location.pathname + '/addComment', 'POST', function (err, data) {
         if (err) {
           alert('connection error');
         } else {
-            renderComments();
+          renderComments();
         }
       }, JSON.stringify(addCommentReq));
     });
   }
-
+  // renderProgress();
   renderFeatures();
   renderComments();
 })();
@@ -63,6 +63,20 @@ function renderComments () {
       commentsContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       commentsContainer.innerHTML = data;
+    }
+  });
+}
+
+function renderProgress () {
+  const progress = document.querySelector('#progressBar');
+  loading(progress);
+  apiReq(window.location.pathname + `/progress`, 'GET', function (err, data) {
+    if (err) {
+      progress.innerHTML = '<h1>Failed to Load</h1>';
+    } else {
+      progress.innerHTML = data;
+      progress.value = data;
+      alert(data);
     }
   });
 }
