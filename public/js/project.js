@@ -180,7 +180,7 @@ function addTaskFormListener (cb) {
       var addTaskReq = {
         title: addTaskData[0].value,
         priority: addTaskData[1].value
-        //duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
+        // duration: parseInt(addTaskData[4].value) * parseInt(addTaskData[5].value)
       };
       apiReq(window.location.pathname + '/addTask', 'POST', cb, JSON.stringify(addTaskReq));
     });
@@ -199,7 +199,7 @@ function addMemberFormListener () {
       };
       apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
         if (err) {
-          alert('eee',err);
+          alert('eee', err);
         } else {
           console.log(res);
           document.getElementById('userEmail').value = '';
@@ -210,4 +210,29 @@ function addMemberFormListener () {
       }, JSON.stringify(addMemberReq));
     });
   }
+}
+/* Drag and Drop */
+function findParetId (listNodeObj, idString) {
+  if (listNodeObj.id.startsWith(idString)) {
+    return listNodeObj;
+  }
+  return findParetId(listNodeObj.parentElement, idString);
+}
+function allowDrop (ev) {
+  ev.preventDefault();
+  console.log('allow');
+}
+
+function drag (ev) {
+  ev.dataTransfer.setData('text', ev.target.id);
+  console.log('drag');
+}
+function drop (ev) {
+  ev.preventDefault();
+  console.log('drop');
+  var data = ev.dataTransfer.getData('text');
+  console.log('ww', data);
+  var state = findParetId(ev.target, 'state');
+  console.log('www', state);
+  state.appendChild(document.getElementById(data));
 }
