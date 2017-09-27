@@ -231,5 +231,35 @@ function drop (ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData('text');
   var state = findParetId(ev.target, 'state');
-  state.appendChild(document.getElementById(data));
+  var sprint = findParetId(ev.target, 'sprint');
+  data = document.getElementById(data);
+  state.appendChild(data);
+  var taskId = parseInt(data.id.split('-')[1]);
+  var stateId = parseInt(state.id.split('-')[1]);
+  var sprintId = parseInt(sprint.id.split('-')[1]);
+  setState(taskId, stateId, sprintId, function(err, res){
+    if (err) {
+      alert('Connection Error!');
+    }
+  });
+}
+function dropBacklog (ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData('text');
+  data = document.getElementById(data);
+  var backlog = findParetId(ev.target, 'backlog');
+  backlog.appendChild(data);
+  moveToBacklogReq(taskId, projectId, function(err, res){
+    if (err) {
+      alert('Connection Error!');
+    }
+  })
+}
+function moveToBacklogReq(taskId, projectId, cb) {
+  var data = {taskId: taskId};
+  apiReq(window.location.pathname + '/moveToBacklog', 'POST', cb, JSON.stringify(data));
+}
+function setState (taskId, stateId, sprintId, cb) {
+  var data = {taskId: taskId, stateId: stateId, sprintId: sprintId};
+  apiReq(window.location.pathname + '/setState', 'POST', cb, JSON.stringify(data));
 }

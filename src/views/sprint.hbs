@@ -1,8 +1,10 @@
-{{#each states}}
-  <div class="col-3 my-1 stateColumn" id="state-{{id}}" onload="loadState({{id}})"  ondrop="drop(event)" ondragover="allowDrop(event)">
-     <div class="font-weight-bold text-center my-3 mt-4">{{name}}</div>
-     <div class="stateTasks">
+<div id="sprint-{{sprintId}}">
+  {{#each states}}
+    <div class="col-3 my-1 stateColumn" id="state-{{id}}" onload="loadState({{id}})"  ondrop="drop(event)" ondragover="allowDrop(event)">
+       <div class="font-weight-bold text-center my-3 mt-4">{{name}}</div>
+       <div class="stateTasks">
 
+       </div>
      </div>
-   </div>
-   {{/each}}
+     {{/each}}
+</div>
