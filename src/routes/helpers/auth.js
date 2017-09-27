@@ -26,16 +26,17 @@ const calcRole = {
   'member': 2,
   'admin': 3
 };
-const accessCheck = (minRole, projectId, req, res, next) => {
-  queries.users.getRole(req.user.id, projectId, (err, res) => {
-    if (err || res.rows.length === 0) {
-      res.render('error.hbs', {message: 'Access is denied, Please login'});
+const accessCheck = (minRole) => (req, res, next) => {
+  const projectId = req.params.project_id;
+  queries.users.getRole(req.user.id, projectId, (err, result) => {
+    if (err || result.rows.length === 0) {
+      res.render('error.hbs', {message: 'Access is denied!'});
     } else {
-      const userRole = res.rows[0].role;
+      const userRole = result.rows[0].role;
       if (calcRole[userRole] && calcRole[userRole] >= calcRole[minRole]) {
         next();
       } else {
-        res.render('error.hbs', {message: 'Access is denied, Please login'});
+        res.render('error.hbs', {message: 'Access is denied!'});
       }
     }
   });

@@ -4,38 +4,37 @@
        <hr class="mt-2 ml-2">
         <div class="row ml-2">
        <div class="col-3 text-center ">
-     <a data-toggle="modal" data-target="#addMember">
-       <img class="card-img-top mb-2" src="http://freevector.co/wp-content/uploads/2009/08/64579-add-button.png" alt="Card image cap" style="border-radius: 50%;width: 75%;"></a>
-   </div>
-
-
-          <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="addMemberLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="addMemberLabel">Add New Member</h5>
-                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form id="addMemberForm">
-                   <div class="form-group">
-                     <label for="userEmail" class="form-control-label">Member Email:</label>
-                     <input type="email" class="form-control" id="userEmail">
-                   </div>
-                   <div class="form-group">
-                     <label for="role" class="form-control-label">Role:</label>
-                     <input type="text" class="form-control" id="role">
-                   </div>
-                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                     <input type="submit" name="submit" class="btn btn-primary" value="Add member">
-                   </form>
-                </div>
-
+        <a data-toggle="modal" data-target="#addMember">
+        <img class="card-img-top mb-2" src="http://freevector.co/wp-content/uploads/2009/08/64579-add-button.png" alt="Card image cap" style="border-radius: 50%;width: 75%;"></a>
+       </div>
+       <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="addMemberLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addMemberLabel">Add New Member</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
               </div>
+              <div class="modal-body">
+                <form id="addMemberForm">
+                 <div class="form-group">
+                   <label for="userEmail" class="form-control-label">Member Email:</label>
+                   <input type="email" class="form-control" id="userEmail">
+                 </div>
+                 <div class="form-group">
+                     <select name="role" id="role" class="form-control">
+                       <option value="member">Member</option>
+                       <option value="admin">Admin</option>
+                     </select>
+                 </div>
+                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                   <input type="submit" name="submit" class="btn btn-primary" value="Add member">
+                 </form>
               </div>
+            </div>
           </div>
+        </div>
 
     {{#if isEmpty}}
     <div class="ml-2 my-2">
