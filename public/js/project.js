@@ -197,6 +197,7 @@ function addMemberFormListener () {
         email: addMemberData[0].value,
         role: addMemberData[1].value
       };
+     
       apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
         if (err) {
           alert('eee',err);
