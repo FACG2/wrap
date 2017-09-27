@@ -396,3 +396,6 @@ footer.sticky-footer {
 .date{
   font-size: 12px;
 }
+.loading{
+  opacity: 0.4;
+}

@@ -63,6 +63,7 @@
         email: loginData[0].value,
         password: loginData[1].value
       };
+      loginForm.classList.add('loading');
       apiReq('/login','POST', function (err, data) {// eslint-disable-line
         if (err) {
           document.getElementsByClassName('errNote')[0].textContent = 'Connection Error!';
@@ -70,6 +71,7 @@
           if (data === '/ref') {
             window.location.reload();
           } else {
+            loginForm.classList.remove('loading');
             document.getElementsByClassName('errNote')[0].textContent = data;
           }
         }
@@ -94,6 +96,7 @@
       if (signupReq.password !== signupReq.cpassword) {
         errorSignup.textContent = 'passwords are not matched';
       } else {
+        loginForm.classList.add('loading');
         apiReq('/signup','POST', function (err, data) {// eslint-disable-line
           if (err) {
             errorSignup.textContent = 'Connection Error!';
@@ -101,6 +104,7 @@
             if (data === '/ref') {
               window.location.reload();
             } else {
+              loginForm.classList.remove('loading');
               errorSignup.textContent = data;
             }
           }
