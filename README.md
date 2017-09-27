@@ -54,4 +54,3 @@ Wrap is a web app that helps the developers, managers and designers to manage an
     * remove project
     * close sprint
     * define milestones  
-
