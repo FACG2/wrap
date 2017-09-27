@@ -18,8 +18,9 @@ Wrap is a web app that helps the developers, managers and designers to manage an
       user can:
     * create project
 
-
-  * mentor is a user who can:
+  * member is a mentor who can:
+    * change task state (eg. from progress to testing)
+    * check acceptance criteria/features in tasks
     * view project's sprints
     * view project's tasks
     * view project's logs
@@ -29,19 +30,12 @@ Wrap is a web app that helps the developers, managers and designers to manage an
     * view tasks' comments
     * comment on a task
 
-  * member is a mentor who can:
-    * change task state (eg. from progress to testing)
-    * check acceptance criteria/features in tasks
-
   * admin is a member who can:
     * start new sprint
     * add backlog tasks
 
   
 ##Things that are not finished and their isuues are opened:
-  * mentor is a user who can:
-    * view project's insights
-    * view project's milestones
   
   * member is a mentor who can:
      * can receive notifications
@@ -50,6 +44,8 @@ Wrap is a web app that helps the developers, managers and designers to manage an
      * remove member from a task
      * add/edit/remove task labels
      * view members' profile page
+     * view project's insights
+     * view project's milestones
   * admin is a member who can:
     * remove project
     * close sprint
