@@ -1,5 +1,46 @@
 (function () {
-/* Tabs */
+  /* on load */
+  renderBacklog();
+
+  var statesDivs = document.querySelectorAll('.sprintStates .stateColumn');
+  if (statesDivs[0]) {
+    statesArray = Array.prototype.slice.call(statesDivs);
+    statesArray.map(function (stateDiv) {
+      loadState(parseInt(stateDiv.id.split('-')[1]));
+    });
+  }
+  // document.getElementById('state-88').addEventListener('load', function (e) {
+  //   alert('dsad');
+  // });
+  /* */
+  /* Start new Sprint */
+  var startSprintButton = document.getElementById('startSprintButton');
+  if (startSprintButton) {
+    startSprintButton.addEventListener('click', function () {
+      document.getElementById('startSprintForm').classList.remove('hidden');
+      document.getElementsByClassName('startSprintDiv')[0].remove();
+      startSprintFormListener();
+    });
+  }
+
+  /* Add New Task */
+  var addTaskButton = document.getElementById('addTaskButton');
+  var addTaskDiv = document.getElementsByClassName('addTaskDiv')[0];
+  var backlogTasksDiv = document.querySelector('#backlog .stateTasks');
+
+  addTaskButton.addEventListener('click', function (e) {
+    renderAddTaskForm(addTaskDiv);
+    addTaskFormListener(function (err, res) {
+      if (err) {
+        backlogTasksDiv.innerHTML = '<h2>Connection Error!</h2>';
+      } else {
+        document.querySelector('#addTaskForm input').value = '';
+        loading(backlogTasksDiv);
+        renderBacklog();
+      }
+    });
+  });
+  /* Tabs */
   var linkHash = window.location.hash;
   var projectContent = document.getElementsByClassName('content-wrapper')[0];
   if (linkHash === '#members') {
@@ -29,48 +70,9 @@
     window.location.reload();
   });
 
-/* /tabs */
-  var mainConainer = document.getElementsByClassName('sprintStates')[0];
-  onPageLoadCheck(mainConainer);
-  /* Start new Sprint */
-  var startSprintButton = document.getElementById('startSprintButton');
-  if (startSprintButton) {
-    document.getElementById('startSprintButton').addEventListener('click', function (e) {
-      mainConainer.innerHTML = generateStartSprintForm();
-      startSprintFormListener();
-    });
-  }
-
-  /* Add New Task */
-  var addTaskButton = document.getElementById('addTaskButton');
-  var addTaskDiv = document.getElementsByClassName('addTaskDiv')[0];
-  var backlogTasksDiv = document.querySelector('#backlog .stateTasks');
-
-  addTaskButton.addEventListener('click', function (e) {
-    renderAddTaskForm(addTaskDiv);
-    addTaskFormListener(function (err, res) {
-      if (err) {
-        backlogTasksDiv.innerHTML = '<h2>Connection Error!</h2>';
-      } else {
-        loading(backlogTasksDiv);
-        renderBacklog();
-      }
-    });
-  });
+  /* /tabs */
 })();
 
-function onPageLoadCheck (container) {
-  loading(container);
-  // apiReq is defined in request.js
-  apiReq(window.location.pathname + '/currentSprint', 'GET', function (err, data) {
-    if (err) {
-      container.innerHTML = '<h1>Failed to Load</h1>';
-    } else {
-      container.innerHTML = data;
-      renderBacklog();
-    }
-  });
-}
 function loading (container) {
   if (!container) {
     return console.error('Cannot load, no container found.');
@@ -123,19 +125,6 @@ function renderBacklog () {
   });
 }
 
-function generateStartSprintForm () {
-  return '<form id="startSprintForm">' +
-          '<label>Sprint Duration' +
-            '<input type="number" name="durationNumber" value="1" required>' +
-            '<select name="duration">' +
-              '<option value="7">W</option>' +
-              '<option value="1">D</option>' +
-            '</select>' +
-          '</label>' +
-          '<input type="submit" name="submit" value="Start!">' +
-        '</form>';
-}
-
 function startSprintFormListener () {
   var startSprintForm = document.getElementById('startSprintForm');
   if (startSprintForm) {
@@ -148,8 +137,7 @@ function startSprintFormListener () {
           alert('connection error');
         } else {
           if (data === '/rel') {
-            var mainConainer = document.getElementsByClassName('sprintStates')[0];
-            onPageLoadCheck(mainConainer);
+            window.location.reload();
           }
         }
       }, JSON.stringify(duration));
@@ -205,7 +193,7 @@ function addMemberFormListener () {
           console.log(res);
           document.getElementById('userEmail').value = '';
           document.getElementById('role').value = '';
-          alert(res);
+          // alert(res);
           window.location.reload();
         }
       }, JSON.stringify(addMemberReq));
@@ -224,11 +212,43 @@ function allowDrop (ev) {
 }
 
 function drag (ev) {
-  ev.dataTransfer.setData('text', ev.target.id);
+  var task = findParetId(ev.target, 'task');
+  ev.dataTransfer.setData('text', task.id);
 }
 function drop (ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData('text');
   var state = findParetId(ev.target, 'state');
-  state.appendChild(document.getElementById(data));
+  var sprint = findParetId(ev.target, 'sprint');
+  data = document.getElementById(data);
+  state.appendChild(data);
+  var taskId = parseInt(data.id.split('-')[1]);
+  var stateId = parseInt(state.id.split('-')[1]);
+  var sprintId = parseInt(sprint.id.split('-')[1]);
+  setState(taskId, stateId, sprintId, function (err, res) {
+    if (err) {
+      alert('Connection Error!');
+    }
+  });
+}
+function dropBacklog (ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData('text');
+  data = document.getElementById(data);
+  var backlog = findParetId(ev.target, 'backlog');
+  backlog.appendChild(data);
+  var taskId = parseInt(data.id.split('-')[1]);
+  moveToBacklogReq(taskId, function (err, res) {
+    if (err) {
+      alert('Connection Error!');
+    }
+  });
+}
+function moveToBacklogReq (taskId, cb) {
+  var data = {taskId: taskId};
+  apiReq(window.location.pathname + '/moveToBacklog', 'POST', cb, JSON.stringify(data));
+}
+function setState (taskId, stateId, sprintId, cb) {
+  var data = {taskId: taskId, stateId: stateId, sprintId: sprintId};
+  apiReq(window.location.pathname + '/setState', 'POST', cb, JSON.stringify(data));
 }

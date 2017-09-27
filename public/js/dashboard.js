@@ -100,11 +100,11 @@ function renderCreateProjectForm (container) {
                         '</div>' +
                         '<div class="row">' +
                           '<div class="col-md-6 mb-3">' +
-                            '<label for="validationDefault03">Working Days</label>' +
+                            '<label for="validationDefault03">Working Days Per Week</label>' +
                             '<input type="number" name="wDays" min="0" value="0" class="form-control" id="validationDefault03" placeholder="No. of Days" required>' +
                           '</div>' +
                           '<div class="col-md-6 mb-3">' +
-                            '<label for="validationDefault04">Working Hours</label>' +
+                            '<label for="validationDefault04">Working Hours Per Day</label>' +
                             '<input type="number" name="wHours" min="0" value="0" class="form-control" id="validationDefault04" placeholder="No. of Hours" required>' +
                           '</div>' +
                         '</div>' +

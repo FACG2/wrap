@@ -279,7 +279,42 @@ const checkFeature = (state,task_id, featureId,cb) => {
     if (error) {
       cb(error);
     } else {
-      cb(null, result.rows[0]);
+      cb(null, result.rows[0])
+      ;}});
+    }
+const changeState = (sprintId, stateId, taskId, cb) => {
+  const sql = {
+    text: `UPDATE tasks SET state_id=$2, sprint_id=$1 WHERE id=$3 RETURNING *`,
+    values: [sprintId, stateId, taskId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
+
+const moveToBacklog = (taskId, projectId, cb) => {
+  const sql = {
+    text: `SELECT id FROM state WHERE project_id= $1 AND name= 'backlog' `,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err || res.rows.length === 0) {
+      cb(err);
+    } else {
+      const sql = {
+        text: `UPDATE tasks SET state_id=$2 WHERE id=$1 AND project_id=$3 RETURNING *`,
+        values: [taskId, res.rows[0].id, projectId]
+      };
+      connection.query(sql, (err2, taskDetails) => {
+        if (err2) {
+          cb(err2);
+        } else {
+          console.log('hana', res.state_id);
+          cb(null, taskDetails.rows);
+        }
+      });
     }
   });
 };
@@ -301,5 +336,8 @@ module.exports = {
   getFeatures,
   addDefaultLabel,
   addFeature,
-  checkFeature
+  checkFeature,
+  changeState,
+  moveToBacklog
+
 };

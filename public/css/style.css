@@ -19,7 +19,9 @@ body.fixed-nav {
 .nav-link img{
   margin-right: 10px;
 }
-
+.hidden{
+  display: none;
+}
 nav{
   max-height: 56px;
 }
@@ -398,4 +400,7 @@ footer.sticky-footer {
 }
 .loading{
   opacity: 0.4;
+}
+.stateColumn .card{
+  cursor: grab;
 }

@@ -3,7 +3,7 @@
   {{> projectNav}}
 </nav>
 
-<div class="content-wrapper" >
+<div class="content-wrapper" onload ="renderBacklog()">
   <div class="container-fluid ml-2">
     <div class="mb-0 mt-4">
       <i class="fa fa-list-alt"></i> Current Sprint</div>
@@ -12,7 +12,7 @@
       <div class="statesContainer">
         <div class="statesWrapper">
            <!-- Backlog  -->
-          <div id="backlog" onload="renderBacklog()" class="col-3 my-1 stateColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div id="backlog" onload="renderBacklog()" class="col-3 my-1 stateColumn" ondrop="dropBacklog(event)" ondragover="allowDrop(event)">
              <div class="font-weight-bold text-center my-3 mt-4">Backlog</div>
              <div class="addTaskDiv">
                <button type="button" id="addTaskButton" class="btn btn-sm btn-block font-weight-bold my-3"> + Add Task </button>
@@ -23,9 +23,39 @@
            </div>
 
           <!-- In progress -->
-          <div class="sprintStates">
+            {{#if hasCurrentSprint}}
+            <div class="sprintStates" onload="walid()">
+              <div id="sprint-{{sprintId}}">
+                {{#each states}}
+                  <div class="col-3 my-1 stateColumn" id="state-{{id}}" onload="loadState({{id}})"  ondrop="drop(event)" ondragover="allowDrop(event)">
+                   <div class="font-weight-bold text-center my-3 mt-4">{{name}}</div>
+                   <div class="stateTasks">
 
-          </div>
+                   </div>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+            {{else}}
+            <div class="sprintStates">
+              <div class="startSprintDiv">
+                <h1>There is no Sprints running for now!</h1>
+                <h2>Do you want to start new sprint?</h2>
+                <button id="startSprintButton" class="btn btn-primary">Start new sprint</button>
+              </div>
+              <form id="startSprintForm" class="hidden">
+                <label>Sprint Duration
+                  <input type="number" name="durationNumber" value="1" required>
+                  <select name="duration">
+                    <option value="7">W</option>
+                    <option value="1">D</option>
+                  </select>
+                </label>
+                <input type="submit" name="submit" value="Start!">
+              </form>
+            </div>
+            {{/if}}
+
         </div>
       </div>
 

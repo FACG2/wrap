@@ -6,7 +6,7 @@ const signUp = (username, githubname, email, password, cb) => {
       cb(err);
     } else {
       existedEmail(email, (err) => {
-        if (err) {
+        if (!err) {
           cb(err);
         } else {
           queries.users.signUp(username, githubname, email, password, cb);
