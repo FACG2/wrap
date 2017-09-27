@@ -28,5 +28,7 @@ router.post('/projects/:project_id/createSprint', routes.postCreateSprint);
 router.post('/tasks/:task_id/addFeature', routes.postAddFeature);
 router.post('/tasks/:task_id/addComment', routes.postAddComment);
 router.post('/projects/:project_id/addMember', routes.postAddMember);
+router.post('/projects/:project_id/setState', routes.postSetState);
+router.post('/projects/:project_id/moveToBacklog', routes.postMoveToBacklog);
 
 module.exports = router;
