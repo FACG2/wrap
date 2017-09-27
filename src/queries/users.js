@@ -8,7 +8,7 @@ const getUserByEmail = (email, cb) => {
     values: [email] };
 
   connection.query(sql, (err, rs) => {
-    if (err || rs.rows.length===0) {
+    if (err || rs.rows.length === 0) {
       cb('He is not a user in this website');
     } else {
       cb(null, rs.rows[0]);
@@ -28,6 +28,14 @@ const getUserById = (id, cb) => {
       cb(null, res.rows[0]);
     }
   });
+};
+
+const getRole = (userId, projectId, cb) => {
+  const sql = {
+    text: `SELECT role FROM user_project WHERE user_id = $1 AND project_id = $2`,
+    values: [userId, projectId] };
+
+  connection.query(sql, cb);
 };
 
 const getUserByUserName = (userName, cb) => {
@@ -124,5 +132,6 @@ module.exports = {
   getUserByUserName,
   invite,
   checkInvitation,
-  deleteInvitation
+  deleteInvitation,
+  getRole
 };

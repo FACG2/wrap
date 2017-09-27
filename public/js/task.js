@@ -12,6 +12,7 @@
         if (err) {
           alert('connection error');
         } else {
+          addFeatureData[0].value = '';
           renderFeatures();
         }
       }, JSON.stringify(addFeatureReq));
@@ -25,13 +26,14 @@
       var addCommentData = event.target;
       var addCommentReq = {
         context: addCommentData[0].value,
-        id:parseInt(window.location.pathname[window.location.pathname.length - 1])
+        id: parseInt(window.location.pathname[window.location.pathname.length - 1])
       };
       apiReq(window.location.pathname + '/addComment', 'POST', function (err, data) {
         if (err) {
           alert('connection error');
         } else {
-            renderComments();
+          addCommentData[0].value = '';
+          renderComments();
         }
       }, JSON.stringify(addCommentReq));
     });
