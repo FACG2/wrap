@@ -52,3 +52,9 @@ Wrap is a web app that helps the developers, managers and designers to manage an
     - [ ]  remove project.
     - [ ]  close sprint.
     - [ ]  define milestones.
+
+
+## Database Schema: 
+![alt text](https://github.com/FACG2/wrap/blob/master/public/images/dataBase.png")
+
+
