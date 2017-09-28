@@ -58,3 +58,9 @@ Wrap is a web app that helps the developers, managers and designers to manage an
 
 ![alt text](public/images/dataBase.png "Logo Title Text 1")
 
+## Prototype:
+ # Visit the [Link](https://projects.invisionapp.com/share/FMDIRY92Z#/screens)
+ 
+ ## Website
+ # Visit the [Link](https://wrapmanager.herokuapp.com/)
+ 
