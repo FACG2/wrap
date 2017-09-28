@@ -56,5 +56,5 @@ Wrap is a web app that helps the developers, managers and designers to manage an
 
 ## Database Schema: 
 
-![alt text](dataBase.png "Logo Title Text 1")
+![alt text](public/images/dataBase.png "Logo Title Text 1")
 
