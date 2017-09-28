@@ -55,6 +55,6 @@ Wrap is a web app that helps the developers, managers and designers to manage an
 
 
 ## Database Schema: 
-![alt text](https://github.com/FACG2/wrap/blob/master/public/images/dataBase.png")
+(https://github.com/FACG2/wrap/blob/master/public/images/dataBase.png")
 
 
