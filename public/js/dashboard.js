@@ -13,10 +13,18 @@
   if (linkHash === '#tasks') {
     loading(dashboardContent);
     render('/getUsersTasks', dashboardContent);
+    /* tabels */
+    if ($('#dataTable')) {
+      $('#dataTable').DataTable();
+    }
   }
   document.getElementById('tasksButton').addEventListener('click', function (event) {
     loading(dashboardContent);
     render('/getUsersTasks', dashboardContent);
+    /* tabels */
+    if ($('#dataTable')) {
+      $('#dataTable').DataTable();
+    }
   });
   /* CurrnetProjects Tab */
   if (linkHash === '#currentProjects') {
@@ -46,10 +54,6 @@
     loading(dashboardContent);
     renderCreateProjectForm(dashboardContent);
   });
-  /* tabels */
-  if ($('#dataTable')) {
-    $('#dataTable').DataTable();
-  }
 })();
 
 function loading (container) {
