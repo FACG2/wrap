@@ -24,7 +24,7 @@ Wrap is a web app that helps the developers, managers and designers to manage an
     - [x] list all finished project that he is a member or admin in it.
     - [x] create project.
 
-  * member is a mentor who can:
+  * member is a user who can:
 
     - [x]  change task state (eg. from progress to testing).
     - [x]  check acceptance criteria/features in tasks.
