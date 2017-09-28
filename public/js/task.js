@@ -74,7 +74,6 @@ function renderComments () {
 
 function renderProgress () {
   const progress = document.querySelector('#progressBar');
-  loading(progress);
   apiReq(window.location.pathname + `/progress`, 'GET', function (err, data) {
     if (err) {
       progress.innerHTML = '<h1>Failed to Load</h1>';
@@ -95,7 +94,6 @@ function FeatureEvenListener () {
           if (err) {
             progress.innerHTML = '<h1>Failed to Load</h1>';
           } else {
-            renderFeatures();
             renderProgress();
             data = JSON.parse(data);
           }
