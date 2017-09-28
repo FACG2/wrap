@@ -1,5 +1,5 @@
-# Wrap 
-## The project idea: 
+# Wrap
+## The project idea:
 Wrap is a web app that helps the developers, managers and designers to manage and organize their projects.
 
 ## Who are the users:
@@ -10,8 +10,7 @@ Wrap is a web app that helps the developers, managers and designers to manage an
 - Age 18-50+
 
 ## User stories
-  
- ##Things that are  finished and their isuues are closed:
+
   * guest can :
     * login(email, password)
     * signup to use the app
@@ -19,34 +18,30 @@ Wrap is a web app that helps the developers, managers and designers to manage an
     * create project
 
   * member is a mentor who can:
-    * change task state (eg. from progress to testing)
-    * check acceptance criteria/features in tasks
-    * view project's sprints
-    * view project's tasks
-    * view project's logs
-    * view project's members
-    * view project's backlog
-    * view tasks' details
-    * view tasks' comments
-    * comment on a task
+
+- [x]  change task state (eg. from progress to testing)
+- [x]  check acceptance criteria/features in tasks
+- [x]  view project's sprints
+- [x]  view project's tasks
+- [x]  view project's logs
+- [x]  view project's members
+- [x]  view project's backlog
+- [x]  view tasks' details
+- [x]  view tasks' comments
+- [x]  comment on a task
+- [ ]  can receive notifications
+- [ ]  can watch project logs changing (notified when new log added)
+- [ ]  assign member to a task
+- [ ]  remove member from a task
+- [ ]  add/edit/remove task labels
+- [ ]  view members' profile page
+- [ ]  view project's insights
+- [ ]  view project's milestones
 
   * admin is a member who can:
-    * start new sprint
-    * add backlog tasks
 
-  
-##Things that are not finished and their isuues are opened:
-  
-  * member is a mentor who can:
-     * can receive notifications
-     * can watch project logs changing (notified when new log added)
-     * assign member to a task
-     * remove member from a task
-     * add/edit/remove task labels
-     * view members' profile page
-     * view project's insights
-     * view project's milestones
-  * admin is a member who can:
-    * remove project
-    * close sprint
-    * define milestones  
+- [x]  start new sprint
+- [x]  add backlog tasks
+- [ ]  remove project
+- [ ]  close sprint
+- [ ]  define milestones  
