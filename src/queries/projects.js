@@ -166,8 +166,6 @@ const addMember = (userId, projectId, role, cb) => {
   });
 };
 
-
-
 const addProject = (title, wDay, wHour, description, userId, cb) => {
   const sql = {
     text: `INSERT INTO projects (title,wDay,wHour,description) VALUES ($1,$2,$3,$4) RETURNING *`,
@@ -237,7 +235,6 @@ const updateProjectProgress = (projectId, cb) => {
     if (err) {
       cb(err);
     } else {
-      let sum = 0;
       var totalProgrss = res.rows.reduce(function (sum, task, i) {
         return sum + parseInt(task.progress);
       }, 0);
@@ -247,7 +244,6 @@ const updateProjectProgress = (projectId, cb) => {
         text: `UPDATE projects SET progress=$1 WHERE id=$2`,
         values: [val, projectId] };
       connection.query(sql2, cb);
-      cb(null);
     }
   });
 };
@@ -260,7 +256,6 @@ const updateSprintProgress = (sprintId, cb) => {
     if (err) {
       cb(err);
     } else {
-      let sum = 0;
       var totalProgrss = res.rows.reduce(function (sum, task) {
         return sum + parseInt(task.progress);
       }, 0);
@@ -270,7 +265,6 @@ const updateSprintProgress = (sprintId, cb) => {
         text: `UPDATE sprints SET progress=$1 WHERE id=$2`,
         values: [val, sprintId] };
       connection.query(sql2, cb);
-      cb(null);
     }
   });
 };
@@ -285,7 +279,7 @@ const updateTaskProgress = (taskId, cb) => {
       cb(err);
     } else {
       let trues = 0;
-      var noTrues = res.rows.reduce(function (sum, item) {
+      let noTrues = res.rows.reduce(function (sum, item) {
         if (item.finished === true) {
           trues += 1;
         }
@@ -305,8 +299,11 @@ const updateTaskProgress = (taskId, cb) => {
             values: [taskId]
           };
           connection.query(sql3, (err, result2) => {
+            if (err) {
+              cb(err);
+            }
+            cb(null, result.rows[0].progress);
           });
-          cb(null, result.rows[0].progress);
         }
       });
     }
