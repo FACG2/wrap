@@ -149,11 +149,11 @@ function renderAddTaskForm (container) {
                           '<label>Title : <input type="text" name="title" value="" placeholder="Enter task name.." required></label>' +
                           '<label>priority :' +
                             '<select name="priority">' +
-                              '<option value="1">1</option>' +
+                              '<option value="1">1 - Very high</option>' +
                               '<option value="2">2</option>' +
                               '<option value="3">3</option>' +
                               '<option value="4">4</option>' +
-                              '<option value="5">5</option>' +
+                              '<option value="5">5 - Very low</option>' +
                             '</select>' +
                           '</label>' +
                           '<input type="submit" name="submit" value="Create Task!">' +
