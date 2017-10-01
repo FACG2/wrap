@@ -96,3 +96,30 @@ test('Return the number of tasks for the user', (t) => {
     }
   });
 });
+// getStateByName = (stateName, projectId,
+
+test('Return the state', (t) => {
+  functions.tasks.getStateByName('backlog', 20, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var expected = 55;
+      var actual = res;
+      t.deepEqual(actual, expected, 'should return the task details ');
+      t.end();
+    }
+  });
+});
+
+test('Return the project tasks', (t) => {
+  functions.tasks.getCurrentTasks(5, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var expected = 9;
+      var actual = res.length;
+      t.deepEqual(actual, expected, 'should return the task details ');
+      t.end();
+    }
+  });
+});
