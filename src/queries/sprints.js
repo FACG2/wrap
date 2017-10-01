@@ -176,27 +176,6 @@ const addTaskToSprint = (taskId, sprintId, cb) => {
   });
 };
 
-// const getTasksByStateName = (sprintId, stateName,cb) => {
-//   const sql = {
-//     text: `SELECT * FROM tasks INNER JOIN state ON state.id = tasks.state_id WHERE state.sprint_id=$1 AND state.name = (SELECT * FROM state WHERE sprint_id= $1)`,
-//     values: [sprintId, stateName] };
-//   connection.query(sql, (err, res) => {
-//     if (err) {
-//       cb(err);
-//     } else {
-//       cb(null, res.rows);
-//     }
-//   });
-// };
-// getTasksByStateName(1,'backlog',(err,rs)=>{
-//   if(err){
-//     console.log(err);
-//   }
-//   else{
-//     console.log(rs);
-//   }
-// })
-
 module.exports = {
   getAllSprints,
   getFinishedSprints,
