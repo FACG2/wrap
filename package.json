@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tape 'tests/**/*.spec.js'",
-    "coverage":"nyc npm run test",
+    "coverage": "nyc npm run test",
     "start": "node src/index.js",
     "start:watch": "nodemon -q src/index.js",
     "linter": "semistandard --fix ",
@@ -38,8 +38,10 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.8.0"
   },
-  "nyc":{
-    "include":["src/**/*.js"],
-    "all":true
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "all": true
   }
 }
