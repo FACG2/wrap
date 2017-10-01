@@ -13,7 +13,6 @@ test('compare passward', t => {
   var hashed = user.hashPassword('123456');
   var actual = user.comparePassword('123456', hashed);
   var expected = true;
-  // console.log(user.comparePassword("123456",hashed));
 
   t.equal(expected, actual, 'eaual');
 });
@@ -36,7 +35,6 @@ test('Get user role in project', (t) => {
     if (err) {
       t.notOk(err);
     } else {
-      console.log(res.rows[0].role);
       var actual = res.rows[0].role;
       var expected = 'user';
       t.deepEqual(actual, expected, 'should return the user role in the specified project ');
@@ -50,7 +48,6 @@ test('Check the user is invited', (t) => {
     if (err) {
       t.notOk(err);
     } else {
-      console.log(res.id);
       var actual = res.id;
       var expected = 2;
       t.deepEqual(actual, expected, 'should return the user id if he is invited ');
@@ -111,8 +108,6 @@ test('create Backlog', (t) => {
   });
 });
 
-
-
 test('get Project Details', (t) => {
   functions.projects.getProjectDetails(8, (err, res) => {
     if (err) {
@@ -125,7 +120,6 @@ test('get Project Details', (t) => {
     }
   });
 });
-
 
 test('get All Projects', (t) => {
   functions.projects.getAllProjects(7, (err, res) => {
@@ -140,7 +134,6 @@ test('get All Projects', (t) => {
   });
 });
 
-
 test('get Project Name', (t) => {
   functions.projects.getProjectName(88, (err, res) => {
     if (err) {
@@ -154,9 +147,8 @@ test('get Project Name', (t) => {
   });
 });
 
-
 test('get Member In Project', (t) => {
-  functions.projects.getMemberInProject(7,8, (err, res) => {
+  functions.projects.getMemberInProject(7, 8, (err, res) => {
     if (err) {
       t.notOk(err);
     } else {

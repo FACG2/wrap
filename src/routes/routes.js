@@ -25,6 +25,7 @@ module.exports = {
   postAddMember: require('./postAddMember.js'),
   postCheckFeature: require('./postCheckFeature.js'),
   postSetState: require('./postSetState.js'),
-  postMoveToBacklog: require('./postMoveToBacklog.js')
+  postMoveToBacklog: require('./postMoveToBacklog.js'),
+  postAssignMember: require('./postAssignMember.js')
 
 };

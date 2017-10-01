@@ -31,5 +31,6 @@ router.post('/projects/:project_id/addMember', routes.postAddMember);
 router.post('/tasks/:task_id/:feature_id', routes.postCheckFeature);
 router.post('/projects/:project_id/setState', routes.postSetState);
 router.post('/projects/:project_id/moveToBacklog', routes.postMoveToBacklog);
+router.post('/tasks/:task_id/assignMember', routes.postAssignMember);
 
 module.exports = router;
