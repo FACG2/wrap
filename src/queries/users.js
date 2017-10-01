@@ -9,7 +9,7 @@ const getUserByEmail = (email, cb) => {
 
   connection.query(sql, (err, rs) => {
     if (err || rs.rows.length === 0) {
-      cb('He is not a user in this website');
+      cb(new Error('The user registered in the website'));
     } else {
       cb(null, rs.rows[0]);
     }
@@ -56,7 +56,7 @@ const getUserLogIn = (email, password, cb) => {
       cb(error.message);
     } else {
       if (res.rows.length === 0 || !users.comparePassword(password, res.rows[0].password)) {
-        cb('not matched');
+        cb(new Error('not matched'));
       } else {
         cb(null, res.rows[0]);
       }
@@ -68,7 +68,7 @@ const signUp = (username, githubname, email, password, cb) => {
   const hashed = users.hashPassword(password);
   users.getGithubAvatar(githubname, (err, avatar) => { // error handled by putting avatarRes as optional argument for signup
     let msg, val;
-    if (avatar) {
+    if (!err) {
       msg = `INSERT INTO users (username,githubname,email,password,avatar) VALUES ($1,$2,$3,$4,$5) RETURNING *`;
       val = [username, githubname, email, hashed, avatar];
     } else {
@@ -81,7 +81,7 @@ const signUp = (username, githubname, email, password, cb) => {
     };
     connection.query(sql, (err, res) => {
       if (err) {
-        cb('Connection Error!');
+        cb(new Error('Connection Error!'));
       } else {
         cb(null, res.rows[0]);
       }

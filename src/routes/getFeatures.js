@@ -4,8 +4,8 @@ module.exports = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      const isEmpty = result.length == 0 ? true : false;
-      res.render(`taskFeatures.hbs`, {layout: false,features: result, isEmpty: isEmpty });
+      const isEmpty = result.length === 0;
+      res.render(`taskFeatures.hbs`, {layout: false, features: result, isEmpty: isEmpty});
     }
   });
 };

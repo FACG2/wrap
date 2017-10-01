@@ -1,7 +1,5 @@
 const connection = require('../database/db_connection.js');
-const users = require('./helpers/users.js');
 require('env2')('./config.env');
-const project = require('./projects.js');
 
 const getTasksByUserId = (userId, cb) => {
   const sql = {
@@ -102,7 +100,6 @@ const addComment = (userId, context, taskId, cb) => {
     }
   });
 };
-// text: `UPDATE tasks SET assigned_id=$1 WHERE tasks.id=$2 RETURNING *`,
 
 const assignMember = (memberName, taskId, cb) => {
   const sql = {
@@ -136,7 +133,7 @@ const assignMember = (memberName, taskId, cb) => {
           }
         });
       } else {
-        cb('There is another member assigned');
+        cb(new Error('There is another member assigned'));
       }
     }
   });

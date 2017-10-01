@@ -4,8 +4,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:watch": "nodemon -q src/index.js"
+    "start:watch": "nodemon -q src/index.js",
+    "linter": "semistandard --fix "
   },
+  "pre-commit": [
+    "linter"
+  ],
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -23,6 +27,8 @@
   "devDependencies": {
     "eslint": "^4.8.0",
     "nodemon": "^1.12.1",
+    "pre-commit": "^1.2.2",
+    "semistandard": "^11.0.0",
     "shot": "^3.4.2",
     "supertest": "^3.0.0",
     "tape": "^4.8.0"

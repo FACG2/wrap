@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     data = JSON.parse(data);
     helpers.users.signUp(data.username, data.githubname, data.email, data.password, (err, result) => {
       if (err) {
-        res.send(err);
+        res.send(err.message);
       } else {
         helpers.token.addToken(res, result.id, result.username, result.avatar);
         res.send('/ref');

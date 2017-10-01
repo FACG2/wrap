@@ -5,18 +5,15 @@ function addToken (res, id, username, avatar) {
   res.cookie('token', token);
 }
 
-
-function removeToken (req,res,next){
-  const url = req.url;
+function removeToken (req, res, next) {
   const token = req.cookies.token;
-    jwt.verify(token, 'wrap shhh', (err, user) => {
-      if (err) {
-        return res.render('error.hbs', {message: 'Access is denied, Please login'});
-      } else {
-        return res.cookie('token', '', {maxAge: 0});
-      }
-    });
-
+  jwt.verify(token, 'wrap shhh', (err, user) => {
+    if (err) {
+      return res.render('error.hbs', {message: 'Access is denied, Please login'});
+    } else {
+      return res.cookie('token', '', {maxAge: 0});
+    }
+  });
 }
 module.exports = {
   addToken,

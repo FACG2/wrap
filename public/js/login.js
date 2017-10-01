@@ -1,10 +1,13 @@
+var Chart = Chart || console.error('Chart undefined');  //eslint-disable-line
+var apiReq = apiReq || console.error('apiReq undefined');  //eslint-disable-line
+
 (function () {
 /* Login Charts */
   Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
   Chart.defaults.global.defaultFontColor = '#292b2c';
 // -- Area Chart Example
   var ctx = document.getElementById('myAreaChart');
-  var myLineChart = new Chart(ctx, {
+  var myLineChart = new Chart(ctx, {//eslint-disable-line
     type: 'line',
     data: {
       labels: ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'August', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -64,9 +67,9 @@
         password: loginData[1].value
       };
       loginForm.classList.add('loading');
-      apiReq('/login','POST', function (err, data) {// eslint-disable-line
+      apiReq('/login', 'POST', function (err, data) {
         if (err) {
-          document.getElementsByClassName('errNote')[0].textContent = 'Connection Error!';
+          document.getElementsByClassName('errNote')[0].textContent = err.message;
         } else {
           if (data === '/ref') {
             window.location.reload();
@@ -99,7 +102,7 @@
         loginForm.classList.add('loading');
         apiReq('/signup','POST', function (err, data) {// eslint-disable-line
           if (err) {
-            errorSignup.textContent = 'Connection Error!';
+            errorSignup.textContent = err.message;
           } else {
             if (data === '/ref') {
               window.location.reload();
