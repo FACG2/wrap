@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/FACG2/wrap/branch/master/graph/badge.svg)](https://codecov.io/gh/FACG2/wrap)
+
 # Wrap
 ## The project idea:
 Wrap is a web app that helps the developers, managers and designers to manage and organize their projects.
