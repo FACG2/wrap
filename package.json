@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "tape 'tests/**/*.spec.js'",
+    "coverage":"nyc npm run test",
     "start": "node src/index.js",
     "start:watch": "nodemon -q src/index.js"
   },
@@ -21,8 +23,13 @@
   },
   "devDependencies": {
     "nodemon": "^1.12.1",
+    "nyc": "^11.2.1",
     "shot": "^3.4.2",
     "supertest": "^3.0.0",
     "tape": "^4.8.0"
+  },
+  "nyc":{
+    "include":["src/**/*.js"],
+    "all":true
   }
 }
