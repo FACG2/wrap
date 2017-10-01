@@ -117,6 +117,7 @@ const checkInvitation = (email, cb) => {
   });
 };
 
+
 const deleteInvitation = (inviteId, cb) => {
   const sql = {
     text: `DELETE FROM invites WHERE invites.id=$1`,
