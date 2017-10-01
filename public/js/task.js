@@ -22,36 +22,26 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
     });
   }
 
-// hanatj
-var assignMemberForm = document.getElementById('assignMemberForm');
-if (assignMemberForm) {
-  assignMemberForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    var assignMemberData = event.target;
-    var assignMemberReq = {
-      username: assignMemberData[0].value,
-    };
-    apiReq(window.location.pathname + '/assignMember', 'POST', function (err, data) {
-      if (err) {
-        window.alert('connection error');
-      } else {
-        assignMemberData[0].value = '';
-        renderAssign();
-      }
-    }, JSON.stringify(assignMemberReq));
-  });
-}
-renderProgress();
-renderFeatures();
-renderComments();
-renderAssign();
-// checkFeature();
-})();
-
-// hanatj
-
-
-
+// Assigm member
+  var assignMemberForm = document.getElementById('assignMemberForm');
+  if (assignMemberForm) {
+    assignMemberForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var assignMemberData = event.target;
+      var assignMemberReq = {
+        username: assignMemberData[0].value
+      };
+      apiReq(window.location.pathname + '/assignMember', 'POST', function (err, data) {
+        if (err) {
+          window.alert('connection error');
+        } else {
+          assignMemberData[0].value = '';
+          renderAssign();
+        }
+      }, JSON.stringify(assignMemberReq));
+    });
+  }
+//add comment
   var addCommentForm = document.getElementById('addCommentForm');
   if (addCommentForm) {
     addCommentForm.addEventListener('submit', function (event) {
@@ -74,6 +64,8 @@ renderAssign();
   renderProgress();
   renderFeatures();
   renderComments();
+  renderAssign();
+
   // checkFeature();
 })();
 function loading (container) {
@@ -108,9 +100,10 @@ function renderAssign () {
   loading(assignContainer);
   apiReq(window.location.pathname + `/assignMember`, 'GET', function (err, data) {
     if (err) {
-      commentsContainer.innerHTML = '<h1>Failed to Load</h1>';
+      assignContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
-      commentsContainer.innerHTML = data;
+      data = JSON.parse(data);
+      assignContainer.innerHTML = '<h6 class="card-title " >Assign To: <span class="badge badge-primary">'+data.username+'</span> <i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#assignMember"></i></h6><hr class="mt-2">';
     }
   });
 }
