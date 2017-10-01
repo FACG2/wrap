@@ -22,6 +22,36 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
     });
   }
 
+// hanatj
+var assignMemberForm = document.getElementById('assignMemberForm');
+if (assignMemberForm) {
+  assignMemberForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var assignMemberData = event.target;
+    var assignMemberReq = {
+      username: assignMemberData[0].value,
+    };
+    apiReq(window.location.pathname + '/assignMember', 'POST', function (err, data) {
+      if (err) {
+        window.alert('connection error');
+      } else {
+        assignMemberData[0].value = '';
+        renderAssign();
+      }
+    }, JSON.stringify(assignMemberReq));
+  });
+}
+renderProgress();
+renderFeatures();
+renderComments();
+renderAssign();
+// checkFeature();
+})();
+
+// hanatj
+
+
+
   var addCommentForm = document.getElementById('addCommentForm');
   if (addCommentForm) {
     addCommentForm.addEventListener('submit', function (event) {
@@ -66,6 +96,17 @@ function renderComments () {
   const commentsContainer = document.querySelector('#commentsDiv');
   loading(commentsContainer);
   apiReq(window.location.pathname + `/comments`, 'GET', function (err, data) {
+    if (err) {
+      commentsContainer.innerHTML = '<h1>Failed to Load</h1>';
+    } else {
+      commentsContainer.innerHTML = data;
+    }
+  });
+}
+function renderAssign () {
+  const assignContainer = document.querySelector('#assignDiv');
+  loading(assignContainer);
+  apiReq(window.location.pathname + `/assignMember`, 'GET', function (err, data) {
     if (err) {
       commentsContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
