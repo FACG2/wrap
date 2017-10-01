@@ -72,6 +72,102 @@ test('Return the number of tasks for the user', (t) => {
   });
 });
 
+test('view Logs', (t) => {
+  functions.logs.viewLogs(20, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res[0].username;
+      var expected = 'w';
+      t.deepEqual(actual, expected, 'should return the username  ');
+      t.end();
+    }
+  });
+});
+
+test('get Current Projects', (t) => {
+  functions.projects.getCurrentProjects(7, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res[0].project_id;
+      var expected = 8;
+      t.deepEqual(actual, expected, 'should return the project id  ');
+      t.end();
+    }
+  });
+});
+
+test('create Backlog', (t) => {
+  functions.projects.createBacklog(8, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res[0].name;
+      var expected = 'backlog';
+      t.deepEqual(actual, expected, 'should return the backlog ');
+      t.end();
+    }
+  });
+});
+
+
+
+test('get Project Details', (t) => {
+  functions.projects.getProjectDetails(8, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res.title;
+      var expected = 'project1';
+      t.deepEqual(actual, expected, 'should return the project name ');
+      t.end();
+    }
+  });
+});
+
+
+test('get All Projects', (t) => {
+  functions.projects.getAllProjects(7, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res.rows[0].project_id;
+      var expected = 8;
+      t.deepEqual(actual, expected, 'should return the project name ');
+      t.end();
+    }
+  });
+});
+
+
+test('get Project Name', (t) => {
+  functions.projects.getProjectName(88, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res.rows[0].title;
+      var expected = 'project 1';
+      t.deepEqual(actual, expected, 'should return the project name ');
+      t.end();
+    }
+  });
+});
+
+
+test('get Member In Project', (t) => {
+  functions.projects.getMemberInProject(7,8, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res.rows[0].user_id;
+      var expected = 7;
+      t.deepEqual(actual, expected, 'should return the user id ');
+      t.end();
+    }
+  });
+});
+
 test('Return the number of tasks for the user', (t) => {
   functions.tasks.getTaskDetails(1, (err, res) => {
     if (err) {
