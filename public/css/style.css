@@ -420,7 +420,7 @@ footer.sticky-footer {
   font-weight: 600;
 }
 
-@media (min-width: 480px) {
+@media (max-width: 480px) {
   .loginPage{
       flex-direction: column-reverse;
 
