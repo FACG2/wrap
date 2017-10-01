@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:watch": "nodemon -q src/index.js"
+    "start:watch": "nodemon -q src/index.js",
+    "test-db": "node tests/queriestest.js | tap-spec"
   },
   "license": "ISC",
   "dependencies": {
@@ -23,6 +24,7 @@
     "nodemon": "^1.12.1",
     "shot": "^3.4.2",
     "supertest": "^3.0.0",
+    "tap-spec": "^4.1.1",
     "tape": "^4.8.0"
   }
 }
