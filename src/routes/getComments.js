@@ -4,8 +4,8 @@ module.exports = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      const isEmpty = result.length == 0 ? true : false;
-      res.render(`comments.hbs`, {layout: false,comments: result, isEmpty: isEmpty });
+      const isEmpty = result.length === 0;
+      res.render(`comments.hbs`, {layout: false, comments: result, isEmpty: isEmpty});
     }
   });
 };

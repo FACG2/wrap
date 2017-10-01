@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
     data = JSON.parse(data);
     queries.users.getUserLogIn(data.email, data.password, (err, result) => {
       if (err) {
-        const message = err === 'not matched' ? err : 'connection error';
+        const message = err.message === 'not matched' ? err.message : 'connection error';
         res.send(message);
       } else {
         tokenHandler.addToken(res, result.id, result.username, result.avatar);
