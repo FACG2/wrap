@@ -1,5 +1,6 @@
-
 const queries = require('../queries/index.js');
+const helpers = require('./helpers/index.js');
+
 module.exports = (req, res, next) => {
   let data = '';
   req.on('data', function (chunk) {
@@ -11,7 +12,13 @@ module.exports = (req, res, next) => {
       if (err) {
         res.send('err');
       } else {
-        res.send(taskDetails);
+        helpers.logs.createTask(req.user.username, req.user.id, req.params.project_id, data.title, taskDetails[0].id, (err2, res2) => {
+          if (err2) {
+            res.send('err');
+          } else {
+            res.send(taskDetails);
+          }
+        });
       }
     });
   });

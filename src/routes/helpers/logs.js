@@ -21,7 +21,7 @@ const createTask = (username, userId, projectId, taskName, taskId, cb) => {
   const link = `/tasks/${taskId}`;
   const type = 'task';
   const actionId = taskId;
-  queries.logs.addLog(projectId, context, type, link, actionId, username, (err, res) => {
+  queries.logs.addLog(projectId, username, context, type, link, actionId, (err, res) => {
     if (err) {
       cb(err);
     } else {

@@ -415,14 +415,16 @@ footer.sticky-footer {
 .stateColumn .card{
   cursor: grab;
 }
+#assignDiv .fa-plus-circle{
+  cursor: pointer;
+}
 .nav-link a {
   color: white;
   font-weight: 600;
 }
 
-@media (min-width: 480px) {
+@media (max-width: 480px) {
   .loginPage{
       flex-direction: column-reverse;
-
   }
 }
