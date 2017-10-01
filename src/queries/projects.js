@@ -311,14 +311,26 @@ const updateTaskProgress = (taskId, cb) => {
             if (err) {
               cb(err);
             }
-            cb(null, result.rows[0].progress);
+            updateProjectProgress(result2.rows[0].project_id, (err, result3) => {
+              if (err) {
+                cb(err);
+              } else {
+                cb(null, result.rows[0].progress);
+              }
+            });
           });
         }
       });
     }
   });
 };
-
+// updateTaskProgress(15, (err, rs) => {
+//   console.log('err', err);
+//   console.log('rs', rs);
+// // });
+// updateProjectProgress(40,(err,rs)=>{
+//   console.log(rs);
+// })
 module.exports = {
   addProject,
   addMember,

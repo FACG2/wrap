@@ -103,38 +103,25 @@ const addComment = (userId, context, taskId, cb) => {
 
 const assignMember = (memberName, taskId, cb) => {
   const sql = {
-    text: `SELECT assigned_id FROM tasks WHERE id=$1`,
-    values: [taskId]
+    text: `SELECT users.id FROM users WHERE username =$1`,
+    values: [memberName]
   };
-  connection.query(sql, (error, result) => {
+  connection.query(sql, (error, memberId) => {
     if (error) {
       cb(error);
     } else {
-      if (result.rows[0].assigned_id === null) {
-        const sql = {
-          text: `SELECT users.id FROM users WHERE username =$1`,
-          values: [memberName]
-        };
-        connection.query(sql, (error, memberId) => {
-          if (error) {
-            cb(error);
-          } else {
-            const sql2 = {
-              text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
-              values: [memberId.rows[0].id, taskId]
-            };
-            connection.query(sql2, (error2, result2) => {
-              if (error2) {
-                cb(error2);
-              } else {
-                cb(null, result2.rows[0]);
-              }
-            });
-          }
-        });
-      } else {
-        cb(new Error('There is another member assigned'));
-      }
+      console.log(memberId);
+      const sql2 = {
+        text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
+        values: [memberId.rows[0].id, taskId]
+      };
+      connection.query(sql2, (error2, result2) => {
+        if (error2) {
+          cb(error2);
+        } else {
+          cb(null, result2.rows[0]);
+        }
+      });
     }
   });
 };
