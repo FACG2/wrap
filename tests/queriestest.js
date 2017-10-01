@@ -43,18 +43,44 @@ test('Check the user is invited', (t) => {
   });
 });
 
-//
-// test('Check the user is invited', (t) => {
-//   functions.tasks.getTasksByUserId(5, (err, res) => {
-//     if (err) {
-//       t.notOk(err);
-//     } else {
-//       console.log(res);
-//       // console.log(res.id);
-//       // var actual = res.id;
-//       // var expected = 2;
-//       t.deepEqual(actual, expected, 'should return the user id if he is invited ');
-//       t.end();
-//     }
-//   });
-// })
+
+test('Return the number of tasks for the user', (t) => {
+  functions.tasks.getTasksByUserId(5, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var actual = res.length;
+      var expected = 9;
+      t.deepEqual(actual, expected, 'should return the number of the tasks assigned for the entered user ');
+      t.end();
+    }
+  });
+});
+
+test('Return the number of tasks for the user', (t) => {
+  functions.tasks.getTaskDetails(1, (err, res) => {
+    if (err) {
+      t.notOk(err);
+    } else {
+      var expected = { id: 1,
+        title: 'task5',
+        description: 'No description',
+        priority: 1,
+        deadline: 'Not specified',
+        duration: -1,
+        assigned_id: 7,
+        username: 'qhqh',
+        project_id: null,
+        sprint_id: 1,
+        state_id: 20,
+        name: 'In-progress' };
+
+      var actual = res;
+      t.deepEqual(actual, expected, 'should return the task details ');
+      t.end();
+    }
+  });
+});
+
+test.onFinish(() => process.exit(0));
+
