@@ -6,6 +6,7 @@
     "test": "tape 'tests/**/*.spec.js'",
     "coverage": "nyc npm run test",
     "start": "node src/index.js",
+    "report-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "start:watch": "nodemon -q src/index.js",
     "linter": "semistandard --fix ",
     "test-db": "node tests/queriestest.js | tap-spec"
@@ -18,6 +19,7 @@
     "bcrypt": "^1.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "codecov": "^2.3.0",
     "cookie-parser": "^1.4.3",
     "env2": "^2.2.0",
     "eslint-config-semistandard": "^11.0.0",
