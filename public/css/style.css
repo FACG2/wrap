@@ -1,3 +1,4 @@
+
 html {
   position: relative;
   min-height: 100%; }
@@ -22,11 +23,21 @@ body.fixed-nav {
 .hidden{
   display: none;
 }
-nav{
+/*nav{
   max-height: 56px;
-}
+}*/
 nav .logo{
   width: 70px;
+  font-family: 'Passion One', cursive;
+  font-size: 30px;
+  margin-left: 20px;
+}
+.formItem{
+  display: flex;
+  align-items: center;
+}
+.formItem i{
+  padding-right: 10px;
 }
 .content-wrapper {
   min-height: calc(100vh - 56px);
@@ -403,4 +414,15 @@ footer.sticky-footer {
 }
 .stateColumn .card{
   cursor: grab;
+}
+.nav-link a {
+  color: white;
+  font-weight: 600;
+}
+
+@media (min-width: 480px) {
+  .loginPage{
+      flex-direction: column-reverse;
+
+  }
 }
