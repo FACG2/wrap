@@ -16,6 +16,7 @@ module.exports = {
   getStateTasks: require('./getStateTasks.js'),
   getCurrentSprint: require('./getCurrentSprint.js'),
   getBacklogTasks: require('./getBacklogTasks.js'),
+  getAssignMember: require('./getAssignMember.js'),
   postCreateSprint: require('./postCreateSprint.js'),
   postAddFeature: require('./postAddFeature.js'),
   postAddComment: require('./postAddComment.js'),

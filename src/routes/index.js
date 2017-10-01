@@ -20,6 +20,7 @@ router.get('/tasks/:task_id/comments', routes.getComments);
 router.get('/projects/:project_id/logs', routes.getLogs);
 router.get('/projects/:project_id/members', routes.getMembers);
 router.get('/tasks/:task_id/progress', routes.getProgress);
+router.get('/tasks/:task_id/assignMember', routes.getAssignMember);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);
@@ -28,9 +29,9 @@ router.post('/projects/:project_id/createSprint', routes.postCreateSprint);
 router.post('/tasks/:task_id/addFeature', routes.postAddFeature);
 router.post('/tasks/:task_id/addComment', routes.postAddComment);
 router.post('/projects/:project_id/addMember', routes.postAddMember);
-router.post('/tasks/:task_id/:feature_id', routes.postCheckFeature);
 router.post('/projects/:project_id/setState', routes.postSetState);
 router.post('/projects/:project_id/moveToBacklog', routes.postMoveToBacklog);
 router.post('/tasks/:task_id/assignMember', routes.postAssignMember);
+router.post('/tasks/:task_id/:feature_id', routes.postCheckFeature);
 
 module.exports = router;

@@ -110,31 +110,47 @@ const assignMember = (memberName, taskId, cb) => {
     if (error) {
       cb(error);
     } else {
-      console.log(memberId);
-      const sql2 = {
-        text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
-        values: [memberId.rows[0].id, taskId]
-      };
-      connection.query(sql2, (error2, result2) => {
-        if (error2) {
-          cb(error2);
-        } else {
-          cb(null, result2.rows[0]);
-        }
-      });
+      if (memberId.rows.length === 0) {
+        cb(new Error('Member is not registered!'));
+      } else {
+        const sql2 = {
+          text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
+          values: [memberId.rows[0].id, taskId]
+        };
+        connection.query(sql2, (error2, result2) => {
+          if (error2) {
+            cb(error2);
+          } else {
+            cb(null, result2.rows[0]);
+          }
+        });
+      }
     }
   });
 };
 
-const removeAssign = (taskId, cb) => {
+// const removeAssign = (taskId, cb) => {
+//   const sql = {
+//     text: `UPDATE tasks SET assigned_id=null WHERE id=$1 RETURNING *`,
+//     values: [taskId] };
+//   connection.query(sql, (err, res) => {
+//     if (err) {
+//       cb(err);
+//     } else {
+//       cb(null, res);
+//     }
+//   });
+// };
+
+const getAssign = (taskId, cb) => {
   const sql = {
-    text: `UPDATE tasks SET assigned_id=null WHERE id=$1 RETURNING *`,
+    text: `SELECT * FROM users INNER JOIN tasks ON tasks.assigned_id = users.id  WHERE tasks.id=$1`,
     values: [taskId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, res);
+      cb(null, res.rows[0]);
     }
   });
 };
@@ -313,12 +329,12 @@ module.exports = {
   calTaskOrder,
   addTask,
   assignMember,
-  removeAssign,
   getTaskDetails,
   getFeatures,
   addDefaultLabel,
   addFeature,
   checkFeature,
+  getAssign,
   changeState,
   moveToBacklog
 

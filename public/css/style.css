@@ -404,3 +404,6 @@ footer.sticky-footer {
 .stateColumn .card{
   cursor: grab;
 }
+#assignDiv .fa-plus-circle{
+  cursor: pointer;
+}
