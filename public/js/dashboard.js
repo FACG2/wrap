@@ -1,3 +1,6 @@
+var $ = $ || console.error('$ undefined');  //eslint-disable-line
+var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-line
+
 (function () {
   var linkHash = window.location.hash;
   var dashboardContent = document.getElementById('dashboardContent');
@@ -63,7 +66,7 @@ function loading (container) {
 function render (url, container) {
   getData(url, function (err, data) {
     if (err) {
-      container.innerHTML = '<h2>' + err + '</h2>';
+      container.innerHTML = '<h2>' + err.message + '</h2>';
     } else {
       container.innerHTML = data;
     }
@@ -71,23 +74,14 @@ function render (url, container) {
 }
 
 function getData (url, cb) {
-  apiReq(url,'GET', function (err, data) {// eslint-disable-line
+  apiReq(url, 'GET', function (err, data) {
     if (err) {
-      cb('Connection Error!');
+      cb(new Error('Connection Error!'));
     } else {
       cb(null, data);
     }
   });
 }
-
-// '<h1>Create project</h1>' +
-//                       '<form id="createProjectForm" action="/addProject" method="post">' +
-//                         '<label>Title : <input type="text" name="title" value="" placeholder="Enter Project name.." required></label>' +
-//                         '<label>description : <input type="text" name="description" value="..." placeholder="Enter Project description.."></label>' +
-//                         '<label>Working days in a week : <input type="number" name="wDays" value="-1" placeholder="Enter Project name.."></label>' +
-//                         '<label>Working hours in a day : <input type="number" name="wHours" value="-1" placeholder="Enter Project name.."></label>' +
-//                         '<input type="submit" name="submit" value="Create Project!">' +
-//                       '</form>';
 
 function renderCreateProjectForm (container) {
   container.innerHTML = '<h2 class="mb-3">Create New Project</h2>' +
