@@ -30,12 +30,9 @@
   "devDependencies": {
     "eslint": "^4.8.0",
     "nodemon": "^1.12.1",
-<<<<<<< HEAD
     "nyc": "^11.2.1",
-=======
     "pre-commit": "^1.2.2",
     "semistandard": "^11.0.0",
->>>>>>> 6e672a4b4339db7128d9323dfabd20fb79be21f7
     "shot": "^3.4.2",
     "supertest": "^3.0.0",
     "tap-spec": "^4.1.1",
