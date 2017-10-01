@@ -1,3 +1,5 @@
+var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-line
+
 (function () {
   var addFeatureForm = document.getElementById('addFeatureForm');
   if (addFeatureForm) {
@@ -10,7 +12,7 @@
       };
       apiReq(window.location.pathname + '/addFeature', 'POST', function (err, data) {
         if (err) {
-          alert('connection error');
+          window.alert('connection error');
         } else {
           addFeatureData[0].value = '';
           renderFeatures();
@@ -31,7 +33,7 @@
       };
       apiReq(window.location.pathname + '/addComment', 'POST', function (err, data) {
         if (err) {
-          alert('connection error');
+          window.alert('connection error');
         } else {
           addCommentData[0].value = '';
           renderComments();
@@ -55,7 +57,7 @@ function renderFeatures () {
       featuresContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       featuresContainer.innerHTML = data;
-      FeatureEvenListener();
+      FeatureEvenListener(featuresContainer);
     }
   });
 }
@@ -84,7 +86,7 @@ function renderProgress () {
     }
   });
 }
-function FeatureEvenListener () {
+function FeatureEvenListener (container) {
   var featureCheckDivs = document.getElementsByClassName('featureCheck');
   if (featureCheckDivs[0]) {
     Array.from(featureCheckDivs).forEach(function (featureCheckDiv) {
@@ -92,10 +94,10 @@ function FeatureEvenListener () {
       featureCheckDiv.addEventListener('click', function (e) {
         apiReq(window.location.pathname + `/` + id, 'POST', function (err, data) {
           if (err) {
-            progress.innerHTML = '<h1>Failed to Load</h1>';
+            container.innerHTML = '<h1>Failed to Load</h1>';
           } else {
             renderProgress();
-            data = JSON.parse(data);
+            // data = JSON.parse(data);
           }
         }, JSON.stringify({checked: featureCheckDiv.checked}));
       });

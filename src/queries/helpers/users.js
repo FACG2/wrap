@@ -14,11 +14,11 @@ const getGithubAvatar = (githubUserName, cb) => {
   let path = 'https://api.github.com/users/' + githubUserName;
   request({url: path, headers: {'user-agent': 'node.js'}}, (err, response, body) => {
     if (err) {
-      cb('Connection error!');
+      cb(new Error('Connection error!'));
     } else {
       let data = JSON.parse(body);
       if (data.message) {
-        cb('Connection error!');
+        cb(new Error('Connection error!'));
       } else {
         const avatar = data.avatar_url;
         cb(null, avatar);

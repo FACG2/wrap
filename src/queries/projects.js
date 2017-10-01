@@ -148,7 +148,7 @@ const addMember = (userId, projectId, role, cb) => {
     } else {
       if (res.rows.length > 0) {
         // / existed user
-        cb('User is existed in the project');
+        cb(new Error('User already a member in this project'));
       } else {
         const sql = {
           text: `INSERT INTO user_project (user_id,project_id,role) VALUES ($1,$2,$3) RETURNING *`,
@@ -322,5 +322,9 @@ module.exports = {
   updateProjectProgress,
   updateSprintProgress,
   updateTaskProgress,
-  getAllMembersInProject
+  getAllMembersInProject,
+  getProjectName,
+  invite,
+  getCurrentSprints,
+  getFinishedSprints
 };
