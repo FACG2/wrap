@@ -1,6 +1,6 @@
 const user = require('../src/queries/helpers/users.js');
 const test = require('tape');
-const app = require('../src/app');
+// const app = require('../src/app');
 const functions = require('../src/queries/index.js');
 
 test('1 + 1 = 2', t => {
