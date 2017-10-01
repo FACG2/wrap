@@ -34,7 +34,6 @@ test('Check the user is invited', (t) => {
     if (err) {
       t.notOk(err);
     } else {
-      console.log(res.id);
       var actual = res.id;
       var expected = 2;
       t.deepEqual(actual, expected, 'should return the user id if he is invited ');
@@ -42,7 +41,6 @@ test('Check the user is invited', (t) => {
     }
   });
 });
-
 
 test('Return the number of tasks for the user', (t) => {
   functions.tasks.getTasksByUserId(5, (err, res) => {
@@ -83,4 +81,3 @@ test('Return the number of tasks for the user', (t) => {
 });
 
 test.onFinish(() => process.exit(0));
-
