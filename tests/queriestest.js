@@ -1,6 +1,6 @@
 
 const test = require('tape');
-const app = require('../src/app');
+// const app = require('../src/app');
 const functions = require('../src/queries/index.js');
 
 test('Get user id by the e-mail', (t) => {
@@ -21,7 +21,6 @@ test('Get user role in project', (t) => {
     if (err) {
       t.notOk(err);
     } else {
-      console.log(res.rows[0].role);
       var actual = res.rows[0].role;
       var expected = 'user';
       t.deepEqual(actual, expected, 'should return the user role in the specified project ');
@@ -43,6 +42,7 @@ test('Check the user is invited', (t) => {
     }
   });
 });
+
 
 test('Return the number of tasks for the user', (t) => {
   functions.tasks.getTasksByUserId(5, (err, res) => {
@@ -83,3 +83,4 @@ test('Return the number of tasks for the user', (t) => {
 });
 
 test.onFinish(() => process.exit(0));
+
