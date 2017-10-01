@@ -150,10 +150,19 @@ const addMember = (userId, projectId, role, cb) => {
         // / existed user
         cb(new Error('User already a member in this project'));
       } else {
-        const sql = {
-          text: `INSERT INTO user_project (user_id,project_id,role) VALUES ($1,$2,$3) RETURNING *`,
-          values: [userId, projectId, role]
-        };
+        let sql;
+        if (role === 'admin') {
+          sql = {
+            text: `INSERT INTO user_project (user_id,project_id,role,watch) VALUES ($1,$2,$3,$4) RETURNING *`,
+            values: [userId, projectId, role, true]
+          };
+        } else {
+          sql = {
+            text: `INSERT INTO user_project (user_id,project_id,role) VALUES ($1,$2,$3) RETURNING *`,
+            values: [userId, projectId, role]
+          };
+        }
+
         connection.query(sql, (error, result) => {
           if (error) {
             cb(error);

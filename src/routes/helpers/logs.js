@@ -21,14 +21,23 @@ const createTask = (username, userId, projectId, taskName, taskId, cb) => {
   const link = `/tasks/${taskId}`;
   const type = 'task';
   const actionId = taskId;
-  queries.logs.addLog(projectId, context, type, link, actionId, username, (err, res) => {
+  queries.logs.addLog(projectId, username, context, type, link, actionId, (err, res) => {
     if (err) {
+      console.log('errrrrrrrrrrrrrrr',err);
       cb(err);
     } else {
       queries.notifications.addWatchersNotification(userId, projectId, context, link, cb);
     }
   });
 };
+
+// createTask('walid', 5, 41, 'taskname', 20, (err, res) => {
+//   if (err) {
+//     console.log('err', err);
+//   } else {
+//     console.log(res);
+//   }
+// });
 
 module.exports = {
   createProject,
