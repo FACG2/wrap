@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
     data += chunk;
   });
   req.on('end', function () {
+    console.log('data', data);
     data = JSON.parse(data);
     queries.users.getUserLogIn(data.email, data.password, (err, result) => {
       if (err) {
