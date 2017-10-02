@@ -199,7 +199,6 @@ function addMemberFormListener () {
   }
 }
 
-
 /* Drag and Drop */
 function findParetId (listNodeObj, idString) {
   if (listNodeObj.id.startsWith(idString)) {

@@ -31,6 +31,7 @@ const groupLabels = (arr) => {
         priority: item.priority,
         userName: item.username,
         avatar: item.avatar,
+        project_id: item.project_id,
         label: [itemToLabel(item)]
       };
     }
