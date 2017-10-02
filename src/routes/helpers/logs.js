@@ -18,7 +18,7 @@ const createProject = (username, userId, projectId, projectName, cb) => {
 
 const createTask = (username, userId, projectId, taskName, taskId, cb) => {
   let context = `${username} Created a New task: ${taskName}`;
-  const link = `/tasks/${taskId}`;
+  const link = `/${projectId}/tasks/${taskId}`;
   const type = 'task';
   const actionId = taskId;
   queries.logs.addLog(projectId, username, context, type, link, actionId, (err, res) => {
