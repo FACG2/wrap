@@ -15,6 +15,20 @@ const getCurrentProjects = (userId, cb) => {
   });
 };
 
+const getProjectNameById = (projectId, cb) => {
+  const sql = {
+    text: `SELECT title FROM projects WHERE id = $1 `,
+    values: [projectId]
+  };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows[0].title);
+    }
+  });
+};
+
 const createBacklog = (projectId, cb) => {
   const sql = {
     text: `INSERT INTO state (name,project_id) VALUES ('backlog',$1) RETURNING *`,
@@ -345,5 +359,6 @@ module.exports = {
   invite,
   getCurrentSprints,
   getFinishedSprints,
-  setTaskProgress
+  setTaskProgress,
+  getProjectNameById
 };
