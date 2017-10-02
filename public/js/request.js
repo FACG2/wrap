@@ -10,8 +10,10 @@ function apiReq (url, method, callback, postData) { // eslint-disable-line
       callback(myJSONRemote);
     }
   };
+
   xhttp.open(method, url, false);
   if (postData) {
+    xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(postData);
   } else {
     xhttp.send();
