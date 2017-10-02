@@ -2,6 +2,8 @@
   <!-- <h3>no tasks here!</h3> -->
 {{else}}
   {{#each tasks}}
+
+<h1>{{project_id}}</h1>
     <div class="card mb-2" id="task-{{id}}" draggable="true" ondragstart="drag(event)" >
       <button type="button" style="background-color:{{priorityColor}};border-color:{{priorityColor}}" data-toggle="tooltip" title="Priority:{{priority}}" class="btn btn-sm pull-left mb-2"></button>
       <div class="labels">
@@ -12,7 +14,7 @@
       <div class="row ml-1">
         <div class="col-9">
           <blockquote class="blockquote">
-            <a href="/tasks/{{id}}" class="small font-weight-bold mb-0">{{title}}</p></a>
+            <a href="/{{project_id}}/tasks/{{id}}" class="small font-weight-bold mb-0">{{title}}</p></a>
             <footer class="blockquote-footer smaller">Deadline <cite title="Source Title">10/24/2017</cite></footer>
          </blockquote>
         </div>
@@ -24,7 +26,7 @@
         </div>
       </div>
       <div class="progress bg-white">
-        <div class="progress-bar bg-success" role="progressbar" style="width: {{progress}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+        <div class="progress-bar bg-success" role="progressbar" style="width: {{progress}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progre}}%</div>
       </div>
     </div>
   {{/each}}

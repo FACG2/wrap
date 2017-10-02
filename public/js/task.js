@@ -41,7 +41,7 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
       }, JSON.stringify(assignMemberReq));
     });
   }
-//add comment
+// add comment
   var addCommentForm = document.getElementById('addCommentForm');
   if (addCommentForm) {
     addCommentForm.addEventListener('submit', function (event) {
@@ -103,7 +103,7 @@ function renderAssign () {
       assignContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       data = JSON.parse(data);
-      assignContainer.innerHTML = '<h6 class="card-title " >Assign To: <span class="badge badge-primary">'+data.username+'</span> <i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#assignMember"></i></h6><hr class="mt-2">';
+      assignContainer.innerHTML = '<h6 class="card-title " >Assign To: <span class="badge badge-primary">' + data.username + '</span> <i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#assignMember"></i></h6><hr class="mt-2">';
     }
   });
 }
