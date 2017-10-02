@@ -38,6 +38,18 @@ const getStateByName = (stateName, projectId, cb) => {
     }
   });
 };
+const getStateByTaskId = (taskId, cb) => {
+  const sql = {
+    text: `SELECT state.name FROM state INNER JOIN tasks on tasks.state_id = state.id WHERE tasks.id= $1`,
+    values: [taskId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows[0].name);
+    }
+  });
+};
 
 const getProjectTasks = (projectId, state, cb) => {
   getStateByName(state, projectId, (error, stateId) => {
@@ -336,6 +348,6 @@ module.exports = {
   checkFeature,
   getAssign,
   changeState,
-  moveToBacklog
-
+  moveToBacklog,
+  getStateByTaskId
 };
