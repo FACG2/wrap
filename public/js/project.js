@@ -133,7 +133,7 @@ function startSprintFormListener () {
     startSprintForm.addEventListener('submit', function (event) {
       event.preventDefault();
       var startSprintData = event.target;
-      var duration = parseInt(startSprintData[0].value) * parseInt(startSprintData[1].value);
+      var duration = {duration: parseInt(startSprintData[0].value) * parseInt(startSprintData[1].value)};
       apiReq(window.location.pathname + '/createSprint', 'POST', function (err, data) {
         if (err) {
           window.alert('connection error');
