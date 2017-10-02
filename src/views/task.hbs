@@ -76,7 +76,10 @@
                  <form id="assignMemberForm">
                   <div class="form-group">
                     <label for="username" class="form-control-label">Member Name:</label>
-                    <input type="text" class="form-control" id="username">
+                    <input list="membersList" type="text" class="form-control" id="username" autocomplete="off">
+                    <datalist id="membersList">
+
+                    </datalist>
                   </div>
                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                   <input type="submit" name="submit" class="btn btn-primary" value="Assign Mamber">

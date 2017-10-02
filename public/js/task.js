@@ -65,7 +65,7 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
   renderFeatures();
   renderComments();
   renderAssign();
-
+  renderMembersList();
   // checkFeature();
 })();
 function loading (container) {
@@ -137,4 +137,17 @@ function FeatureEvenListener (container) {
       });
     });
   }
+}
+function renderMembersList () {
+  apiReq(window.location.pathname + '/members', 'GET', function (err, data) {
+    if (err) {
+      window.alert('User is not a member of this project!');
+    } else {
+      data = JSON.parse(data);
+      document.getElementById('membersList').innerHTML = data.reduce(function (acc, member) {
+        acc += '<option value="' + member.username + '">';
+        return acc;
+      }, '');
+    }
+  });
 }
