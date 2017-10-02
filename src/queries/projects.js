@@ -277,10 +277,15 @@ const updateSprintProgress = (sprintId, cb) => {
     }
   });
 };
-
+const setTaskProgress = (val, taskId, cb) => {
+  const sql2 = {
+    text: `UPDATE tasks SET progress=$1 WHERE id=$2 RETURNING progress`,
+    values: [val, taskId] };
+  connection.query(sql2, cb);
+};
 const updateTaskProgress = (taskId, cb) => {
   const sql = {
-    text: `SELECT finished FROM features WHERE task_id= $1`,
+    text: `SELECT tasks.project_id, features.finished FROM features INNER JOIN tasks on tasks.id = features.task_id WHERE features.task_id= $1`,
     values: [taskId]
   };
   connection.query(sql, (err, res) => {
@@ -296,10 +301,7 @@ const updateTaskProgress = (taskId, cb) => {
       }, 0);
       let val = (noTrues / res.rows.length) * 100;
       val = isNaN(val) ? 0 : val;
-      const sql2 = {
-        text: `UPDATE tasks SET progress=$1 WHERE id=$2 RETURNING progress`,
-        values: [val, taskId] };
-      connection.query(sql2, (err, result) => {
+      setTaskProgress(val, taskId, (err, result) => {
         if (err) {
           cb(err);
         } else {
@@ -324,13 +326,6 @@ const updateTaskProgress = (taskId, cb) => {
     }
   });
 };
-// updateTaskProgress(15, (err, rs) => {
-//   console.log('err', err);
-//   console.log('rs', rs);
-// // });
-// updateProjectProgress(40,(err,rs)=>{
-//   console.log(rs);
-// })
 module.exports = {
   addProject,
   addMember,
@@ -349,5 +344,6 @@ module.exports = {
   getProjectName,
   invite,
   getCurrentSprints,
-  getFinishedSprints
+  getFinishedSprints,
+  setTaskProgress
 };

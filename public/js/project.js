@@ -226,9 +226,16 @@ function drop (ev) {//eslint-disable-line
   var taskId = parseInt(data.id.split('-')[1]);
   var stateId = parseInt(state.id.split('-')[1]);
   var sprintId = parseInt(sprint.id.split('-')[1]);
-  setState(taskId, stateId, sprintId, function (err, res) {
+  var stateName = state.firstChild.nextElementSibling.innerHTML;
+  setState(stateName, taskId, stateId, sprintId, function (err, res) {
     if (err) {
       window.alert('Connection Error!');
+    } else {
+      res = JSON.parse(res);
+      var progress = document.querySelector('#task-' + taskId + ' .progress-bar');
+      progress.innerHTML = res[0].progress + '%';
+      progress.style.width = res[0].progress + '%';
+      console.log(res[0].progress);
     }
   });
 }
@@ -249,7 +256,7 @@ function moveToBacklogReq (taskId, cb) {
   var data = {taskId: taskId};
   apiReq(window.location.pathname + '/moveToBacklog', 'POST', cb, JSON.stringify(data));
 }
-function setState (taskId, stateId, sprintId, cb) {
-  var data = {taskId: taskId, stateId: stateId, sprintId: sprintId};
+function setState (stateName, taskId, stateId, sprintId, cb) {
+  var data = {stateName: stateName, taskId: taskId, stateId: stateId, sprintId: sprintId};
   apiReq(window.location.pathname + '/setState', 'POST', cb, JSON.stringify(data));
 }
