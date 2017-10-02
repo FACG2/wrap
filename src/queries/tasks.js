@@ -75,7 +75,7 @@ const getCurrentTasks = (userId, cb) => {
 // / get the current tasks orderd by priority
 const filterByPriority = (userId, cb) => {
   const sql = {
-    text: `SELECT tasks.title,tasks.state_id,tasks.id,tasks.deadline,tasks.description,tasks.duration,tasks.priority,tasks.progress FROM tasks INNER JOIN state ON tasks.state_id=state.id WHERE tasks.assigned_id= $1 AND state.name != 'done' ORDER BY tasks.priority ASC `,
+    text: `SELECT projects.title As project_title, projects.id As project_id, tasks.title,state.name As state_name,tasks.id,tasks.deadline,tasks.description,tasks.duration,tasks.priority,tasks.progress FROM tasks INNER JOIN state ON tasks.state_id=state.id INNER JOIN projects on tasks.project_id = projects.id WHERE tasks.assigned_id= $1 AND state.name != 'done' ORDER BY tasks.priority ASC `,
     values: [userId] };
 
   connection.query(sql, (err, res) => {

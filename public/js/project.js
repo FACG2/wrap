@@ -1,10 +1,12 @@
+var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-line
+
 (function () {
   /* on load */
   renderBacklog();
 
   var statesDivs = document.querySelectorAll('.sprintStates .stateColumn');
   if (statesDivs[0]) {
-    statesArray = Array.prototype.slice.call(statesDivs);
+    var statesArray = Array.prototype.slice.call(statesDivs);
     statesArray.map(function (stateDiv) {
       loadState(parseInt(stateDiv.id.split('-')[1]));
     });
@@ -82,7 +84,7 @@ function loading (container) {
 function getData (url, cb) {
   apiReq(url,'GET', function (err, data) {// eslint-disable-line
     if (err) {
-      cb('Connection Error!');
+      cb(new Error('Connection Error!'));
     } else {
       cb(null, data);
     }
@@ -92,7 +94,7 @@ function getData (url, cb) {
 function render (url, container) {
   getData(url, function (err, data) {
     if (err) {
-      container.innerHTML = '<h2>' + err + '</h2>';
+      container.innerHTML = '<h2>' + err.message + '</h2>';
     } else {
       container.innerHTML = data;
     }
@@ -134,7 +136,7 @@ function startSprintFormListener () {
       var duration = parseInt(startSprintData[0].value) * parseInt(startSprintData[1].value);
       apiReq(window.location.pathname + '/createSprint', 'POST', function (err, data) {
         if (err) {
-          alert('connection error');
+          window.alert('connection error');
         } else {
           if (data === '/rel') {
             window.location.reload();
@@ -188,7 +190,7 @@ function addMemberFormListener () {
 
       apiReq(window.location.pathname + '/addMember', 'POST', function (err, res) {
         if (err) {
-          alert('eee', err);
+          window.alert('ERROR', err);
         } else {
           document.getElementById('userEmail').value = '';
           document.getElementById('role').value = '';
@@ -206,15 +208,15 @@ function findParetId (listNodeObj, idString) {
   }
   return findParetId(listNodeObj.parentElement, idString);
 }
-function allowDrop (ev) {
+function allowDrop (ev) {//eslint-disable-line
   ev.preventDefault();
 }
 
-function drag (ev) {
+function drag (ev) {//eslint-disable-line
   var task = findParetId(ev.target, 'task');
   ev.dataTransfer.setData('text', task.id);
 }
-function drop (ev) {
+function drop (ev) {//eslint-disable-line
   ev.preventDefault();
   var data = ev.dataTransfer.getData('text');
   var state = findParetId(ev.target, 'state');
@@ -226,11 +228,11 @@ function drop (ev) {
   var sprintId = parseInt(sprint.id.split('-')[1]);
   setState(taskId, stateId, sprintId, function (err, res) {
     if (err) {
-      alert('Connection Error!');
+      window.alert('Connection Error!');
     }
   });
 }
-function dropBacklog (ev) {
+function dropBacklog (ev) {//eslint-disable-line
   ev.preventDefault();
   var data = ev.dataTransfer.getData('text');
   data = document.getElementById(data);
@@ -239,7 +241,7 @@ function dropBacklog (ev) {
   var taskId = parseInt(data.id.split('-')[1]);
   moveToBacklogReq(taskId, function (err, res) {
     if (err) {
-      alert('Connection Error!');
+      window.alert('Connection Error!');
     }
   });
 }
