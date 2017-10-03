@@ -2,43 +2,6 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
 var $ = $ || console.error('$ is undefined'); //eslint-disable-line
 
 (function () {
-  /* on load */
-  renderBacklog();
-
-  var statesDivs = document.querySelectorAll('.sprintStates .stateColumn');
-  if (statesDivs[0]) {
-    var statesArray = Array.prototype.slice.call(statesDivs);
-    statesArray.map(function (stateDiv) {
-      loadState(parseInt(stateDiv.id.split('-')[1]));
-    });
-  }
-  /* Start new Sprint */
-  var startSprintButton = document.getElementById('startSprintButton');
-  if (startSprintButton) {
-    startSprintButton.addEventListener('click', function () {
-      document.getElementById('startSprintForm').classList.remove('hidden');
-      document.getElementsByClassName('startSprintDiv')[0].remove();
-      startSprintFormListener();
-    });
-  }
-
-  /* Add New Task */
-  var addTaskButton = document.getElementById('addTaskButton');
-  var addTaskDiv = document.getElementsByClassName('addTaskDiv')[0];
-  var backlogTasksDiv = document.querySelector('#backlog .stateTasks');
-
-  addTaskButton.addEventListener('click', function (e) {
-    renderAddTaskForm(addTaskDiv);
-    addTaskFormListener(function (err, res) {
-      if (err) {
-        backlogTasksDiv.innerHTML = '<h2>Connection Error!</h2>';
-      } else {
-        document.querySelector('#addTaskForm input').value = '';
-        loading(backlogTasksDiv);
-        renderBacklog();
-      }
-    });
-  });
   /* Tabs */
   var linkHash = window.location.hash;
   var projectContent = document.getElementsByClassName('content-wrapper')[0];
@@ -86,8 +49,47 @@ var $ = $ || console.error('$ is undefined'); //eslint-disable-line
     window.location.hash = '';
     window.location.reload();
   });
-
   /* /tabs */
+  /* project tabe */
+  var backlogDiv = document.getElementById('backlog');
+  if (backlogDiv) {
+    renderBacklog();
+
+    var statesDivs = document.querySelectorAll('.sprintStates .stateColumn');
+    if (statesDivs[0]) {
+      var statesArray = Array.prototype.slice.call(statesDivs);
+      statesArray.map(function (stateDiv) {
+        loadState(parseInt(stateDiv.id.split('-')[1]));
+      });
+    }
+    /* Start new Sprint */
+    var startSprintButton = document.getElementById('startSprintButton');
+    if (startSprintButton) {
+      startSprintButton.addEventListener('click', function () {
+        document.getElementById('startSprintForm').classList.remove('hidden');
+        document.getElementsByClassName('startSprintDiv')[0].remove();
+        startSprintFormListener();
+      });
+    }
+
+    /* Add New Task */
+    var addTaskButton = document.getElementById('addTaskButton');
+    var addTaskDiv = document.getElementsByClassName('addTaskDiv')[0];
+    var backlogTasksDiv = document.querySelector('#backlog .stateTasks');
+
+    addTaskButton.addEventListener('click', function (e) {
+      renderAddTaskForm(addTaskDiv);
+      addTaskFormListener(function (err, res) {
+        if (err) {
+          backlogTasksDiv.innerHTML = '<h2>Connection Error!</h2>';
+        } else {
+          document.querySelector('#addTaskForm input').value = '';
+          loading(backlogTasksDiv);
+          renderBacklog();
+        }
+      });
+    });
+  }
 })();
 
 function loading (container) {
