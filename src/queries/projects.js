@@ -248,8 +248,6 @@ const getTasksByState = (sprintId, state, cb) => {
   connection.query(sql, cb);
 };
 
-// ////////////// No returning value
-
 const updateProjectProgress = (projectId, cb) => {
   const sql = {
     text: `SELECT tasks.progress FROM tasks WHERE project_id= $1`,
@@ -340,6 +338,27 @@ const updateTaskProgress = (taskId, cb) => {
     }
   });
 };
+
+const getProjectLabels = (projectId, cb) => {
+  const sql = {
+    text: `SELECT * FROM labels WHERE project_id=$1`,
+    values: [projectId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
+
+const addLabelToProject = (title, color, projectId, cb) => {
+  const sql = {
+    text: `INSERT INTO labels (project_id,title,color) VALUES ($1,$2,$3)`,
+    values: [projectId, title, color] };
+  connection.query(sql, cb);
+};
+
 module.exports = {
   addProject,
   addMember,
@@ -360,5 +379,7 @@ module.exports = {
   getCurrentSprints,
   getFinishedSprints,
   setTaskProgress,
-  getProjectNameById
+  getProjectNameById,
+  getProjectLabels,
+  addLabelToProject
 };
