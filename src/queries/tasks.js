@@ -114,9 +114,6 @@ const addComment = (userId, context, taskId, cb) => {
   });
 };
 
-// ////
-// memberName,projectId,taskId
-
 const assignMember = (userName, projectId, taskId, cb) => {
   users.getUserByUserName(userName, (err, userId) => {
     if (userId.rows.length > 0) {
@@ -149,35 +146,6 @@ const assignMember = (userName, projectId, taskId, cb) => {
   });
 };
 
-// //////////////////////
-// const assignMember = (memberName, taskId, cb) => {
-//   const sql = {
-//     text: `SELECT users.id FROM users WHERE username =$1`,
-//     values: [memberName]
-//   };
-//   connection.query(sql, (error, memberId) => {
-//     if (error) {
-//       cb(error);
-//     } else {
-//       if (memberId.rows.length === 0) {
-//         cb(new Error('Member is not registered!'));
-//       } else {
-//         const sql2 = {
-//           text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
-//           values: [memberId.rows[0].id, taskId]
-//         };
-//         connection.query(sql2, (error2, result2) => {
-//           if (error2) {
-//             cb(error2);
-//           } else {
-//             cb(null, result2.rows[0]);
-//           }
-//         });
-//       }
-//     }
-//   });
-// };
-// ////////////////////
 // const removeAssign = (taskId, cb) => {
 //   const sql = {
 //     text: `UPDATE tasks SET assigned_id=null WHERE id=$1 RETURNING *`,
@@ -359,6 +327,19 @@ const moveToBacklog = (taskId, projectId, cb) => {
   });
 };
 
+const getTaskLabels = (taskId, cb) => {
+  const sql = {
+    text: `SELECT * FROM labels WHERE task_id= $1`,
+    values: [taskId] };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
+
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
@@ -379,5 +360,6 @@ module.exports = {
   getAssign,
   changeState,
   moveToBacklog,
-  getStateByTaskId
+  getStateByTaskId,
+  getTaskLabels
 };

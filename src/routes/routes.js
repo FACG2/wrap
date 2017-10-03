@@ -24,6 +24,7 @@ module.exports = {
   getLogs: require('./getLogs.js'),
   getMembers: require('./getMembers.js'),
   getProgress: require('./getProgress.js'),
+  getTaskLabels: require('./getTaskLabels.js'),
   postAddMember: require('./postAddMember.js'),
   postCheckFeature: require('./postCheckFeature.js'),
   postSetState: require('./postSetState.js'),

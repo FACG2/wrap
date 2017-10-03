@@ -12,6 +12,7 @@ router.get('/currentProjects', routes.getCurrentProjects);
 router.get('/finishedProjects', routes.getFinishedProjects);
 router.get('/logout', routes.getLogout);
 router.get('/stateTasks/:state_id', routes.getStateTasks);// ////
+router.get('/:project_id/tasks/:task_id/labels', accessCheck('member'), routes.getTaskLabels);
 router.get('/projects/:project_id/currentSprint', accessCheck('member'), routes.getCurrentSprint);
 router.get('/projects/:project_id/stateTasks/:state_id', accessCheck('member'), routes.getStateTasks);
 router.get('/projects/:project_id/backlogTasks', accessCheck('member'), routes.getBacklogTasks);
