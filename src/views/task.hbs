@@ -43,7 +43,14 @@
             <h6 class="card-title">State: <span class="badge badge-secondary">{{task.name}}</span></h6>
             <hr class="mt-2">
             <div id="assignDiv">
-
+              <h6 class="card-title " >
+                Assign To: <span class="badge badge-primary"> </span>
+                <i class="fa fa-plus-circle dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </i>
+                <div class="dropdown-menu" id="assignList" aria-labelledby="dropdownMenuButton">
+                </div>
+              </h6>
+              <hr class="mt-2">
             </div>
 
             <h6 class="card-title ">Priority: <span class="badge badge-danger" style="background-color:{{task.priorityColor}}">{{task.priority}}</span></h6>
