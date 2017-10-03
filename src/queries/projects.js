@@ -359,6 +359,13 @@ const addLabelToProject = (title, color, projectId, cb) => {
   connection.query(sql, cb);
 };
 
+const removeLabel = (labelId, projectId, cb) => {
+  const sql = {
+    text: `DELETE FROM labels WHERE id = $1 AND project_id=$2`,
+    values: [labelId, projectId] };
+  connection.query(sql, cb);
+};
+
 module.exports = {
   addProject,
   addMember,
