@@ -22,25 +22,6 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
     });
   }
 
-// Assigm member
-  var assignMemberForm = document.getElementById('assignMemberForm');
-  if (assignMemberForm) {
-    assignMemberForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var assignMemberData = event.target;
-      var assignMemberReq = {
-        username: assignMemberData[0].value
-      };
-      apiReq(window.location.pathname + '/assignMember', 'POST', function (err, data) {
-        if (err) {
-          window.alert('connection error');
-        } else {
-          assignMemberData[0].value = '';
-          renderAssign();
-        }
-      }, JSON.stringify(assignMemberReq));
-    });
-  }
 // add comment
   var addCommentForm = document.getElementById('addCommentForm');
   if (addCommentForm) {
@@ -71,6 +52,21 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
 function loading (container) {
   container.innerHTML = '<h2>Loading.....</h2>';
 }
+function assignListListener () {
+  var list = document.querySelectorAll('#assignList a');
+  list = Array.from(list);
+  list.forEach(function (element) {
+    element.addEventListener('click', function (e) {
+      apiReq(window.location.pathname + '/assignMember', 'POST', function (err, data) {
+        if (err) {
+          window.alert('connection error');
+        } else {
+          renderAssign();
+        }
+      }, JSON.stringify({username: element.innerHTML}));
+    });
+  });
+}
 function renderFeatures () {
   const featuresContainer = document.querySelector('#featuresDiv');
   loading(featuresContainer);
@@ -96,14 +92,14 @@ function renderComments () {
   });
 }
 function renderAssign () {
-  const assignContainer = document.querySelector('#assignDiv');
+  const assignContainer = document.querySelector('#assignDiv span');
   loading(assignContainer);
   apiReq(window.location.pathname + `/assignMember`, 'GET', function (err, data) {
     if (err) {
       assignContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       data = JSON.parse(data);
-      assignContainer.innerHTML = '<h6 class="card-title " >Assign To: <span class="badge badge-primary">' + data.username + '</span>   <i class="fa fa-plus-circle dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i><div class="dropdown-menu" id="assignList" aria-labelledby="dropdownMenuButton"></div></h6><hr class="mt-2">';
+      assignContainer.innerHTML = data.username;
     }
   });
 }
@@ -148,6 +144,7 @@ function renderMembersList () {
         acc += '<a class="dropdown-item" href="#">' + member.username + '</a>';
         return acc;
       }, '');
+      assignListListener();
     }
   });
 }
