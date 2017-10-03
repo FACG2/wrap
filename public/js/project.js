@@ -1,4 +1,5 @@
 var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-line
+var $ = $ || console.error('$ is undefined'); //eslint-disable-line
 
 (function () {
   /* on load */
@@ -11,10 +12,6 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
       loadState(parseInt(stateDiv.id.split('-')[1]));
     });
   }
-  // document.getElementById('state-88').addEventListener('load', function (e) {
-  //   alert('dsad');
-  // });
-  /* */
   /* Start new Sprint */
   var startSprintButton = document.getElementById('startSprintButton');
   if (startSprintButton) {
@@ -55,6 +52,24 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
     addMemberFormListener();
+  });
+
+  if (linkHash === '#labels') {
+    loading(projectContent);
+    render(window.location.pathname + '/labels', projectContent);
+    /* tabels */
+    if ($('#dataTable')) {
+      $('#dataTable').DataTable();
+    }
+  }
+
+  document.getElementById('labelsButton').addEventListener('click', function (event) {
+    loading(projectContent);
+    render(window.location.pathname + '/labels', projectContent);
+    /* tabels */
+    if ($('#dataTable')) {
+      $('#dataTable').DataTable();
+    }
   });
 
   if (linkHash === '#logs') {
