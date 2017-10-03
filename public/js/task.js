@@ -103,7 +103,7 @@ function renderAssign () {
       assignContainer.innerHTML = '<h1>Failed to Load</h1>';
     } else {
       data = JSON.parse(data);
-      assignContainer.innerHTML = '<h6 class="card-title " >Assign To: <span class="badge badge-primary">' + data.username + '</span> <i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#assignMember"></i></h6><hr class="mt-2">';
+      assignContainer.innerHTML = '<h6 class="card-title " >Assign To: <span class="badge badge-primary">' + data.username + '</span>   <i class="fa fa-plus-circle dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i><div class="dropdown-menu" id="assignList" aria-labelledby="dropdownMenuButton"></div></h6><hr class="mt-2">';
     }
   });
 }
@@ -144,8 +144,8 @@ function renderMembersList () {
       window.alert('User is not a member of this project!');
     } else {
       data = JSON.parse(data);
-      document.getElementById('membersList').innerHTML = data.reduce(function (acc, member) {
-        acc += '<option value="' + member.username + '">';
+      document.getElementById('assignList').innerHTML = data.reduce(function (acc, member) {
+        acc += '<a class="dropdown-item" href="#">' + member.username + '</a>';
         return acc;
       }, '');
     }
