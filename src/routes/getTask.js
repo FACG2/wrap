@@ -9,13 +9,17 @@ module.exports = (req, res, next) => {
         if (err) {
           next(err);
         } else {
-          let data = {task: result};
-          result = helpers.projects.addPriorityColor(result);
-          data.user = req.user;
-          data.projectName = res1;
-          data.scriptName = 'task';
-          data.project_id = req.params.project_id;
-          res.render(`task.hbs`, data);
+          if (result) {
+            let data = {task: result};
+            result = helpers.projects.addPriorityColor(result);
+            data.user = req.user;
+            data.projectName = res1;
+            data.scriptName = 'task';
+            data.project_id = req.params.project_id;
+            res.render(`task.hbs`, data);
+          } else {
+            next(new Error('There is no task in this path :('));
+          }
         }
       });
     }
