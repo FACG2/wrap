@@ -21,7 +21,8 @@ router.get('/projects/:project_id/logs', routes.getLogs);
 router.get('/projects/:project_id/members', routes.getMembers);
 router.get('/:project_id/tasks/:task_id/progress', routes.getProgress);
 router.get('/:project_id/tasks/:task_id/assignMember', routes.getAssignMember);
-router.get('/:project_id/tasks/:task_id/members', routes.getProjectMembers);// /
+router.get('/:project_id/tasks/:task_id/members', routes.getProjectMembers);
+router.get('/:project_id/tasks/:task_id/labels', routes.getTaskLabels);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);
