@@ -116,6 +116,9 @@ const addComment = (userId, context, taskId, cb) => {
 
 const assignMember = (userName, projectId, taskId, cb) => {
   users.getUserByUserName(userName, (err, userId) => {
+    if (err) {
+      return cb(err);
+    }
     if (userId.rows.length > 0) {
       const sql = {
         text: `SELECT user_id FROM user_project WHERE user_id=$1 AND project_id=$2`,
@@ -142,6 +145,8 @@ const assignMember = (userName, projectId, taskId, cb) => {
           }
         }
       });
+    } else {
+      cb(new Error('This user is not a member.'));
     }
   });
 };
