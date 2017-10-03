@@ -151,19 +151,6 @@ const assignMember = (userName, projectId, taskId, cb) => {
   });
 };
 
-// const removeAssign = (taskId, cb) => {
-//   const sql = {
-//     text: `UPDATE tasks SET assigned_id=null WHERE id=$1 RETURNING *`,
-//     values: [taskId] };
-//   connection.query(sql, (err, res) => {
-//     if (err) {
-//       cb(err);
-//     } else {
-//       cb(null, res);
-//     }
-//   });
-// };
-
 const getAssign = (taskId, cb) => {
   const sql = {
     text: `SELECT * FROM users INNER JOIN tasks ON tasks.assigned_id = users.id  WHERE tasks.id=$1`,
@@ -203,13 +190,6 @@ const calTaskOrder = (projectId, cb) => {
     }
   });
 };
-const addDefaultLabel = (taskId, projectId, cb) => {
-  const sql = {
-    text: `INSERT INTO labels (task_id,project_id,title,color) VALUES ($1,$2,$3,$4) `,
-    values: [taskId, projectId, 'BUG', '#dc3545']
-  };
-  connection.query(sql, cb);
-};
 
 const listComments = (taskId, cb) => {
   const sql = {
@@ -241,13 +221,7 @@ const addTask = (title, priority, projectId, userId, cb) => {
             if (err) {
               cb(err);
             } else {
-              addDefaultLabel(res.rows[0].id, projectId, (err2, res2) => {
-                if (err) {
-                  cb(err);
-                } else {
-                  cb(null, res.rows);
-                }
-              });
+              cb(null, res.rows);
             }
           });
         }
@@ -359,7 +333,6 @@ module.exports = {
   assignMember,
   getTaskDetails,
   getFeatures,
-  addDefaultLabel,
   addFeature,
   checkFeature,
   getAssign,

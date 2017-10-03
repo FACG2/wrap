@@ -68,10 +68,8 @@ const getSprintStates = (sprintId, cb) => {
 };
 
 const getTasksByState = (stateId, cb) => {
-  // text: `SELECT tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,users.username,users.avatar,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN tasks ON tasks.id = labels.task_id INNER JOIN users ON tasks.assigned_id=users.id WHERE tasks.state_id=$1`,
-  // values: [stateId] };
   const sql = {
-    text: `SELECT tasks.project_id As project_id,tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN tasks ON tasks.id = labels.task_id WHERE tasks.state_id=$1`,
+    text: `SELECT tasks.project_id As project_id,tasks.title,tasks.id AS task_id,tasks.progress,tasks.priority,labels.id AS label_id, labels.title AS label_title,labels.color FROM labels INNER JOIN task_label ON labels.id = task_label.label_id RIGHT JOIN tasks ON tasks.id = task_label.task_id WHERE tasks.state_id=$1`,
     values: [stateId] };
   connection.query(sql, (err, res) => {
     if (err) {

@@ -15,11 +15,18 @@
 // }
 
 const groupLabels = (arr) => {
-  const itemToLabel = item => ({
-    id: item.label_id,
-    color: item.color,
-    title: item.label_title
-  });
+  const itemToLabel = (item) => {
+    if (item.label_id) {
+      return {
+        id: item.label_id,
+        color: item.color,
+        title: item.label_title
+      };
+    } else {
+      return {};
+    }
+  };
+
   const groupedLabels = arr.reduce((a, item) => {
     if (a[item.task_id]) {
       a[item.task_id].label.push(itemToLabel(item));
@@ -29,8 +36,6 @@ const groupLabels = (arr) => {
         title: item.title,
         progress: item.progress,
         priority: item.priority,
-        userName: item.username,
-        avatar: item.avatar,
         project_id: item.project_id,
         label: [itemToLabel(item)]
       };
