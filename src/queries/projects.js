@@ -280,7 +280,7 @@ const updateSprintProgress = (sprintId, cb) => {
       var totalProgrss = res.rows.reduce(function (sum, task) {
         return sum + parseInt(task.progress);
       }, 0);
-      let val = (totalProgrss / res.rows.length);
+      let val = Math.round((totalProgrss / res.rows.length));
       val = isNaN(val) ? 0 : val;
       const sql2 = {
         text: `UPDATE sprints SET progress=$1 WHERE id=$2`,
@@ -290,6 +290,7 @@ const updateSprintProgress = (sprintId, cb) => {
   });
 };
 const setTaskProgress = (val, taskId, cb) => {
+  val = Math.round(val);
   const sql2 = {
     text: `UPDATE tasks SET progress=$1 WHERE id=$2 RETURNING progress`,
     values: [val, taskId] };
