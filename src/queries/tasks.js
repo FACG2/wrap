@@ -334,7 +334,7 @@ const moveToBacklog = (taskId, projectId, cb) => {
 
 const getTaskLabels = (taskId, cb) => {
   const sql = {
-    text: `SELECT * FROM labels WHERE task_id= $1`,
+    text: `SELECT * FROM labels INNER JOIN task_label ON  task_id= $1`,
     values: [taskId] };
   connection.query(sql, (err, res) => {
     if (err) {

@@ -105,7 +105,6 @@ mdate TIMESTAMP DEFAULT now(),
 
 CREATE TABLE labels(
 id SERIAL PRIMARY KEY,
-task_id INTEGER REFERENCES tasks(id),
 project_id INTEGER REFERENCES projects(id),
 title VARCHAR(100) NOT NULL,
 color VARCHAR(100) NOT NULL
