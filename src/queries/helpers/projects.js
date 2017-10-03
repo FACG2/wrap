@@ -16,15 +16,11 @@
 
 const groupLabels = (arr) => {
   const itemToLabel = (item) => {
-    if (item.label_id) {
-      return {
-        id: item.label_id,
-        color: item.color,
-        title: item.label_title
-      };
-    } else {
-      return {};
-    }
+    return {
+      id: item.label_id,
+      color: item.color,
+      title: item.label_title
+    };
   };
 
   const groupedLabels = arr.reduce((a, item) => {
@@ -37,8 +33,11 @@ const groupLabels = (arr) => {
         progress: item.progress,
         priority: item.priority,
         project_id: item.project_id,
-        label: [itemToLabel(item)]
+        label: []
       };
+      if (item.label_id) {
+        a[item.task_id].label = [itemToLabel(item)];
+      }
     }
     return a;
   }, {});
