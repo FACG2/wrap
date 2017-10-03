@@ -95,7 +95,7 @@ function renderComments () {
 }
 function renderAssign () {
   const assignContainer = document.querySelector('#assignDiv span');
-  loading(assignContainer);
+  assignContainer.innerHTML = '....';
   apiReq(window.location.pathname + `/assignMember`, 'GET', function (err, data) {
     if (err) {
       assignContainer.innerHTML = '<h1>Failed to Load</h1>';
