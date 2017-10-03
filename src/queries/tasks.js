@@ -119,33 +119,34 @@ const addComment = (userId, context, taskId, cb) => {
 
 const assignMember = (userName, projectId, taskId, cb) => {
   users.getUserByUserName(userName, (err, userId) => {
-    if(userId.rows.length>0){
-    const sql = {
-      text: `SELECT user_id FROM user_project WHERE user_id=$1 AND project_id=$2`,
-      values: [userId.rows[0].id, projectId]
-    };
-    connection.query(sql, (error, memberId) => {
-      if (error) {
-        cb(error);
-      } else {
-        if (memberId.rows.length === 0) {
-          cb(new Error('Member is not registered!'));
+    if (userId.rows.length > 0) {
+      const sql = {
+        text: `SELECT user_id FROM user_project WHERE user_id=$1 AND project_id=$2`,
+        values: [userId.rows[0].id, projectId]
+      };
+      connection.query(sql, (error, memberId) => {
+        if (error) {
+          cb(error);
         } else {
-          const sql2 = {
-            text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
-            values: [memberId.rows[0].user_id, taskId]
-          };
-          connection.query(sql2, (error2, result2) => {
-            if (error2) {
-              cb(error2);
-            } else {
-              cb(null, result2.rows[0]);
-            }
-          });
+          if (memberId.rows.length === 0) {
+            cb(new Error('Member is not registered!'));
+          } else {
+            const sql2 = {
+              text: `UPDATE tasks SET assigned_id=$1 WHERE id=$2 RETURNING *`,
+              values: [memberId.rows[0].user_id, taskId]
+            };
+            connection.query(sql2, (error2, result2) => {
+              if (error2) {
+                cb(error2);
+              } else {
+                cb(null, result2.rows[0]);
+              }
+            });
+          }
         }
-      }
-    });
-  });}
+      });
+    }
+  });
 };
 
 // //////////////////////
