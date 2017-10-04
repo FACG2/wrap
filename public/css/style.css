@@ -131,7 +131,44 @@ nav .logo{
     overflow: hidden;
     max-width: none;
     text-overflow: ellipsis; }
-
+/*Projects right sidebar*/
+.rightNav{
+  position: absolute;
+  right: -17px;
+  top: 57px;
+  background: #343a40;
+  height: 100vh;
+  width: 67px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0 3px;
+}
+.rightNav ul{
+  padding: 4px;
+  padding-bottom: 50px;
+}
+.rightNav .active{
+  color: white;
+}
+.rightNav a:hover, .rightNav li:hover{
+  color: white;
+  text-decoration: none;
+}
+.rightNav li{
+  color: #868e96;
+  text-transform: uppercase;
+  list-style: none;
+  font-weight: 600;
+  background-color: #212529;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 8px 0;
+}
+#addNavProject{
+  padding: 2px;
+  font-size: 24px;
+}
 @media (min-width: 992px) {
   #mainNav .navbar-brand {
     width: 250px; }
@@ -243,7 +280,8 @@ body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
   background: white; }
   @media (min-width: 992px) {
     .content-wrapper {
-      margin-left: 250px; } }
+      margin-left: 250px;
+      margin-right: 48px;} }
 
 #sidenavToggler i {
   font-weight: 800; }
