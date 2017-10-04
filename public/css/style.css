@@ -16,7 +16,9 @@ body.fixed-nav {
 .nav-item >.show{
   left: -170px;
 }
-
+#priorityList a{
+  color: white;
+}
 .nav-link img{
   margin-right: 10px;
 }
