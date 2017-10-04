@@ -388,5 +388,6 @@ module.exports = {
   setTaskProgress,
   getProjectNameById,
   getProjectLabels,
-  addLabelToProject
+  addLabelToProject,
+  removeLabel
 };
