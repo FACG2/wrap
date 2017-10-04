@@ -31,6 +31,7 @@ const getTaskDetails = (projectId, taskId, cb) => {
 };
 
 const getStateByName = (stateName, projectId, cb) => {
+  console.log('wwwwwww', stateName, projectId);
   const sql = {
     text: `SELECT id FROM state WHERE name= $1 AND project_id = $2`,
     values: [stateName, projectId] };

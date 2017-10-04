@@ -48,9 +48,8 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
   renderComments();
   renderAssign();
   renderMembersList();
-  priorityListListener();
   renderStateList();
-
+  priorityListListener();
   // checkFeature();
 })();
 function loading (container) {
@@ -190,25 +189,29 @@ function renderStateList () {
       data = JSON.parse(data);
       document.getElementById('stateList').innerHTML = data.reduce(function (acc, state) {
         acc += '<a class="dropdown-item" href="#">' + state.name + '</a>';
-        alert(state.name);
         return acc;
       }, '');
-      // assignStateListener();
+      stateListListener();
     }
+    stateListListener();
   });
 }
-// function assignListListener () {
-//   var list = document.querySelectorAll('#assignList a');
-//   list = Array.from(list);
-//   list.forEach(function (element) {
-//     element.addEventListener('click', function (e) {
-//       apiReq(window.location.pathname + '/assignMember', 'POST', function (err, data) {
-//         if (err) {
-//           window.alert('connection error');
-//         } else {
-//           renderAssign();
-//         }
-//       }, JSON.stringify({username: element.innerHTML}));
-//     });
-//   });
-// }
+function stateListListener () {
+  const stateContainer = document.querySelector('#stateName');
+  var list = document.querySelectorAll('#stateList a');
+  list = Array.from(list);
+  list.forEach(function (element) {
+    element.addEventListener('click', function (e) {
+      apiReq(window.location.pathname + '/changeState', 'POST', function (err, data) {
+          console.log('qqqq222222')
+        if (err) {
+          window.alert('connection error');
+        } else {
+          alert(window.location.pathname)
+          data = JSON.parse(data);
+          stateContainer.textContent = data.name;
+        }
+      }, JSON.stringify({name: element.textContent}));
+    });
+  });
+}
