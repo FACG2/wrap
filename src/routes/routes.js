@@ -30,6 +30,6 @@ module.exports = {
   postSetState: require('./postSetState.js'),
   postMoveToBacklog: require('./postMoveToBacklog.js'),
   postAssignMember: require('./postAssignMember.js'),
-  postPriority: require('./postPriority.js')
-
+  postPriority: require('./postPriority.js'),
+  getProjectLabels: require('./getProjectLabels.js')
 };
