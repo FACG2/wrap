@@ -16,6 +16,7 @@ body.fixed-nav {
 .nav-item >.show{
   left: -170px;
 }
+
 #priorityList a{
   color: white;
 }
@@ -74,6 +75,9 @@ nav .logo{
 
 .z-1 {
   z-index: 1; }
+.navbar{
+  padding: 1px 1rem;
+}
 #projectsButton{
   text-transform: capitalize;
   color: white;
