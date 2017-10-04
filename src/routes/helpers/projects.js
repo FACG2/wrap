@@ -1,10 +1,10 @@
 const colors = {
   '-1': 'black',
-  '1': '#e60606',
-  '2': '#ffc107',
-  '3': '#07ffca',
-  '4': '#3907ff',
-  '5': '#07ff50'
+  '1': '#ff0026',
+  '2': '#f5ff51',
+  '3': '#ff9538',
+  '4': '#3b69f7',
+  '5': '#e4e4e4'
 };
 
 const addPriorityColors = (tasksArr) => {
