@@ -24,6 +24,7 @@ router.get('/:project_id/tasks/:task_id/progress', accessCheck('member'), routes
 router.get('/:project_id/tasks/:task_id/assignMember', accessCheck('member'), routes.getAssignMember);
 router.get('/:project_id/tasks/:task_id/members', accessCheck('member'), routes.getProjectMembers);
 router.get('/projects/:project_id/labels', accessCheck('member'), routes.getProjectLabels);
+router.get('/:project_id/tasks/:task_id/states', accessCheck('member'), routes.getProjectStates);
 router.post('/signUp', routes.postSignup);
 router.post('/login', routes.postLogin);
 router.post('/addProject', routes.postAddProject);
