@@ -24,6 +24,7 @@ CREATE TABLE user_project(
 user_id INTEGER REFERENCES users(id),
 project_id INTEGER REFERENCES projects(id),
 watch BOOLEAN DEFAULT False,
+project_nav BOOLEAN DEFAULT False,
 role VARCHAR(100) DEFAULT 'user'
 );
 
