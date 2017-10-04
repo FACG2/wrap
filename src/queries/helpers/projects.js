@@ -46,10 +46,10 @@ const groupLabels = (arr) => {
 };
 
 const projectNav = (userId, projectNavArray) => {
-  let caseText = projectNavArray.reduce((acc, element) => {
-    acc += `when project_id = ${element.projectId} then ${element.navVal} `;
-    return acc;
-  }, 'update user_project set project_nav = case ');
+  let caseText = projectNavArray.reduce(
+  (acc, element) => acc += `when project_id = ${element.projectId} then ${element.navVal} `,
+  'update user_project set project_nav = case '
+  );
   caseText += `end where user_id = ${userId} AND (`;
   return projectNavArray.reduce((acc, element, i) => {
     acc += projectNavArray.length - 1 === i ? ` project_id = ${element.projectId}) RETURNING * ` : ` project_id = ${element.projectId} OR `;
