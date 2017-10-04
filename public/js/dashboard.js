@@ -9,11 +9,13 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
   render('/getDashboard', dashboardContent);
   /* Dashboard Tab */
   document.getElementById('dashboardButton').addEventListener('click', function (event) {
+    activateTabe('dashboardButton');
     loading(dashboardContent);
     render('/getDashboard', dashboardContent);
   });
   /* Tasks Tab */
   if (linkHash === '#tasks') {
+    activateTabe('tasksButton');
     loading(dashboardContent);
     render('/getUsersTasks', dashboardContent);
     /* tabels */
@@ -22,6 +24,7 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
     }
   }
   document.getElementById('tasksButton').addEventListener('click', function (event) {
+    activateTabe('tasksButton');
     loading(dashboardContent);
     render('/getUsersTasks', dashboardContent);
     /* tabels */
@@ -31,29 +34,35 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
   });
   /* CurrnetProjects Tab */
   if (linkHash === '#currentProjects') {
+    activateTabe('currentProjectsButton');
     loading(dashboardContent);
     render('/currentProjects', dashboardContent);
   }
   document.getElementById('currentProjectsButton').addEventListener('click', function (event) {
+    activateTabe('currentProjectsButton');
     loading(dashboardContent);
     render('/currentProjects', dashboardContent);
   });
   /* CurrnetProjects Tab */
   if (linkHash === '#finishedProjects') {
+    activateTabe('finishedProjectsButton');
     loading(dashboardContent);
     render('/finishedProjects', dashboardContent);
   }
   document.getElementById('finishedProjectsButton').addEventListener('click', function (event) {
+    activateTabe('finishedProjectsButton');
     loading(dashboardContent);
     render('/finishedProjects', dashboardContent);
   });
 
   /* Create New Project Tab */
   if (linkHash === '#createProject') {
+    activateTabe('createProjectButton');
     loading(dashboardContent);
     renderCreateProjectForm(dashboardContent);
   }
   document.getElementById('createProjectButton').addEventListener('click', function (event) {
+    activateTabe('createProjectButton');
     loading(dashboardContent);
     renderCreateProjectForm(dashboardContent);
   });
@@ -61,6 +70,10 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
 
 function loading (container) {
   container.innerHTML = '<h2>Loading.....</h2>';
+}
+function activateTabe (tabId) {
+  document.querySelector('.navbar-sidenav .active').classList.remove('active');
+  document.getElementById(tabId).classList.add('active');
 }
 
 function render (url, container) {
