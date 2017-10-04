@@ -48,6 +48,7 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
   renderComments();
   renderAssign();
   renderMembersList();
+  priorityListListener();
 
   // checkFeature();
 })();
@@ -141,7 +142,6 @@ function FeatureEvenListener (container) {
             container.innerHTML = '<h1>Failed to Load</h1>';
           } else {
             renderProgress();
-            // data = JSON.parse(data);
           }
         }, JSON.stringify({checked: featureCheckDiv.checked}));
       });
@@ -160,5 +160,24 @@ function renderMembersList () {
       }, '');
       assignListListener();
     }
+  });
+}
+
+function priorityListListener () {
+  const priorityContainer = document.querySelector('#priorityId span');
+  var list = document.querySelectorAll('#priorityList a');
+  list = Array.from(list);
+  list.forEach(function (element) {
+    element.addEventListener('click', function (e) {
+      apiReq(window.location.pathname + '/changePriority', 'POST', function (err, data) {
+        if (err) {
+          window.alert('connection error');
+        } else {
+          data = JSON.parse(data);
+          priorityContainer.textContent = data.priority;
+          priorityContainer.style.backgroundColor = data.priorityColor;
+        }
+      }, JSON.stringify({priority: element.textContent}));
+    });
   });
 }

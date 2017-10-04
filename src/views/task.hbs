@@ -53,7 +53,18 @@
               <hr class="mt-2">
             </div>
 
-            <h6 class="card-title ">Priority: <span class="badge badge-danger" style="background-color:{{task.priorityColor}}">{{task.priority}}</span></h6>
+            <h6 class="card-title " id="priorityId">Priority: <span class="badge badge-danger" style="background-color:{{task.priorityColor}}">{{task.priority}}
+             </span>
+              <i class="fa fa-pencil dropdown-toggle" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              </i>
+              <div class="dropdown-menu" id="priorityList" aria-labelledby="dropdownMenuButton" style="min-width:60px;padding:0px;">
+              <a class="dropdown-item" style="background-color:#ff0026" href="#"> 1 </a>
+              <a class="dropdown-item" style="background-color:#f5ff51" href="#"> 2 </a>
+              <a class="dropdown-item" style="background-color:#ff9538" href="#"> 3 </a>
+              <a class="dropdown-item" style="background-color:#3b69f7" href="#"> 4 </a>
+              <a class="dropdown-item" style="background-color:#e4e4e4" href="#"> 5 </a>
+              </div>
+            </h6>
             <hr class="mt-2">
             <h6 class="card-title " id ="labels">Labels: <span class="badge badge-danger"</span></h6>
             <hr class="mt-2">

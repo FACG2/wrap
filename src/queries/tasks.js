@@ -15,8 +15,9 @@ const getTasksByUserId = (userId, cb) => {
   });
 };
 const getTaskDetails = (projectId, taskId, cb) => {
+  // SELECT tasks.id,tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.project_id=$1 AND tasks.id= $2
   const sql = {
-    text: `SELECT tasks.id,tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.project_id=$1 AND tasks.id= $2`,
+    text: ` SELECT tasks.id,tasks.title,tasks.description,tasks.priority,tasks.deadline,tasks.duration,tasks.assigned_id,users.username,tasks.project_id,tasks.sprint_id, tasks.state_id,state.name FROM tasks INNER JOIN users ON users.id = tasks.assigned_id INNER JOIN state ON state.id = tasks.state_id WHERE tasks.project_id=$1 AND tasks.id= $2`,
     values: [projectId, taskId] };
   connection.query(sql, (err, res) => {
     if (err) {
@@ -319,6 +320,34 @@ const getTaskLabels = (taskId, cb) => {
   });
 };
 
+const changeTaskPriority = (taskId, priority, cb) => {
+  const sql = {
+    text: `UPDATE tasks SET priority=$1 WHERE id=$2 RETURNING priority`,
+    values: [priority, taskId]
+  };
+  connection.query(sql, (err, priority) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, priority.rows[0]);
+    }
+  });
+};
+
+const getTaskPriority = (taskId, cb) => {
+  const sql = {
+    text: `SELECT priority FROM tasks WHERE id=$1`,
+    values: [taskId]
+  };
+  connection.query(sql, (err, priority) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, priority.rows[0]);
+    }
+  });
+};
+
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
@@ -339,5 +368,7 @@ module.exports = {
   changeState,
   moveToBacklog,
   getStateByTaskId,
-  getTaskLabels
+  getTaskLabels,
+  changeTaskPriority,
+  getTaskPriority
 };

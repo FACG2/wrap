@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
             data.projectName = res1;
             data.scriptName = 'task';
             data.project_id = req.params.project_id;
+            console.log(data);
             res.render(`task.hbs`, data);
           } else {
             next(new Error('There is no task in this path :('));
