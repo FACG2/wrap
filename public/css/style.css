@@ -436,7 +436,9 @@ footer.sticky-footer {
   max-width: 500px;
   margin: 0 auto;
 }
-
+.navbar-sidenav .active{
+  background: #212529;
+}
 @media (max-width: 480px) {
   .loginPage{
       flex-direction: column-reverse;
