@@ -1,0 +1,32 @@
+<!-- label -->
+<div class="ml-2 mb-0 mt-4">
+<i class="fa fa-table"></i> Labels List</div>
+ <hr class="mt-2">
+
+{{#if isEmpty}}
+<div class="ml-2 mb-0 mt-4">
+<h2>No labels assigned to you for now!<h2></div>
+{{else}}
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="table-responsive labels-table">
+      <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Label Name</th>
+            <th>Label Color</th>
+          </tr>
+        </thead>
+          <tbody>
+          {{#each labels}}
+          <tr>
+            <td class="name"> <a class="removeButton" href="/projects/{{project_id}}/deleteLabel/{{id}}">x</a> {{title}}</td>
+            <td class="color"><span style="background-color: {{color}};" class="badge badge-success">{{title}}</span></td>
+          </tr>
+          {{/each}}
+         </tbody>
+       </table>
+     </div>
+   </div>
+ </div>
+{{/if}}

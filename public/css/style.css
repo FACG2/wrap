@@ -426,6 +426,16 @@ footer.sticky-footer {
   color: white;
   font-weight: 600;
 }
+.removeButton{
+  background: red;
+  color: white;
+  padding: 1px 5px;
+  border-radius: 50%;
+}
+.labels-table{
+  max-width: 500px;
+  margin: 0 auto;
+}
 
 @media (max-width: 480px) {
   .loginPage{
