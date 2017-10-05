@@ -48,8 +48,8 @@ var apiReq = apiReq || console.error('apiReq is undefined'); //eslint-disable-li
   renderComments();
   renderAssign();
   renderMembersList();
+  renderStateList();
   priorityListListener();
-
   // checkFeature();
 })();
 function loading (container) {
@@ -178,6 +178,40 @@ function priorityListListener () {
           priorityContainer.style.backgroundColor = data.priorityColor;
         }
       }, JSON.stringify({priority: element.textContent}));
+    });
+  });
+}
+function renderStateList () {
+  apiReq(window.location.pathname + '/states', 'GET', function (err, data) {
+    if (err) {
+      window.alert('Connection error');
+    } else {
+      data = JSON.parse(data);
+      document.getElementById('stateList').innerHTML = data.reduce(function (acc, state) {
+        acc += '<a class="dropdown-item" href="#">' + state.name + '</a>';
+        return acc;
+      }, '');
+      stateListListener();
+    }
+    stateListListener();
+  });
+}
+function stateListListener () {
+  const stateContainer = document.querySelector('#stateName');
+  var list = document.querySelectorAll('#stateList a');
+  list = Array.from(list);
+  list.forEach(function (element) {
+    element.addEventListener('click', function (e) {
+      apiReq(window.location.pathname + '/changeState', 'POST', function (err, data) {
+          console.log('qqqq222222')
+        if (err) {
+          window.alert('connection error');
+        } else {
+          alert(window.location.pathname)
+          data = JSON.parse(data);
+          stateContainer.textContent = data.name;
+        }
+      }, JSON.stringify({name: element.textContent}));
     });
   });
 }

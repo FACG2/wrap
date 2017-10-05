@@ -1,5 +1,6 @@
 const connection = require('../database/db_connection.js');
 const users = require('./helpers/users.js');
+const helpers = require('./helpers/projects.js');
 require('env2')('./config.env');
 
 const getUserByEmail = (email, cb) => {
@@ -123,7 +124,16 @@ const deleteInvitation = (inviteId, cb) => {
     values: [inviteId] };
   connection.query(sql, cb);
 };
-
+const navValues = (userId, projectNavArr, cb) => {
+  const sql = helpers.projectNav(userId, projectNavArr);
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rows);
+    }
+  });
+};
 module.exports = {
   getUserByEmail,
   getUserById,
@@ -133,5 +143,6 @@ module.exports = {
   invite,
   checkInvitation,
   deleteInvitation,
-  getRole
+  getRole,
+  navValues
 };

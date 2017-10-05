@@ -1,6 +1,8 @@
 const connection = require('../database/db_connection.js');
 require('env2')('./config.env');
 const users = require('./users.js');
+const projects = require('./projects.js');
+const sprints = require('./sprints.js');
 
 const getTasksByUserId = (userId, cb) => {
   const sql = {
@@ -29,6 +31,7 @@ const getTaskDetails = (projectId, taskId, cb) => {
 };
 
 const getStateByName = (stateName, projectId, cb) => {
+  console.log('wwwwwww', stateName, projectId);
   const sql = {
     text: `SELECT id FROM state WHERE name= $1 AND project_id = $2`,
     values: [stateName, projectId] };
@@ -293,8 +296,8 @@ const moveToBacklog = (taskId, projectId, cb) => {
       cb(err);
     } else {
       const sql = {
-        text: `UPDATE tasks SET state_id=$2 WHERE id=$1 AND project_id=$3 RETURNING *`,
-        values: [taskId, res.rows[0].id, projectId]
+        text: `UPDATE tasks SET state_id=$2 sprint_id=$4 WHERE id=$1 AND project_id=$3 RETURNING *`,
+        values: [taskId, res.rows[0].id, projectId, null]
       };
       connection.query(sql, (err2, taskDetails) => {
         if (err2) {
@@ -348,6 +351,56 @@ const getTaskPriority = (taskId, cb) => {
   });
 };
 
+const changeTaskState = (projectId, taskId, stateName, cb) => {
+  getStateByName(stateName, projectId, (err, result) => {
+    if (err) {
+      cb(err);
+    } else {
+      const sql = {
+        text: `UPDATE tasks SET state_id=$1 WHERE id=$2 AND project_id=$3 RETURNING *`,
+        values: [result, taskId, projectId]
+      };
+      connection.query(sql, (err, res) => {
+        if (err) {
+          cb(err);
+        } else {
+          cb(null, res.rows);
+        }
+      });
+    }
+  });
+};
+
+const getStateSugg = (taskId, projectId, cb) => {
+  const sql = {
+    text: `SELECT * FROM tasks WHERE id=$1`,
+    values: [taskId]
+  };
+  connection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      if (res.rows[0].sprint_id === null) {
+        projects.getProjectStates(projectId, (error, rs) => {
+          if (error) {
+            cb(error);
+          } else {
+            cb(null, rs);
+          }
+        });
+      } else {
+        sprints.getSprintStates(res.rows[0].sprint_id, (error2, rs2) => {
+          if (error2) {
+            cb(error2);
+          } else {
+            cb(null, rs2);
+          }
+        });
+      }
+    }
+  });
+};
+
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
@@ -370,5 +423,7 @@ module.exports = {
   getStateByTaskId,
   getTaskLabels,
   changeTaskPriority,
-  getTaskPriority
+  getTaskPriority,
+  changeTaskState,
+  getStateSugg
 };

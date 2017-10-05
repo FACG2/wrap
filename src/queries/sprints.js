@@ -121,12 +121,12 @@ const getTaskLabels = (taskId, cb) => {
   });
 };
 
-const addDefaultStates = (sprintId, cb) => {
+const addDefaultStates = (sprintId, projectId, cb) => {
   const sql = {
-    text: `INSERT INTO state (sprint_id,name)
-          SELECT $1,x
+    text: `INSERT INTO state (sprint_id,project_id,name)
+          SELECT $1,$2,x
           FROM  unnest(ARRAY['TODO', 'In-progress', 'Testing', 'done']) x`,
-    values: [sprintId] };
+    values: [sprintId, projectId] };
   connection.query(sql, (err, res) => {
     if (err) {
       cb(err);
@@ -148,7 +148,7 @@ const addSprint = (duration, projectId, cb) => {
         if (err) {
           cb(err);
         } else {
-          addDefaultStates(res.rows[0].id, (err, result) => {
+          addDefaultStates(res.rows[0].id, projectId, (err, result) => {
             if (err) {
               cb(err);
             } else {

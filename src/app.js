@@ -29,10 +29,10 @@ app.engine(
 );
 
 app.use(auth.loginCheck);
-// app.use((req, res, next) => {
-//   console.log(req.url, req.method);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(req.url, req.method);
+  next();
+});
 app.use(routes);
 
 app.use((err, req, res, next) => {
