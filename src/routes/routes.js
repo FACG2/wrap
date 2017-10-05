@@ -31,5 +31,6 @@ module.exports = {
   postMoveToBacklog: require('./postMoveToBacklog.js'),
   postAssignMember: require('./postAssignMember.js'),
   postPriority: require('./postPriority.js'),
-  getProjectLabels: require('./getProjectLabels.js')
+  getProjectLabels: require('./getProjectLabels.js'),
+  getUsersProjects: require('./getUsersProjects.js')
 };
