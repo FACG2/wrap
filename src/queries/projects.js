@@ -367,19 +367,6 @@ const removeLabel = (labelId, projectId, cb) => {
   connection.query(sql, cb);
 };
 
-const getProjectStates = (projectId, cb) => {
-  const sql = {
-    text: `SELECT * FROM state WHERE project_id=$1`,
-    values: [projectId] };
-  connection.query(sql, (error, result) => {
-    if (error) {
-      cb(error);
-    } else {
-      cb(null, result.rows);
-    }
-  });
-};
-
 module.exports = {
   addProject,
   addMember,
@@ -403,6 +390,5 @@ module.exports = {
   getProjectNameById,
   getProjectLabels,
   addLabelToProject,
-  removeLabel,
-  getProjectStates
+  removeLabel
 };
