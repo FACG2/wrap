@@ -47,7 +47,7 @@ const groupLabels = (arr) => {
 
 const projectNav = (userId, projectNavArray) => {
   let caseText = projectNavArray.reduce(
-  (acc, element) => acc += `when project_id = ${element.projectId} then ${element.navVal} `,
+  (acc, element) => acc += `when project_id = ${element.projectId} then ${element.navVal} `,//eslint-disable-line
   'update user_project set project_nav = case '
   );
   caseText += `end where user_id = ${userId} AND (`;
