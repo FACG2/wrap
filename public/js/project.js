@@ -6,18 +6,21 @@ var $ = $ || console.error('$ is undefined'); //eslint-disable-line
   var linkHash = window.location.hash;
   var projectContent = document.getElementsByClassName('content-wrapper')[0];
   if (linkHash === '#members') {
+    activateTabe('membersButton');
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
     addMemberFormListener();
   }
 
   document.getElementById('membersButton').addEventListener('click', function (event) {
+    activateTabe('membersButton');
     loading(projectContent);
     render(window.location.pathname + '/members', projectContent);
     addMemberFormListener();
   });
 
   if (linkHash === '#labels') {
+    activateTabe('labelsButton');
     loading(projectContent);
     render(window.location.pathname + '/labels', projectContent);
     /* tabels */
@@ -27,6 +30,7 @@ var $ = $ || console.error('$ is undefined'); //eslint-disable-line
   }
 
   document.getElementById('labelsButton').addEventListener('click', function (event) {
+    activateTabe('labelsButton');
     loading(projectContent);
     render(window.location.pathname + '/labels', projectContent);
     /* tabels */
@@ -36,11 +40,13 @@ var $ = $ || console.error('$ is undefined'); //eslint-disable-line
   });
 
   if (linkHash === '#logs') {
+    activateTabe('logsButton');
     loading(projectContent);
     render(window.location.pathname + '/logs', projectContent);
   }
 
   document.getElementById('logsButton').addEventListener('click', function (event) {
+    activateTabe('logsButton');
     loading(projectContent);
     render(window.location.pathname + '/logs', projectContent);
   });
@@ -91,6 +97,11 @@ var $ = $ || console.error('$ is undefined'); //eslint-disable-line
     });
   }
 })();
+
+function activateTabe (tabId) {
+  document.querySelector('.navbar-sidenav .active').classList.remove('active');
+  document.getElementById(tabId).classList.add('active');
+}
 
 function loading (container) {
   if (!container) {
@@ -252,7 +263,6 @@ function drop (ev) {//eslint-disable-line
       var progress = document.querySelector('#task-' + taskId + ' .progress-bar');
       progress.innerHTML = res[0].progress + '%';
       progress.style.width = res[0].progress + '%';
-      console.log(res[0].progress);
     }
   });
 }
