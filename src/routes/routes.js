@@ -32,5 +32,6 @@ module.exports = {
   postAssignMember: require('./postAssignMember.js'),
   postPriority: require('./postPriority.js'),
   getProjectLabels: require('./getProjectLabels.js'),
-  getUsersProjects: require('./getUsersProjects.js')
+  getUsersProjects: require('./getUsersProjects.js'),
+  postProjectNav: require('./postProjectNav.js')
 };
