@@ -49,6 +49,29 @@ var rightNav = document.querySelector('.rightNav ul');
 if (rightNav) {
   var selectProjectsForm = document.getElementById('selectProjectsForm');
   var selectProjectsContainer = document.querySelector('#selectProjectsForm .form-group');
+  selectProjectsForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = Array.from(e.target);
+    data = data.splice(0, data.length - 2); // remove submit buttons
+    data = data.reduce(function (acc, project) {
+      acc.push({
+        projectId: parseInt(project.name),
+        navVal: project.checked
+      });
+      return acc;
+    }, []);
+    apiReq('/projectNav', 'POST', function (err, res) {
+      if (err) {
+        alert('Connection error: ' + err);
+      } else {
+        res = JSON.parse(res);
+        /* Right Nav */
+        rightNav.innerHTML = generateRightSideHTML(res);
+        /* Modal data */
+        selectProjectsContainer.innerHTML = generateProjectsHTML(res);
+      }
+    }, JSON.stringify(data));
+  });
   apiReq('/allUserProjects', 'GET', function (err, res) {
     if (err) {
       window.alert('Connection error');
@@ -90,10 +113,13 @@ function currentProjectId () {
 }
 function generateRightSideHTML (projectsArr) {
   var projectsNav = projectsArr.reduce(function (acc, project) {
-    if (currentProjectId() === project.project_id) { // add class active to current project
-      return acc += '<a href="/projects/' + project.project_id + '"><li data-toggle="tooltip" title="' + project.title + '" class="active">' + firstLetters(project.title) + '</li></a>';
+    if (project.project_nav) { // list only checked projected
+      if (currentProjectId() === project.project_id) { // add class active to current project
+        return acc += '<a href="/projects/' + project.project_id + '"><li data-toggle="tooltip" title="' + project.title + '" class="active">' + firstLetters(project.title) + '</li></a>';
+      }
+      return acc += '<a href="/projects/' + project.project_id + '"><li data-toggle="tooltip" title="' + project.title + '">' + firstLetters(project.title) + '</li></a>';
     }
-    return acc += '<a href="/projects/' + project.project_id + '"><li data-toggle="tooltip" title="' + project.title + '">' + firstLetters(project.title) + '</li></a>';
+    return acc;
   }, '');
   return projectsNav += '<a href="#"><li data-toggle="modal" data-target="#addProjectsNav" id="addNavProject" data-toggle="tooltip" title="add project"><i class="fa fa-plus" aria-hidden="true"></i></li></a>';
 }
