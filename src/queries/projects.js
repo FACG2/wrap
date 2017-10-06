@@ -73,7 +73,7 @@ const getFinishedProjects = (userId, cb) => {
 
 const getAllProjects = (userId, cb) => {
   const sql = {
-    text: `SELECT project_id, project_nav FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1`,
+    text: `SELECT projects.title, project_id, project_nav FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1`,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
