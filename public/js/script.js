@@ -53,7 +53,6 @@ if (rightNav) {
     if (err) {
       window.alert('Connection error');
     } else {
-      console.log(res);
       res = JSON.parse(res);
       /* Right Nav */
       rightNav.innerHTML = generateRightSideHTML(res);
