@@ -1,8 +1,6 @@
 const connection = require('../database/db_connection.js');
 require('env2')('./config.env');
 const users = require('./users.js');
-const projects = require('./projects.js');
-const sprints = require('./sprints.js');
 
 const getTasksByUserId = (userId, cb) => {
   const sql = {
@@ -371,36 +369,6 @@ const changeTaskState = (projectId, taskId, stateName, cb) => {
   });
 };
 
-const getStateSugg = (taskId, projectId, cb) => {
-  const sql = {
-    text: `SELECT * FROM tasks WHERE id=$1`,
-    values: [taskId]
-  };
-  connection.query(sql, (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      if (res.rows[0].sprint_id === null) {
-        projects.getProjectStates(projectId, (error, rs) => {
-          if (error) {
-            cb(error);
-          } else {
-            cb(null, rs);
-          }
-        });
-      } else {
-        sprints.getSprintStates(res.rows[0].sprint_id, (error2, rs2) => {
-          if (error2) {
-            cb(error2);
-          } else {
-            cb(null, rs2);
-          }
-        });
-      }
-    }
-  });
-};
-
 module.exports = {
   getCurrentTasks,
   getTasksByUserId,
@@ -424,6 +392,5 @@ module.exports = {
   getTaskLabels,
   changeTaskPriority,
   getTaskPriority,
-  changeTaskState,
-  getStateSugg
+  changeTaskState
 };

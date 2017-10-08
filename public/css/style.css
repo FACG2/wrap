@@ -169,6 +169,10 @@ nav .logo{
   padding: 2px;
   font-size: 24px;
 }
+#selectProjectsForm .form-group{
+  display: flex;
+  flex-direction: column;
+}
 @media (min-width: 992px) {
   #mainNav .navbar-brand {
     width: 250px; }

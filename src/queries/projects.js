@@ -73,7 +73,7 @@ const getFinishedProjects = (userId, cb) => {
 
 const getAllProjects = (userId, cb) => {
   const sql = {
-    text: `SELECT project_id FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1`,
+    text: `SELECT projects.title, project_id, project_nav FROM user_project INNER JOIN projects ON user_project.project_id = projects.id WHERE user_project.user_id = $1`,
     values: [userId] };
 
   connection.query(sql, (err, res) => {
@@ -367,19 +367,6 @@ const removeLabel = (labelId, projectId, cb) => {
   connection.query(sql, cb);
 };
 
-const getProjectStates = (projectId, cb) => {
-  const sql = {
-    text: `SELECT * FROM state WHERE project_id=$1`,
-    values: [projectId] };
-  connection.query(sql, (error, result) => {
-    if (error) {
-      cb(error);
-    } else {
-      cb(null, result.rows);
-    }
-  });
-};
-
 module.exports = {
   addProject,
   addMember,
@@ -403,6 +390,5 @@ module.exports = {
   getProjectNameById,
   getProjectLabels,
   addLabelToProject,
-  removeLabel,
-  getProjectStates
+  removeLabel
 };

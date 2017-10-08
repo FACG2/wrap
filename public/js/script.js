@@ -44,3 +44,82 @@ var jQuery = jQuery || console.error('jQuery in undefined'); // eslint-disable-l
     event.preventDefault();
   });
 })(jQuery); // End of use strict
+// addProjectsNav
+var rightNav = document.querySelector('.rightNav ul');
+if (rightNav) {
+  var selectProjectsForm = document.getElementById('selectProjectsForm');
+  var selectProjectsContainer = document.querySelector('#selectProjectsForm .form-group');
+  selectProjectsForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = Array.from(e.target);
+    data = data.splice(0, data.length - 2); // remove submit buttons
+    data = data.reduce(function (acc, project) {
+      acc.push({
+        projectId: parseInt(project.name),
+        navVal: project.checked
+      });
+      return acc;
+    }, []);
+    apiReq('/projectNav', 'POST', function (err, res) {
+      if (err) {
+        alert('Connection error: ' + err);
+      } else {
+        res = JSON.parse(res);
+        /* Right Nav */
+        rightNav.innerHTML = generateRightSideHTML(res);
+        /* Modal data */
+        selectProjectsContainer.innerHTML = generateProjectsHTML(res);
+      }
+    }, JSON.stringify(data));
+  });
+  apiReq('/allUserProjects', 'GET', function (err, res) {
+    if (err) {
+      window.alert('Connection error');
+    } else {
+      res = JSON.parse(res);
+      /* Right Nav */
+      rightNav.innerHTML = generateRightSideHTML(res);
+      /* Modal data */
+      selectProjectsContainer.innerHTML = generateProjectsHTML(res);
+    }
+  });
+}
+function generateProjectsHTML (projectsArr) {
+  return projectsArr.reduce(function (acc, project) {
+    if (project.project_nav) {
+      return acc += '<label class="form-control-label">' +
+                      '<input name="' + project.project_id + '" type="checkbox" aria-label="Checkbox for project" checked>' +
+                      project.title +
+                    '</label>';
+    }
+    return acc += '<label class="form-control-label">' +
+                    '<input name="' + project.project_id + '" type="checkbox" aria-label="Checkbox for project">' +
+                    project.title +
+                  '</label>';
+  }, '');
+}
+function firstLetters (title) {
+  return title.match(/\b(\w)/g).join(''); // walid mash => wm
+}
+function currentProjectId () {
+  var link = window.location.pathname;
+  if (link.includes('/projects/')) {
+    return parseInt(link.split('/projects/')[1]);
+  } else if (link.includes('/tasks/')) {
+    return parseInt(link.split('/')[1]);
+  } else {
+    return -1;
+  }
+}
+function generateRightSideHTML (projectsArr) {
+  var projectsNav = projectsArr.reduce(function (acc, project) {
+    if (project.project_nav) { // list only checked projected
+      if (currentProjectId() === project.project_id) { // add class active to current project
+        return acc += '<a href="/projects/' + project.project_id + '"><li data-toggle="tooltip" title="' + project.title + '" class="active">' + firstLetters(project.title) + '</li></a>';
+      }
+      return acc += '<a href="/projects/' + project.project_id + '"><li data-toggle="tooltip" title="' + project.title + '">' + firstLetters(project.title) + '</li></a>';
+    }
+    return acc;
+  }, '');
+  return projectsNav += '<a href="#"><li data-toggle="modal" data-target="#addProjectsNav" id="addNavProject" data-toggle="tooltip" title="add project"><i class="fa fa-plus" aria-hidden="true"></i></li></a>';
+}
