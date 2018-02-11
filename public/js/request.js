@@ -11,7 +11,7 @@ function apiReq (url, method, callback, postData) { // eslint-disable-line
     }
   };
 
-  xhttp.open(method, url, false);
+  xhttp.open(method, url);
   if (postData) {
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(postData);
